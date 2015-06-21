@@ -14,6 +14,6 @@ final class GetCollection
         $use_case = $app['container']->get('photo.application.service.get_complete_collection');
         $response = $use_case(new Request);
 
-        return new SilexResponse([]);
+        return new SilexResponse($response);
     }
 }
