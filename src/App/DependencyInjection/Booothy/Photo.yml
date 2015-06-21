@@ -1,15 +1,33 @@
 services:
+    # Application
+    ## Service
     photo.application.service.get_complete_collection:
         class     : Booothy\Photo\Application\Service\GetCompleteCollection\UseCase
         arguments :
             - @photo.domain.repository.loader
 
+
+    # Domain
+    ## Hydrator
+    photo.domain.hydrator.photo_collection:
+        alias  : photo.infrastructure.hydrator.mongo.photo_collection
+        public : false
+
+    ## Repository
     photo.domain.repository.loader:
         alias  : photo.infrastructure.repository.mongo.loader
         public : false
 
+
+    # Infrastructure
+    ## Hydrator
+    photo.infrastructure.hydrator.mongo.photo_collection:
+        class: Booothy\Photo\Infrastructure\Hydrator\Mongo\PhotoCollection
+
+    ## Repository
     photo.infrastructure.repository.mongo.loader:
         class     : Booothy\Photo\Infrastructure\Repository\Mongo\Loader
         public    : false
         arguments :
             - @app.mongo.collection.photo
+            - @photo.domain.hydrator.photo_collection

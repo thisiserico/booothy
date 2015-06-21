@@ -33,6 +33,7 @@ class DevServiceContainer extends Container
         $this->scopeChildren = array();
         $this->methodMap = array(
             'photo.application.service.get_complete_collection' => 'getPhoto_Application_Service_GetCompleteCollectionService',
+            'photo.infrastructure.hydrator.mongo.photo_collection' => 'getPhoto_Infrastructure_Hydrator_Mongo_PhotoCollectionService',
         );
 
         $this->aliases = array();
@@ -56,7 +57,20 @@ class DevServiceContainer extends Container
      */
     protected function getPhoto_Application_Service_GetCompleteCollectionService()
     {
-        return $this->services['photo.application.service.get_complete_collection'] = new \Booothy\Photo\Application\Service\GetCompleteCollection\UseCase(new \Booothy\Photo\Infrastructure\Repository\Mongo\Loader(new \MongoCollection(new \MongoDB(new \MongoClient('mongodb://127.0.0.1:27017'), 'booothy'), 'photo')));
+        return $this->services['photo.application.service.get_complete_collection'] = new \Booothy\Photo\Application\Service\GetCompleteCollection\UseCase(new \Booothy\Photo\Infrastructure\Repository\Mongo\Loader(new \MongoCollection(new \MongoDB(new \MongoClient('mongodb://127.0.0.1:27017'), 'booothy'), 'photo'), $this->get('photo.infrastructure.hydrator.mongo.photo_collection')));
+    }
+
+    /**
+     * Gets the 'photo.infrastructure.hydrator.mongo.photo_collection' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Booothy\Photo\Infrastructure\Hydrator\Mongo\PhotoCollection A Booothy\Photo\Infrastructure\Hydrator\Mongo\PhotoCollection instance.
+     */
+    protected function getPhoto_Infrastructure_Hydrator_Mongo_PhotoCollectionService()
+    {
+        return $this->services['photo.infrastructure.hydrator.mongo.photo_collection'] = new \Booothy\Photo\Infrastructure\Hydrator\Mongo\PhotoCollection();
     }
 
     /**
