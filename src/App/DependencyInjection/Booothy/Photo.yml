@@ -31,7 +31,7 @@ services:
 
     ## Repository
     photo.domain.repository.loader:
-        alias  : photo.infrastructure.repository.mongo.loader
+        alias  : photo.infrastructure.repository.mongo.newer_first_loader
         public : false
 
 
@@ -41,8 +41,8 @@ services:
         class: Booothy\Photo\Infrastructure\Hydrator\Mongo\PhotoCollection
 
     ## Repository
-    photo.infrastructure.repository.mongo.loader:
-        class     : Booothy\Photo\Infrastructure\Repository\Mongo\Loader
+    photo.infrastructure.repository.mongo.newer_first_loader:
+        class     : Booothy\Photo\Infrastructure\Repository\Mongo\NewerFirstLoader
         public    : false
         arguments :
             - @app.mongo.collection.photo

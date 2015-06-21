@@ -6,7 +6,7 @@ use MongoCollection;
 use Booothy\Photo\Domain\Hydrator\PhotoCollection;
 use Booothy\Photo\Domain\Repository\Loader as DomainLoader;
 
-final class Loader implements DomainLoader
+final class NewerFirstLoader implements DomainLoader
 {
     private $mongo;
     private $hydrator;
@@ -21,6 +21,7 @@ final class Loader implements DomainLoader
 
     public function __invoke()
     {
-        return $this->hydrator->__invoke($this->mongo->find());
+        $cursor = $this->mongo->find()->sort(['creation_date' => -1]);
+        return $this->hydrator->__invoke($cursor);
     }
 }
