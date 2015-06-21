@@ -19,9 +19,14 @@ final class NewerFirstLoader implements DomainLoader
         $this->hydrator = $an_hydrator;
     }
 
-    public function __invoke()
+    public function __invoke($requested_page, $photos_per_page)
     {
-        $cursor = $this->mongo->find()->sort(['creation_date' => -1]);
+        $cursor = $this->mongo
+            ->find()
+            ->sort(['creation_date' => -1])
+            ->skip(($requested_page - 1) * $photos_per_page)
+            ->limit($photos_per_page);
+
         return $this->hydrator->__invoke($cursor);
     }
 }

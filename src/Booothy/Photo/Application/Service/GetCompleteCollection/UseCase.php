@@ -17,6 +17,9 @@ final class UseCase implements Service
 
     public function __invoke(CoreRequest $request)
     {
-        return $this->photo_loader->__invoke();
+        return $this->photo_loader->__invoke(
+            $request->requested_page,
+            $request->photos_per_page
+        );
     }
 }

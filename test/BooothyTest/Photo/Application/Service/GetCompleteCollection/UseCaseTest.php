@@ -11,6 +11,9 @@ use Booothy\Photo\Domain\Repository\Loader;
 
 final class UseCaseTest extends PHPUnit_Framework_TestCase
 {
+    const PAGE            = 1;
+    const PHOTOS_PER_PAGE = 10;
+
     public function tearDown()
     {
         $this->request    = null;
@@ -41,7 +44,7 @@ final class UseCaseTest extends PHPUnit_Framework_TestCase
 
     private function givenARequest()
     {
-        $this->request = new Request;
+        $this->request = new Request(self::PAGE, self::PHOTOS_PER_PAGE);
     }
 
     private function andARepository()
@@ -53,6 +56,7 @@ final class UseCaseTest extends PHPUnit_Framework_TestCase
     {
         $this->repository
             ->shouldReceive('__invoke')
+            ->with(m::type('int'), m::type('int'))
             ->andReturn(new PhotoCollection);
     }
 
