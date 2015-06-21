@@ -53,11 +53,11 @@ class ProdServiceContainer extends Container
      * This service is shared.
      * This method always returns the same instance of the service.
      *
-     * @return \Booothy\Photo\Application\Service\GetCompleteCollection\UseCase A Booothy\Photo\Application\Service\GetCompleteCollection\UseCase instance.
+     * @return \Booothy\Core\Application\Service\Marshaller\UseCase A Booothy\Core\Application\Service\Marshaller\UseCase instance.
      */
     protected function getPhoto_Application_Service_GetCompleteCollectionService()
     {
-        return $this->services['photo.application.service.get_complete_collection'] = new \Booothy\Photo\Application\Service\GetCompleteCollection\UseCase(new \Booothy\Photo\Infrastructure\Repository\Mongo\Loader(new \MongoCollection(new \MongoDB(new \MongoClient(''), 'booothy'), 'photo'), $this->get('photo.infrastructure.hydrator.mongo.photo_collection')));
+        return $this->services['photo.application.service.get_complete_collection'] = new \Booothy\Core\Application\Service\Marshaller\UseCase(new \Booothy\Photo\Application\Service\GetCompleteCollection\UseCase(new \Booothy\Photo\Infrastructure\Repository\Mongo\Loader(new \MongoCollection(new \MongoDB(new \MongoClient(''), 'booothy'), 'photo'), $this->get('photo.infrastructure.hydrator.mongo.photo_collection'))), new \Booothy\Photo\Application\Marshaller\Collection());
     }
 
     /**
