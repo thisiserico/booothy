@@ -1,0 +1,41 @@
+{
+    "name": "aeony/booothy",
+    "description": "Create private memories",
+    "type": "project",
+    "require": {
+        "php": ">=5.3.3",
+        "silex/silex": "~2.0@dev",
+        "silex/web-profiler": "~2.0@dev",
+        "symfony/browser-kit": "~2.3",
+        "symfony/class-loader": "~2.3",
+        "symfony/config": "~2.3",
+        "symfony/console": "~2.3",
+        "symfony/css-selector": "~2.3",
+        "symfony/debug": "~2.3",
+        "symfony/filesystem": "~2.6",
+        "symfony/finder": "~2.3",
+        "symfony/monolog-bridge": "~2.3",
+        "symfony/process": "~2.3",
+        "symfony/security": "~2.3",
+        "symfony/translation": "~2.3",
+        "symfony/twig-bridge": "~2.3",
+        "symfony/validator": "~2.3",
+        "symfony/dependency-injection": "~2.6",
+        "ramsey/uuid": "~2.8"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.5",
+        "mockery/mockery": "~0.9"
+    },
+    "autoload": {
+        "psr-0": {
+            "Booothy": "src/",
+            "App": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "BooothyTest": "test/"
+        }
+    }
+}

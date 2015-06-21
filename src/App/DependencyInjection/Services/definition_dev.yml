@@ -1,0 +1,2 @@
+imports:
+    - { resource: 'definition_prod.yml' }
