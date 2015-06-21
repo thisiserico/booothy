@@ -1,5 +1,4 @@
 imports:
-    # - { resource: Modules/league_event.yml }
-    # - { resource: Modules/mongo.yml }
-    # - { resource: Modules/user.yml }
-    # - { resource: Modules/item.yml }
+    - { resource: '../App/Prod.yml' }
+    - { resource: '../App/Mongo.yml' }
+    - { resource: '../Booothy/Photo.yml' }

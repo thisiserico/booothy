@@ -1,2 +1,3 @@
 imports:
     - { resource: 'definition_prod.yml' }
+    - { resource: '../App/Dev.yml' }

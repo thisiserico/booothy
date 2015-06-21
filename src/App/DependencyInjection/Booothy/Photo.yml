@@ -1,0 +1,15 @@
+services:
+    photo.application.service.get_complete_collection:
+        class     : Booothy\Photo\Application\Service\GetCompleteCollection\UseCase
+        arguments :
+            - @photo.domain.repository.loader
+
+    photo.domain.repository.loader:
+        alias  : photo.infrastructure.repository.mongo.loader
+        public : false
+
+    photo.infrastructure.repository.mongo.loader:
+        class     : Booothy\Photo\Infrastructure\Repository\Mongo\Loader
+        public    : false
+        arguments :
+            - @app.mongo.collection.photo
