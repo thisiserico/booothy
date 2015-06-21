@@ -10,11 +10,11 @@ final class UseCase
 
     public function __construct(Loader $a_loader)
     {
-        $this->loader = $a_loader;
+        $this->photo_loader = $a_loader;
     }
 
     public function __invoke(Request $request)
     {
-        return new Response($this->loader->__invoke());
+        return new Response($this->photo_loader->__invoke());
     }
 }
