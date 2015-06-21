@@ -1,11 +1,10 @@
 <?php
 
-namespace Booothy\Photo\Application\Service\GetCompleteCollection;
+namespace BooothyTest\Photo\Application\Service\GetCompleteCollection;
 
 use Mockery as m;
 use PHPUnit_Framework_TestCase;
 use Booothy\Photo\Application\Service\GetCompleteCollection\Request;
-use Booothy\Photo\Application\Service\GetCompleteCollection\Response;
 use Booothy\Photo\Application\Service\GetCompleteCollection\UseCase;
 use Booothy\Photo\Domain\Model\PhotoCollection;
 use Booothy\Photo\Domain\Repository\Loader;
@@ -35,10 +34,9 @@ final class UseCaseTest extends PHPUnit_Framework_TestCase
         $this->givenARequest();
         $this->andARepository();
         $this->thenTheRepositoryShouldBeUsed();
-        $response = $this->onExecutingTheUseCase();
 
-        $this->assertInstanceOf(Response::class, $response);
-        $this->assertInstanceOf(PhotoCollection::class, $response->collection);
+        $result = $this->onExecutingTheUseCase();
+        $this->assertInstanceOf(PhotoCollection::class, $result);
     }
 
     private function givenARequest()

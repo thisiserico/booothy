@@ -2,9 +2,11 @@
 
 namespace Booothy\Photo\Application\Service\GetCompleteCollection;
 
+use Booothy\Core\Application\Service;
+use Booothy\Core\Application\Request as CoreRequest;
 use Booothy\Photo\Domain\Repository\Loader;
 
-final class UseCase
+final class UseCase implements Service
 {
     private $photo_loader;
 
@@ -13,8 +15,8 @@ final class UseCase
         $this->photo_loader = $a_loader;
     }
 
-    public function __invoke(Request $request)
+    public function __invoke(CoreRequest $request)
     {
-        return new Response($this->photo_loader->__invoke());
+        return $this->photo_loader->__invoke();
     }
 }
