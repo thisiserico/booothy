@@ -24,6 +24,7 @@
         "ramsey/uuid": "~2.8"
     },
     "require-dev": {
+        "symfony/var-dumper": "~2.7.1",
         "phpunit/phpunit": "~4.5",
         "mockery/mockery": "~0.9"
     },
