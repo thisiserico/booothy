@@ -33,6 +33,7 @@ class DevServiceContainer extends Container
         $this->scopeChildren = array();
         $this->methodMap = array(
             'photo.application.service.get_complete_collection' => 'getPhoto_Application_Service_GetCompleteCollectionService',
+            'photo.domain.service.download_url_generator' => 'getPhoto_Domain_Service_DownloadUrlGeneratorService',
             'photo.infrastructure.hydrator.mongo.photo_collection' => 'getPhoto_Infrastructure_Hydrator_Mongo_PhotoCollectionService',
         );
 
@@ -58,6 +59,19 @@ class DevServiceContainer extends Container
     protected function getPhoto_Application_Service_GetCompleteCollectionService()
     {
         return $this->services['photo.application.service.get_complete_collection'] = new \Booothy\Core\Application\Service\Marshaller\UseCase(new \Booothy\Photo\Application\Service\GetCompleteCollection\UseCase(new \Booothy\Photo\Infrastructure\Repository\Mongo\NewerFirstLoader(new \MongoCollection(new \MongoDB(new \MongoClient('mongodb://127.0.0.1:27017'), 'booothy'), 'photo'), $this->get('photo.infrastructure.hydrator.mongo.photo_collection'))), new \Booothy\Photo\Application\Marshaller\Collection());
+    }
+
+    /**
+     * Gets the 'photo.domain.service.download_url_generator' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Booothy\Photo\Domain\Service\DownloadUrlGenerator A Booothy\Photo\Domain\Service\DownloadUrlGenerator instance.
+     */
+    protected function getPhoto_Domain_Service_DownloadUrlGeneratorService()
+    {
+        return $this->services['photo.domain.service.download_url_generator'] = new \Booothy\Photo\Domain\Service\DownloadUrlGenerator('booothy.tld/u/{filename}');
     }
 
     /**
@@ -127,6 +141,7 @@ class DevServiceContainer extends Container
         return array(
             'mongo.db' => 'booothy',
             'mongo.server' => 'mongodb://127.0.0.1:27017',
+            'booothy_download_url' => 'booothy.tld/u/{filename}',
         );
     }
 }

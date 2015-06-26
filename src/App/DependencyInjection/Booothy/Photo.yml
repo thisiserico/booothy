@@ -29,6 +29,12 @@ services:
         alias  : photo.infrastructure.hydrator.mongo.photo_collection
         public : false
 
+    ## Service
+    photo.domain.service.download_url_generator:
+        class: Booothy\Photo\Domain\Service\DownloadUrlGenerator
+        arguments:
+            - %booothy_download_url%
+
     ## Repository
     photo.domain.repository.loader:
         alias  : photo.infrastructure.repository.mongo.newer_first_loader
