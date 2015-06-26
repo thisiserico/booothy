@@ -58,7 +58,7 @@ class DevServiceContainer extends Container
      */
     protected function getPhoto_Application_Service_GetCompleteCollectionService()
     {
-        return $this->services['photo.application.service.get_complete_collection'] = new \Booothy\Core\Application\Service\Marshaller\UseCase(new \Booothy\Photo\Application\Service\GetCompleteCollection\UseCase(new \Booothy\Photo\Infrastructure\Repository\Mongo\NewerFirstLoader(new \MongoCollection(new \MongoDB(new \MongoClient('mongodb://127.0.0.1:27017'), 'booothy'), 'photo'), $this->get('photo.infrastructure.hydrator.mongo.photo_collection'))), new \Booothy\Photo\Application\Marshaller\Collection());
+        return $this->services['photo.application.service.get_complete_collection'] = new \Booothy\Core\Application\Service\Marshaller\UseCase(new \Booothy\Photo\Application\Service\GetCompleteCollection\UseCase(new \Booothy\Photo\Infrastructure\Repository\Mongo\NewerFirstLoader(new \MongoCollection(new \MongoDB(new \MongoClient('mongodb://127.0.0.1:27017'), 'booothy'), 'photo'), $this->get('photo.infrastructure.hydrator.mongo.photo_collection'))), new \Booothy\Photo\Application\Marshaller\Collection($this->get('photo.domain.service.download_url_generator')));
     }
 
     /**
@@ -71,7 +71,7 @@ class DevServiceContainer extends Container
      */
     protected function getPhoto_Domain_Service_DownloadUrlGeneratorService()
     {
-        return $this->services['photo.domain.service.download_url_generator'] = new \Booothy\Photo\Domain\Service\DownloadUrlGenerator('booothy.tld/u/{filename}');
+        return $this->services['photo.domain.service.download_url_generator'] = new \Booothy\Photo\Domain\Service\DownloadUrlGenerator('http://booothy.ericlopez.me.dev/index_dev.php/u/{filename}');
     }
 
     /**
@@ -141,7 +141,7 @@ class DevServiceContainer extends Container
         return array(
             'mongo.db' => 'booothy',
             'mongo.server' => 'mongodb://127.0.0.1:27017',
-            'booothy_download_url' => 'booothy.tld/u/{filename}',
+            'booothy_download_url' => 'http://booothy.ericlopez.me.dev/index_dev.php/u/{filename}',
         );
     }
 }

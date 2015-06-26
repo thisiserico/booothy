@@ -19,8 +19,10 @@ services:
 
     ## Marshaller
     photo.application.marshaller.collection:
-        class  : Booothy\Photo\Application\Marshaller\Collection
-        public : false
+        class     : Booothy\Photo\Application\Marshaller\Collection
+        public    : false
+        arguments :
+            - @photo.domain.service.download_url_generator
 
 
     # Domain
@@ -31,8 +33,8 @@ services:
 
     ## Service
     photo.domain.service.download_url_generator:
-        class: Booothy\Photo\Domain\Service\DownloadUrlGenerator
-        arguments:
+        class     : Booothy\Photo\Domain\Service\DownloadUrlGenerator
+        arguments :
             - %booothy_download_url%
 
     ## Repository
