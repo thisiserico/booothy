@@ -38,6 +38,11 @@ final class Photo
         return $this->quote;
     }
 
+    public function upload()
+    {
+        return $this->upload;
+    }
+
     public function createdAt()
     {
         return $this->creation_date->format(self::DATE_TIME_FORMAT);

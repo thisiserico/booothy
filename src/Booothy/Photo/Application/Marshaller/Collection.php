@@ -17,7 +17,10 @@ final class Collection implements Marshaller
         return [
             'id'            => $element->id()->value(),
             'quote'         => $element->quote()->value(),
-            'upload'        => [],
+            'upload'        => [
+                'filename'  => $element->upload()->filename(),
+                'mime_type' => $element->upload()->mimeType(),
+            ],
             'creation_date' => $element->createdAt(),
         ];
     }

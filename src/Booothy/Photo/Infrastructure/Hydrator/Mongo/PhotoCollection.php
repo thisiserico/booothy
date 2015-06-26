@@ -17,10 +17,15 @@ final class PhotoCollection implements Hydrator
         $collection = new Collection;
 
         foreach ($cursor as $document) {
+            $upload_provider = 'At' . ucfirst($document['upload']['provider']);
+
             $collection->add(new Photo(
                 new Id($document['_id']),
                 new Quote($document['quote']),
-                new Upload,
+                Upload::$upload_provider(
+                    $document['upload']['filename'],
+                    $document['upload']['mime_type']
+                ),
                 new DateTimeImmutable($document['creation_date'])
             ));
         }
