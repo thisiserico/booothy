@@ -12,6 +12,12 @@ $app
     ->get('/', $controller('Web\Home'))
     ->bind('home');
 
+$app
+    ->get('/u/{filename}', function ($filename) use ($app) {
+        return $app->sendFile(BASE_DIR . 'var/uploads/axolot.png');
+    })
+    ->bind('download');
+
 
 // Api
 $app
