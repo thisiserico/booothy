@@ -1,1 +1,6 @@
+# Composer
 vendor/
+
+# Static files
+web/css
+web/js

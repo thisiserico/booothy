@@ -1,0 +1,10 @@
+# Builded files
+build/main.js
+build/spec.js
+build/vendors.js
+
+# NPM
+node_modules/
+
+# Tests
+*.xml

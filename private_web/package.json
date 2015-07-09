@@ -1,0 +1,36 @@
+{
+  "name": "boooty-static-site",
+  "version": "0.0.1",
+  "description": "Booothy static site",
+  "dependencies": {
+    "react": "~0.13.3",
+    "esutils": "~2.0.2",
+    "node.extend": "~1.1.5",
+    "optionator": "~0.6.0",
+    "through2": "~2.0.0",
+    "lodash.template": "~3.6.2",
+    "estraverse": "~4.1.0",
+    "esprima": "~2.4.1",
+    "node-notifier": "~4.2.3"
+  },
+  "devDependencies": {
+    "browserify": "~10.2.4",
+    "glob": "~5.0.13",
+    "gulp": "~3.9.0",
+    "gulp-concat": "~2.6.0",
+    "gulp-cssmin": "~0.1.7",
+    "gulp-if": "~1.2.5",
+    "gulp-jasmine2-phantomjs": "~0.2.0",
+    "gulp-livereload": "~3.8.0",
+    "gulp-notify": "~2.2.0",
+    "gulp-sass": "~2.0.3",
+    "gulp-shell": "~0.4.2",
+    "gulp-streamify": "~0.0.5",
+    "gulp-uglify": "~1.2.0",
+    "gulp-util": "~3.0.6",
+    "phantomjs": "~1.9.17",
+    "reactify": "~1.1.1",
+    "vinyl-source-stream": "~1.1.0",
+    "watchify": "~3.2.3"
+  }
+}
