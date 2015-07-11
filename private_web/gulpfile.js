@@ -81,7 +81,7 @@ var jsCompilation = function (options) {
 
 
     if (options.development) {
-        var testFiles   = glob.sync('./specs/**/*-spec.js');
+        var testFiles   = glob.sync('./specs/**/*Spec.js');
         var testBundler = browserify({
             entries      : testFiles,
             debug        : true,
