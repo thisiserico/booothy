@@ -1,6 +1,6 @@
 # Builded files
 build/main.js
-build/spec.js
+build/specs.js
 build/vendors.js
 
 # NPM

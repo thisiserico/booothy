@@ -1,5 +1,5 @@
 var React = require('react');
 window.React = React;
 
-var App = require('./App.js');
-React.render(<App/>, document.body);
+var App = require('./Component/Booothy/App.js');
+React.render(<App />, document.body);
