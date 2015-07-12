@@ -3,15 +3,19 @@
   "version": "0.0.1",
   "description": "Booothy static site",
   "dependencies": {
-    "react": "~0.13.3",
-    "esutils": "~2.0.2",
-    "node.extend": "~1.1.5",
-    "optionator": "~0.6.0",
-    "through2": "~2.0.0",
-    "lodash.template": "~3.6.2",
-    "estraverse": "~4.1.0",
     "esprima": "~2.4.1",
-    "node-notifier": "~4.2.3"
+    "estraverse": "~4.1.0",
+    "esutils": "~2.0.2",
+    "events": "^1.0.2",
+    "flux": "^2.0.3",
+    "keymirror": "^0.1.1",
+    "lodash.template": "~3.6.2",
+    "node-notifier": "~4.2.3",
+    "node.extend": "~1.1.5",
+    "object-assign": "^3.0.0",
+    "optionator": "~0.6.0",
+    "react": "~0.13.3",
+    "through2": "~2.0.0"
   },
   "devDependencies": {
     "browserify": "~10.2.4",
