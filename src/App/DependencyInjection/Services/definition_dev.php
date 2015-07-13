@@ -141,6 +141,7 @@ class DevServiceContainer extends Container
         return array(
             'mongo.db' => 'booothy',
             'mongo.server' => 'mongodb://127.0.0.1:27017',
+            'booothy_api_url' => 'http://booothy.ericlopez.me.dev/index_dev.php/api/',
             'booothy_download_url' => 'http://booothy.ericlopez.me.dev/index_dev.php/u/{filename}',
         );
     }

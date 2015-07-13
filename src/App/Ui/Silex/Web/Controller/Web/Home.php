@@ -10,6 +10,9 @@ final class Home
 {
     public function __invoke(SilexRequest $silex_request, Application $app)
     {
-        return new SilexResponse($app['twig']->render('home.tpl', []));
+        return new SilexResponse($app['twig']->render(
+            'home.tpl',
+            ['api_url' => $app['container']->getParameter('booothy_api_url')]
+        ));
     }
 }

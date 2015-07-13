@@ -141,6 +141,7 @@ class ProdServiceContainer extends Container
         return array(
             'mongo.db' => 'booothy',
             'mongo.server' => '',
+            'booothy_api_url' => '',
             'booothy_download_url' => '',
         );
     }
