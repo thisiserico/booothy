@@ -1,11 +1,13 @@
-var React      = require('react');
-var Photo      = require('./Photo.js');
-var PhotoStore = require('../../Store/PhotoStore');
+var Photo        = require('./Photo.js');
+var PhotosClient = require('../../Api/PhotosClient');
+var PhotoStore   = require('../../Store/PhotoStore');
+var React        = require('react');
 
 var PhotoList = React.createClass({
     getState: function () {
         return {
-            all_photos : PhotoStore.getAll()
+            all_photos      : PhotoStore.getCollection(),
+            loading_new_set : PhotoStore.newSetBeingLoaded()
         };
     },
 
@@ -15,13 +17,14 @@ var PhotoList = React.createClass({
 
     componentDidMount: function () {
         PhotoStore.addChangeListener(this._onChange);
+        PhotosClient.getCollection();
     },
 
     componentWillUnmount: function () {
         PhotoStore.removeChangeListener(this._onChange);
     },
 
-    _onChange: function() {
+    _onChange: function () {
         this.setState(this.getState());
     },
 
@@ -34,7 +37,10 @@ var PhotoList = React.createClass({
         }
 
         return (
-            <div>{photos}</div>
+            <div>
+                {photos}
+                <pre>{this.state.loading_new_set ? 'Loading' : ''}</pre>
+            </div>
         );
     }
 });
