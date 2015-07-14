@@ -13,7 +13,7 @@ final class Id
         $this->value = $a_raw_value;
     }
 
-    public function next()
+    public static function next()
     {
         return new self(Uuid::uuid4()->toString());
     }

@@ -28,6 +28,50 @@ final class Photo
         $this->creation_date = $a_creation_date;
     }
 
+    public static function generateNew(
+        $a_quote,
+        $an_upload_mime_type
+    ) {
+        $id            = Id::next();
+        $quote         = new Quote($a_quote);
+        $creation_date = new DateTimeImmutable;
+        $upload        = self::generateUpload(
+            $a_quote,
+            $creation_date,
+            $an_upload_mime_type
+        );
+
+        return new self($id, $quote, $upload, $creation_date);
+    }
+
+    private static function generateUpload(
+        $a_quote,
+        $a_creation_date,
+        $an_upload_mime_type
+    ) {
+        $filename = self::generateFilename(
+            $a_quote,
+            $a_creation_date,
+            $an_upload_mime_type
+        );
+
+        return Upload::Processing($filename, $an_upload_mime_type);
+    }
+
+    private static function generateFilename($quote, $date, $mime_type)
+    {
+        $formatted_date         = $date->format('Y-m-d \a\t H:i:s');
+        $sanitized_spaced_quote = preg_replace('/[^a-zA-Z0-9 ]+/', '', $quote);
+        $sanitized_quote        = str_replace(' ', '-', $sanitized_spaced_quote);
+        $extensions             = [
+            'image/gif'  => '.gif',
+            'image/jpeg' => '.jpg',
+            'image/png'  => '.png',
+        ];
+
+        return $formatted_date . ' ' . $sanitized_quote . $extensions[$mime_type];
+    }
+
     public function id()
     {
         return $this->id;

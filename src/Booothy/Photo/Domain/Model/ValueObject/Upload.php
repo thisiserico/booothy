@@ -4,7 +4,8 @@ namespace Booothy\Photo\Domain\Model\ValueObject;
 
 final class Upload
 {
-    const BOOOTHY = 'booothy';
+    const BOOOTHY    = 'booothy';
+    const PROCESSING = 'processing';
 
     private $filename;
     private $mime_type;
@@ -20,6 +21,11 @@ final class Upload
     public static function AtBooothy($a_filename, $a_mime_type)
     {
         return new self($a_filename, $a_mime_type, self::BOOOTHY);
+    }
+
+    public static function Processing($a_filename, $a_mime_type)
+    {
+        return new self($a_filename, $a_mime_type, self::PROCESSING);
     }
 
     public function filename()
