@@ -1,0 +1,4 @@
+services:
+    app.event.emitter:
+        class     : League\Event\Emitter
+        public    : false

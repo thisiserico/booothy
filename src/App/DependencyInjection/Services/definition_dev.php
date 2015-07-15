@@ -74,7 +74,7 @@ class DevServiceContainer extends Container
      */
     protected function getPhoto_Application_Service_PostResourceService()
     {
-        return $this->services['photo.application.service.post_resource'] = new \Booothy\Core\Application\Service\Marshaller\UseCase(new \Booothy\Photo\Application\Service\PostResoure\UseCase(new \Booothy\Photo\Infrastructure\Repository\Mongo\PhotoSaver($this->get('app.mongo.collection.photo'), new \Booothy\Photo\Infrastructure\Marshalling\Mongo\Marshaller())), $this->get('photo.application.marshaller.resource'));
+        return $this->services['photo.application.service.post_resource'] = new \Booothy\Core\Application\Service\Marshaller\UseCase(new \Booothy\Photo\Application\Service\PostResource\UseCase(new \Booothy\Photo\Infrastructure\Repository\Mongo\PhotoSaver($this->get('app.mongo.collection.photo'), new \Booothy\Photo\Infrastructure\Marshalling\Mongo\Marshaller()), new \League\Event\Emitter()), $this->get('photo.application.marshaller.resource'));
     }
 
     /**

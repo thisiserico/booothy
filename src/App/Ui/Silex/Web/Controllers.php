@@ -23,3 +23,7 @@ $app
 $app
     ->get('/api/photos', $controller('Api\Photos\GetCollection'))
     ->bind('api:photos:get:collection');
+
+$app
+    ->post('/api/photos', $controller('Api\Photos\PostResource'))
+    ->bind('api:photos:post:resource');

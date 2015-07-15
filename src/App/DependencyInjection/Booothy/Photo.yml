@@ -18,7 +18,7 @@ services:
         arguments :
             - @photo.domain.repository.loader
 
-    ### PostResoure
+    ### PostResource
     photo.application.service.post_resource:
         alias : photo.application.service.post_resource.with_marshaller
 
@@ -30,10 +30,11 @@ services:
             - @photo.application.marshaller.resource
 
     photo.application.service.post_resource.implementation:
-        class     : Booothy\Photo\Application\Service\PostResoure\UseCase
+        class     : Booothy\Photo\Application\Service\PostResource\UseCase
         public    : false
         arguments :
             - @photo.domain.repository.saver
+            - @app.event.emitter
 
     ## Marshaller
     photo.application.marshaller.resource:
