@@ -1,4 +1,6 @@
 imports:
     - { resource: '../App/Prod.yml' }
     - { resource: '../App/Mongo.yml' }
+    - { resource: '../App/Events.yml' }
+    - { resource: '../App/File.yml' }
     - { resource: '../Booothy/Photo.yml' }
