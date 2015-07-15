@@ -1,6 +1,7 @@
 services:
     # Application
     ## Service
+    ### GetCompleteCollection
     photo.application.service.get_complete_collection:
         alias : photo.application.service.get_complete_collection.with_marshaller
 
@@ -17,12 +18,35 @@ services:
         arguments :
             - @photo.domain.repository.loader
 
+    ### PostResoure
+    photo.application.service.post_resource:
+        alias : photo.application.service.post_resource.with_marshaller
+
+    photo.application.service.post_resource.with_marshaller:
+        class     : Booothy\Core\Application\Service\Marshaller\UseCase
+        public    : false
+        arguments :
+            - @photo.application.service.post_resource.implementation
+            - @photo.application.marshaller.resource
+
+    photo.application.service.post_resource.implementation:
+        class     : Booothy\Photo\Application\Service\PostResoure\UseCase
+        public    : false
+        arguments :
+            - @photo.domain.repository.saver
+
     ## Marshaller
+    photo.application.marshaller.resource:
+        class     : Booothy\Photo\Application\Marshaller\Resource
+        public    : false
+        arguments :
+            - @photo.domain.service.download_url_generator
+
     photo.application.marshaller.collection:
         class     : Booothy\Photo\Application\Marshaller\Collection
         public    : false
         arguments :
-            - @photo.domain.service.download_url_generator
+            - @photo.application.marshaller.resource
 
 
     # Domain
@@ -42,11 +66,20 @@ services:
         alias  : photo.infrastructure.repository.mongo.newer_first_loader
         public : false
 
+    photo.domain.repository.saver:
+        alias  : photo.infrastructure.repository.mongo.photo_saver
+        public : false
+
 
     # Infrastructure
     ## Hydrator
     photo.infrastructure.hydrator.mongo.photo_collection:
         class: Booothy\Photo\Infrastructure\Hydrator\Mongo\PhotoCollection
+
+    ## Marshaller
+    photo.infrastructure.marshalling.mongo.marshaller:
+        class  : Booothy\Photo\Infrastructure\Marshalling\Mongo\Marshaller
+        public : false
 
     ## Repository
     photo.infrastructure.repository.mongo.newer_first_loader:
@@ -55,3 +88,10 @@ services:
         arguments :
             - @app.mongo.collection.photo
             - @photo.domain.hydrator.photo_collection
+
+    photo.infrastructure.repository.mongo.photo_saver:
+        class     : Booothy\Photo\Infrastructure\Repository\Mongo\PhotoSaver
+        public    : false
+        arguments :
+            - @app.mongo.collection.photo
+            - @photo.infrastructure.marshalling.mongo.marshaller
