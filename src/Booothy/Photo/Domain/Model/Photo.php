@@ -72,6 +72,14 @@ final class Photo
         return $formatted_date . '_' . $sanitized_quote . $extensions[$mime_type];
     }
 
+    public function isStoredIn($storage_provider)
+    {
+        $this->upload = Upload::atBooothy(
+            $this->upload()->filename(),
+            $this->upload()->mimeType()
+        );
+    }
+
     public function id()
     {
         return $this->id;
