@@ -8,6 +8,7 @@ use League\Event\Emitter;
 use Booothy\Photo\Application\Service\PostResource\Request;
 use Booothy\Photo\Application\Service\PostResource\UseCase;
 use Booothy\Photo\Domain\Event\NewPhotoUploaded;
+use Booothy\Photo\Domain\Model\Photo;
 use Booothy\Photo\Domain\Repository\Saver;
 
 final class UseCaseTest extends PHPUnit_Framework_TestCase
@@ -48,6 +49,22 @@ final class UseCaseTest extends PHPUnit_Framework_TestCase
         $this->havingARequest();
         $this->thenANewPhotoCreatedEventShouldBeFired();
         $this->whenExecutingTheUseCase();
+    }
+
+    /** @test */
+    public function shoulReturnTheNewlyCreatedPhoto()
+    {
+        $this->givenAQuote('some quote');
+        $this->andAnUploadMimeType('image/png');
+        $this->andAnUploadTemporaryLocation('/tmp/image');
+        $this->andARepository();
+        $this->andAnEventEmitter();
+        $this->havingARequest();
+
+        $this->assertInstanceOf(
+            Photo::class,
+            $this->whenExecutingTheUseCase()
+        );
     }
 
     private function givenAQuote($quote)

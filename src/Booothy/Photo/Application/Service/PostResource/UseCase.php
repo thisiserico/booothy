@@ -29,5 +29,7 @@ final class UseCase implements Service
             $photo,
             $request->upload_temporaty_location
         ));
+
+        return $photo;
     }
 }
