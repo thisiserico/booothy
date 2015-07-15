@@ -1,5 +1,12 @@
 services:
     # Application
+    ## Listener
+    photo.application.listener.generate_uploads:
+        class     : Booothy\Photo\Application\Listener\GenerateUploads
+        arguments :
+            - @app.file.handler
+            - @photo.domain.repository.saver
+
     ## Service
     ### GetCompleteCollection
     photo.application.service.get_complete_collection:

@@ -6,6 +6,7 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\Request as SilexRequest;
 use Symfony\Component\HttpFoundation\JsonResponse as SilexResponse;
 use Booothy\Photo\Application\Service\PostResource\Request;
+use Booothy\Photo\Domain\Event\NewPhotoUploaded;
 
 final class PostResource
 {
@@ -18,6 +19,13 @@ final class PostResource
         $mime_type     = $uploaded_file->getClientMimeType();
         $file_path     = BASE_DIR . 'var/tmp/' . $uploaded_file->getFilename();
         $uploaded_file->move(BASE_DIR . 'var/tmp', $uploaded_file->getFilename());
+
+        $app['container']
+            ->get('app.event.emitter')
+            ->addListener(
+                NewPhotoUploaded::class,
+                $app['container']->get('photo.application.listener.generate_uploads')
+            );
 
         $use_case = $app['container']->get(self::USE_CASE);
         $response = $use_case(new Request($quote, $mime_type, $file_path));
