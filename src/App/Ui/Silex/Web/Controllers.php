@@ -14,7 +14,7 @@ $app
 
 $app
     ->get('/u/{filename}', function ($filename) use ($app) {
-        return $app->sendFile(BASE_DIR . 'var/uploads/axolot.png');
+        return $app->sendFile(BASE_DIR . 'var/uploads/' . $filename);
     })
     ->bind('download');
 
