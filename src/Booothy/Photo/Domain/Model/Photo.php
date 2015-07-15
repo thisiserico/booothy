@@ -60,7 +60,7 @@ final class Photo
 
     private static function generateFilename($quote, $date, $mime_type)
     {
-        $formatted_date         = $date->format('Y-m-d \a\t H:i:s');
+        $formatted_date         = $date->format('Y-m-d_H:i:s');
         $sanitized_spaced_quote = strtolower(preg_replace('/[^a-zA-Z0-9 ]+/', '', $quote));
         $sanitized_quote        = str_replace(' ', '-', $sanitized_spaced_quote);
         $extensions             = [
@@ -69,7 +69,7 @@ final class Photo
             'image/png'  => '.png',
         ];
 
-        return $formatted_date . ' ' . $sanitized_quote . $extensions[$mime_type];
+        return $formatted_date . '_' . $sanitized_quote . $extensions[$mime_type];
     }
 
     public function id()
