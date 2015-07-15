@@ -3,9 +3,9 @@
 namespace Booothy\Photo\Infrastructure\Repository\Mongo;
 
 use MongoCollection;
-use Booothy\Photo\Domain\Marshalling\Mongo\Marshaller;
 use Booothy\Photo\Domain\Model\Photo;
 use Booothy\Photo\Domain\Repository\Saver;
+use Booothy\Photo\Infrastructure\Marshalling\Mongo\Marshaller;
 
 final class PhotoSaver implements Saver
 {

@@ -17,7 +17,11 @@ final class PhotoCollection implements Hydrator
         $collection = new Collection;
 
         foreach ($cursor as $document) {
-            $upload_provider = 'At' . ucfirst($document['upload']['provider']);
+            $upload_provider = 'atProcessing';
+
+            if (array_key_exists('provider', $document['upload'])) {
+                $upload_provider = 'at' . ucfirst($document['upload']['provider']);
+            }
 
             $collection->add(new Photo(
                 new Id($document['_id']),

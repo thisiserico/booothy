@@ -18,12 +18,12 @@ final class Upload
         $this->provider  = $a_provider;
     }
 
-    public static function AtBooothy($a_filename, $a_mime_type)
+    public static function atBooothy($a_filename, $a_mime_type)
     {
         return new self($a_filename, $a_mime_type, self::BOOOTHY);
     }
 
-    public static function Processing($a_filename, $a_mime_type)
+    public static function atProcessing($a_filename, $a_mime_type)
     {
         return new self($a_filename, $a_mime_type, self::PROCESSING);
     }
