@@ -15,6 +15,7 @@
     "object-assign": "^3.0.0",
     "optionator": "~0.6.0",
     "react": "~0.13.3",
+    "react-router": "~0.13.3",
     "superagent": "^1.2.0",
     "through2": "~2.0.0"
   },
