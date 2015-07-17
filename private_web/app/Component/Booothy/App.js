@@ -1,14 +1,16 @@
-var React     = require('react');
-var PhotoList = require('../PhotoStream/PhotoList.js');
-var Link      = require('react-router').Link;
+var Link         = require('react-router').Link;
+var PhotoList    = require('../PhotoStream/PhotoList.js');
+var React        = require('react');
+var RouteHandler = require('react-router').RouteHandler;
 
 var App = React.createClass({
-    render: function() {
+    render : function() {
         return (
-            <section id="photo_list">
-                <Link to={`/boooth`}>Boooth!</Link>
+            <div>
+                <Link to="boooth">Boooth!</Link>
+                <RouteHandler/>
                 <PhotoList />
-            </section>
+            </div>
         );
     }
 });
