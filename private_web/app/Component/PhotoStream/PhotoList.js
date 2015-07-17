@@ -6,8 +6,9 @@ var React        = require('react');
 var PhotoList = React.createClass({
     getState: function () {
         return {
-            all_photos      : PhotoStore.getCollection(),
-            loading_new_set : PhotoStore.newSetBeingLoaded()
+            all_photos       : PhotoStore.getCollection(),
+            loading_new_set  : PhotoStore.newSetBeingLoaded(),
+            uploading_boooth : PhotoStore.booothBeingUploaded()
         };
     },
 
@@ -29,17 +30,17 @@ var PhotoList = React.createClass({
     },
 
     render: function () {
-        var photos     = [];
-        var all_photos = this.state.all_photos;
+        var photos = [];
 
-        for (var key in all_photos) {
-            photos.push(<Photo key={key} photo={all_photos[key]} />);
-        }
+        this.state.all_photos.map(function (photo) {
+            photos.push(<Photo key={photo.id} photo={photo} />);
+        })
 
         return (
             <div>
-                {photos}
                 <pre>{this.state.loading_new_set ? 'Loading' : ''}</pre>
+                <pre>{this.state.uploading_boooth ? 'Uploading' : ''}</pre>
+                {photos}
             </div>
         );
     }

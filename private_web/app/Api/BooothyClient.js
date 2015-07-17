@@ -1,7 +1,7 @@
-var AppDispatcher    = require('../Dispatcher/AppDispatcher');
-var ApiConstants     = require('../Constant/ApiConstants');
-var Request          = require('superagent');
-var TIMEOUT          = 10000;
+var $             = require('jquery')
+var ApiConstants  = require('../Constant/ApiConstants');
+var AppDispatcher = require('../Dispatcher/AppDispatcher');
+
 var pending_requests = {};
 
 function BooothyClient() {}
@@ -12,7 +12,6 @@ BooothyClient.makeUrl = function (uri) {
 
 BooothyClient.abortPendingRequests = function (key) {
     if (pending_requests[key]) {
-        pending_requests[key]._callback = function () {};
         pending_requests[key].abort();
         pending_requests[key] = null;
     }
@@ -29,30 +28,30 @@ BooothyClient.dispatch = function (key, response, parameters) {
 };
 
 BooothyClient.addRequest = function (key, request) {
-    pending_requests[key] = request;
+    pending_requests[key] = $.ajax(request);
 };
 
-BooothyClient.get = function (url) {
-    return Request
-        .get(url)
-        .timeout(TIMEOUT)
-        .query({});
+BooothyClient.get = function (url, success, error) {
+    return {
+        url     : url,
+        type    : 'GET',
+        async   : true,
+        success : success,
+        error   : error
+    };
 };
 
-BooothyClient.makeDigestFun = function (key, parameters) {
-    return function (error, response) {
-        if (error && error.timeout === TIMEOUT) {
-            BooothyClient.dispatch(key, ApiConstants.API_TIMEOUT, parameters);
-        }
-        else if (response.status === 400) {
-            console.log('Tengo un 400!');
-        }
-        else if (!response.ok) {
-            BooothyClient.dispatch(key, ApiConstants.API_ERROR, parameters);
-        }
-        else {
-            BooothyClient.dispatch(key, response, parameters);
-        }
+BooothyClient.post = function (url, data, success, error) {
+    return {
+        url         : url,
+        type        : 'POST',
+        data        : data,
+        async       : true,
+        success     : success,
+        error       : error,
+        cache       : false,
+        contentType : false,
+        processData : false
     };
 };
 

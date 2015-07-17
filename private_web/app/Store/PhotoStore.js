@@ -1,13 +1,13 @@
 var ApiConstants    = require('../Constant/ApiConstants');
 var AppDispatcher   = require('../Dispatcher/AppDispatcher');
-var PhotosApiClient = require('../Api/PhotosClient');
-var PhotoConstants  = require('../Constant/PhotoConstants');
 var assign          = require('object-assign');
 var EventEmitter    = require('events').EventEmitter;
+var PhotosApiClient = require('../Api/PhotosClient');
 
 var CHANGE_EVENT         = 'change';
-var _photos              = {};
+var _photos              = [];
 var new_set_being_loaded = true;
+var uploading_boooth     = false;
 
 var PhotoStore = assign({}, EventEmitter.prototype, {
     getCollection : function () {
@@ -16,6 +16,10 @@ var PhotoStore = assign({}, EventEmitter.prototype, {
 
     newSetBeingLoaded : function () {
         return new_set_being_loaded;
+    },
+
+    booothBeingUploaded : function () {
+        return uploading_boooth;
     },
 
     emitChange : function () {
@@ -34,15 +38,23 @@ var PhotoStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function (action) {
     switch (action.actionType) {
         case ApiConstants.API_PHOTOS_GET_COLLECTION:
-            if (action.response === 'API_REQUEST_PENDING') {
+            if (action.response === ApiConstants.API_PHOTOS_GET_COLLECTION_PENDING) {
                 new_set_being_loaded = true;
             }
             else {
-                action.response.body.map(function (photo) {
-                    _photos[photo.id] = photo;
-                });
-
+                _photos              = action.response;
                 new_set_being_loaded = false;
+            }
+
+            break;
+
+        case ApiConstants.API_PHOTOS_POST_COLLECTION:
+            if (action.response === ApiConstants.API_PHOTOS_POST_COLLECTION_PENDING) {
+                uploading_boooth = true;
+            }
+            else {
+                _photos.unshift(action.response)
+                uploading_boooth = false;
             }
 
             break;
