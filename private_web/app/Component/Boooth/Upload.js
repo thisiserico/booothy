@@ -1,3 +1,4 @@
+var Camera       = require('./Camera');
 var PhotosClient = require('../../Api/PhotosClient');
 var React        = require('react');
 var Router       = require('react-router');
@@ -23,6 +24,7 @@ var Upload = React.createClass({
     render : function() {
         return (
             <div>
+                <Camera />
                 <input type="text" name="quote" ref="quote" placeholder="Sup!" /><br/>
                 <input type="file" name="boooth_file" ref="boooth_file" /><br/>
                 <button type="button" onClick={this.handleSubmit}>Submit</button>
