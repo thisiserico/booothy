@@ -3,40 +3,74 @@ var React = require('react');
 var Camera = React.createClass({
     getInitialState : function () {
         return {
-            width        : 320,
-            height       : null,
-            streaming    : null,
-            video        : null,
-            canvas       : null,
-            photo        : null,
-            start_button : null,
-            reset_button : null
+            width         : 320,
+            height        : null,
+            stream        : null,
+            streaming     : null,
+            video         : null,
+            canvas        : null,
+            photo         : null,
+            start_button  : null,
+            reset_button  : null,
+            picture_taken : false
         };
     },
 
     componentDidMount : function () {
         this.setState({
-            video        : document.getElementById('video'),
-            canvas       : document.getElementById('canvas'),
-            photo        : document.getElementById('photo'),
-            start_button : document.getElementById('start_button'),
-            reset_button : document.getElementById('reset_button')
+            video        : this.refs.video.getDOMNode(),
+            canvas       : this.refs.canvas.getDOMNode(),
+            photo        : this.refs.photo.getDOMNode(),
+            start_button : this.refs.start_button.getDOMNode(),
+            reset_button : this.refs.reset_button.getDOMNode()
         }, this.mountCameraAction);
+    },
+
+    componentWillUnmount: function () {
+        var video = this.state.video;
+        this.state.stream.stop();
+
+        video.pause();
+        video.src          = '';
+        video.mozSrcObject = null;
+
+        this.setState({ video : video });
+    },
+
+    pictureTaken : function () {
+        return this.state.picture_taken;
+    },
+
+    getSnappedImage : function () {
+        if (!this.pictureTaken()) return null;
+
+        var data_url    = this.state.canvas.toDataURL();
+        var binary_blob = atob(data_url.split(',')[1]);
+        var array       = [];
+
+        for(var i = 0; i < binary_blob.length; i++) {
+            array.push(binary_blob.charCodeAt(i));
+        }
+
+        return new Blob([new Uint8Array(array)], {type: 'image/png'});
     },
 
     mountCameraAction : function () {
         var streamVideo = function () {
             return function (stream) {
+                var video = this.state.video;
+
                 if (navigator.mozGetUserMedia) {
-                    var video          = this.state.video;
                     video.mozSrcObject = stream;
-                    this.setState({ video : video });
                 }
                 else {
-                    var video     = this.state.video;
-                    video.src     = window.URL.createObjectURL(stream);
-                    this.setState({ video : video });
+                    video.src = window.URL.createObjectURL(stream);
                 }
+
+                this.setState({
+                    video  : video,
+                    stream : stream
+                });
 
                 this.state.video.play();
             }.bind(this);
@@ -55,9 +89,7 @@ var Camera = React.createClass({
                 audio : false
             },
             streamVideo.bind(this)(),
-            function (err) {
-                console.log("An error occured! " + err);
-            }
+            function (err) {}
         );
 
         var streamingListener = function () {
@@ -117,29 +149,40 @@ var Camera = React.createClass({
 
             var data  = this.state.canvas.toDataURL('image/png');
             var photo = this.state.photo;
-
             photo.setAttribute('src', data);
-            this.setState({ photo : photo });
+
+            this.setState({
+                photo         : photo,
+                picture_taken : true
+            });
         }
     },
 
     resetPicture : function () {
+        var context = this.state.canvas.getContext('2d');
+        context.clearRect (0, 0, this.state.width, this.state.height);
+
+
         var photo = this.state.photo;
         photo.setAttribute('src', '');
-        this.setState({ photo : photo });
+
+        this.setState({
+            photo         : photo,
+            picture_taken : true
+        });
     },
 
     render : function () {
         return (
             <div>
                 <div className="camera">
-                    <video id="video">Video stream not available.</video>
-                    <button id="start_button">Take photo</button>
-                    <button id="reset_button">Reset photo</button>
+                    <video ref="video">Video stream not available.</video>
+                    <button ref="start_button">Take photo</button>
+                    <button ref="reset_button">Reset photo</button>
                 </div>
 
-                <canvas id="canvas" style={{ display : 'none' }} />
-                <div className="output"><img id="photo" /></div>
+                <canvas ref="canvas"  />
+                <div className="output"><img ref="photo" /></div>
             </div>
         );
     }
