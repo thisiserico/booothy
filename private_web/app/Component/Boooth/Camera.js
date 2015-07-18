@@ -9,7 +9,6 @@ var Camera = React.createClass({
             streaming     : null,
             video         : null,
             canvas        : null,
-            photo         : null,
             start_button  : null,
             reset_button  : null,
             picture_taken : false
@@ -20,7 +19,6 @@ var Camera = React.createClass({
         this.setState({
             video        : this.refs.video.getDOMNode(),
             canvas       : this.refs.canvas.getDOMNode(),
-            photo        : this.refs.photo.getDOMNode(),
             start_button : this.refs.start_button.getDOMNode(),
             reset_button : this.refs.reset_button.getDOMNode()
         }, this.mountCameraAction);
@@ -147,14 +145,7 @@ var Camera = React.createClass({
             this.state.canvas.height = this.state.height;
             context.drawImage(this.state.video, 0, 0, this.state.width, this.state.height);
 
-            var data  = this.state.canvas.toDataURL('image/png');
-            var photo = this.state.photo;
-            photo.setAttribute('src', data);
-
-            this.setState({
-                photo         : photo,
-                picture_taken : true
-            });
+            this.setState({ picture_taken : true });
         }
     },
 
@@ -162,14 +153,7 @@ var Camera = React.createClass({
         var context = this.state.canvas.getContext('2d');
         context.clearRect (0, 0, this.state.width, this.state.height);
 
-
-        var photo = this.state.photo;
-        photo.setAttribute('src', '');
-
-        this.setState({
-            photo         : photo,
-            picture_taken : true
-        });
+        this.setState({ picture_taken : true });
     },
 
     render : function () {
@@ -177,12 +161,11 @@ var Camera = React.createClass({
             <div>
                 <div className="camera">
                     <video ref="video">Video stream not available.</video>
-                    <button ref="start_button">Take photo</button>
+                    <button ref="start_button">Boooth!</button>
                     <button ref="reset_button">Reset photo</button>
                 </div>
 
-                <canvas ref="canvas"  />
-                <div className="output"><img ref="photo" /></div>
+                <canvas ref="canvas" />
             </div>
         );
     }
