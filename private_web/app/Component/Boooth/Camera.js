@@ -25,6 +25,8 @@ var Camera = React.createClass({
     },
 
     componentWillUnmount: function () {
+        if (!(this.state.width && this.state.height)) return;
+
         var video = this.state.video;
         this.state.stream.stop();
 
