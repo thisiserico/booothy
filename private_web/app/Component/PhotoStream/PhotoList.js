@@ -1,9 +1,14 @@
+var MasonryMixin   = require('react-masonry-mixin');
 var PhotosClient   = require('../../Api/PhotosClient');
 var PhotoStore     = require('../../Store/PhotoStore');
 var PhotoThumbnail = require('./PhotoThumbnail.js');
 var React          = require('react');
 
+var masonryOptions = { transitionDuration : 0 };
+
 var PhotoList = React.createClass({
+    mixins: [MasonryMixin('boooths', masonryOptions)],
+
     getState : function () {
         return {
             all_photos                : PhotoStore.getCollection(),
@@ -93,7 +98,9 @@ var PhotoList = React.createClass({
         return (
             <div>
                 <pre>{this.state.uploading_boooth ? 'Uploading' : ''}</pre>
-                {photos}
+                <div className="boooths" ref="boooths">
+                    {photos}
+                </div>
                 <pre>{this.state.loading_new_set ? 'Loading' : ''}</pre>
                 <pre>{this.state.complete_catalogue_loaded ? 'No more boooths to be shown!' : ''}</pre>
             </div>
