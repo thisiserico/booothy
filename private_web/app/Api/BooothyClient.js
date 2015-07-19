@@ -31,10 +31,11 @@ BooothyClient.addRequest = function (key, request) {
     pending_requests[key] = $.ajax(request);
 };
 
-BooothyClient.get = function (url, success, error) {
+BooothyClient.get = function (url, data, success, error) {
     return {
         url     : url,
         type    : 'GET',
+        data    : data,
         async   : true,
         success : success,
         error   : error

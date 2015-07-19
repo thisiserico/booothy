@@ -4,10 +4,11 @@ var assign          = require('object-assign');
 var EventEmitter    = require('events').EventEmitter;
 var PhotosApiClient = require('../Api/PhotosClient');
 
-var CHANGE_EVENT         = 'change';
-var _photos              = [];
-var new_set_being_loaded = true;
-var uploading_boooth     = false;
+var CHANGE_EVENT              = 'change';
+var _photos                   = [];
+var new_set_being_loaded      = true;
+var uploading_boooth          = false;
+var complete_catalogue_loaded = false;
 
 var PhotoStore = assign({}, EventEmitter.prototype, {
     getCollection : function () {
@@ -20,6 +21,10 @@ var PhotoStore = assign({}, EventEmitter.prototype, {
 
     booothBeingUploaded : function () {
         return uploading_boooth;
+    },
+
+    completeCatalogueLoaded : function () {
+        return complete_catalogue_loaded;
     },
 
     emitChange : function () {
@@ -38,12 +43,21 @@ var PhotoStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function (action) {
     switch (action.actionType) {
         case ApiConstants.API_PHOTOS_GET_COLLECTION:
-            if (action.response === ApiConstants.API_PHOTOS_GET_COLLECTION_PENDING) {
-                new_set_being_loaded = true;
-            }
-            else {
-                _photos              = action.response;
-                new_set_being_loaded = false;
+            switch (action.response) {
+                case ApiConstants.API_TIMEOUT:
+                case ApiConstants.API_ERROR:
+                    break;
+
+                case ApiConstants.API_PHOTOS_GET_COLLECTION_PENDING:
+                    new_set_being_loaded = true;
+                    break;
+
+                default:
+                    if (action.response.length < 1) complete_catalogue_loaded = true;
+
+                    _photos              = _photos.concat(action.response);
+                    new_set_being_loaded = false;
+
             }
 
             break;
