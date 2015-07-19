@@ -51,7 +51,7 @@ var PhotoList = React.createClass({
         var scrolled_height = window.pageYOffset;
         var page_height     = window.innerHeight;
         var body_height     = window.document.body.offsetHeight;
-        var bottom_reached  = (scrolled_height + page_height) >= body_height;
+        var bottom_reached  = (scrolled_height + page_height) >= (body_height - 3000);
 
         if (bottom_reached && this.shouldLoadNextPage()) {
             var next_page = this.state.current_page + 1;
