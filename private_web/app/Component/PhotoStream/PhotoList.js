@@ -92,9 +92,9 @@ var PhotoList = React.createClass({
 
         return (
             <div>
-                <pre>{this.state.loading_new_set ? 'Loading' : ''}</pre>
                 <pre>{this.state.uploading_boooth ? 'Uploading' : ''}</pre>
                 {photos}
+                <pre>{this.state.loading_new_set ? 'Loading' : ''}</pre>
                 <pre>{this.state.complete_catalogue_loaded ? 'No more boooths to be shown!' : ''}</pre>
             </div>
         );
