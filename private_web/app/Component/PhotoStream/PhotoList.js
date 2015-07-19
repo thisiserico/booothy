@@ -18,7 +18,7 @@ var PhotoList = React.createClass({
 
     componentDidMount: function () {
         PhotoStore.addChangeListener(this._onChange);
-        PhotosClient.getCollection();
+        PhotosClient.getCollection(this.props.page);
     },
 
     componentWillUnmount: function () {

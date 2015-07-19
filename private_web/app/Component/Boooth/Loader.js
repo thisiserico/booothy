@@ -9,7 +9,7 @@ var Loader = React.createClass({
             <div>
                 <Link to="boooth" params={{ page : this.props.params.page }}>Boooth!</Link>
                 <RouteHandler/>
-                <PhotoList />
+                <PhotoList page={this.props.params.page} />
             </div>
         );
     }

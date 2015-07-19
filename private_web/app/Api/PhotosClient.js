@@ -2,7 +2,7 @@ var BooothyClient = require('./BooothyClient');
 var ApiConstants  = require('../Constant/ApiConstants');
 
 var PhotosClient = {
-    getCollection : function () {
+    getCollection : function (page) {
         var url = BooothyClient.makeUrl('photos');
         var key = ApiConstants.API_PHOTOS_GET_COLLECTION;
 
@@ -11,6 +11,7 @@ var PhotosClient = {
 
         BooothyClient.addRequest(key, BooothyClient.get(
             url,
+            { page : page },
             function (data, status) {
                 BooothyClient.dispatch(key, data, {});
             },
