@@ -9,7 +9,7 @@ use Booothy\Photo\Application\Service\GetCompleteCollection\Request;
 
 final class GetCollection
 {
-    const PHOTOS_PER_PAGE = 10;
+    const PHOTOS_PER_PAGE = 30;
     const USE_CASE        = 'photo.application.service.get_complete_collection';
 
     public function __invoke(SilexRequest $silex_request, Application $app)
