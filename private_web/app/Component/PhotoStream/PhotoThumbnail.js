@@ -1,6 +1,6 @@
 var React = require('react');
 
-var Photo = React.createClass({
+var PhotoThumbnail = React.createClass({
     render: function() {
         return (
             <div className="photo">
@@ -13,4 +13,4 @@ var Photo = React.createClass({
     }
 });
 
-module.exports = Photo;
+module.exports = PhotoThumbnail;

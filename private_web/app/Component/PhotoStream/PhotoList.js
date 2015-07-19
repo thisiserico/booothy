@@ -1,7 +1,7 @@
-var Photo        = require('./Photo.js');
-var PhotosClient = require('../../Api/PhotosClient');
-var PhotoStore   = require('../../Store/PhotoStore');
-var React        = require('react');
+var PhotosClient   = require('../../Api/PhotosClient');
+var PhotoStore     = require('../../Store/PhotoStore');
+var PhotoThumbnail = require('./PhotoThumbnail.js');
+var React          = require('react');
 
 var PhotoList = React.createClass({
     getState : function () {
@@ -87,7 +87,7 @@ var PhotoList = React.createClass({
         var photos = [];
 
         this.state.all_photos.map(function (photo) {
-            photos.push(<Photo key={photo.id} photo={photo} />);
+            photos.push(<PhotoThumbnail key={photo.id} photo={photo} />);
         })
 
         return (
