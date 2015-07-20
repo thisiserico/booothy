@@ -7,8 +7,8 @@ use PHPUnit_Framework_TestCase;
 use Booothy\Photo\Application\Service\GetResource\Request;
 use Booothy\Photo\Application\Service\GetResource\UseCase;
 use Booothy\Photo\Domain\Model\Photo;
-use Booothy\Photo\Domain\Repository\ResourceLoader;
 use Booothy\Photo\Domain\Repository\Exception\NonExistingResource;
+use Booothy\Photo\Domain\Repository\ResourceLoader;
 
 final class UseCaseTest extends PHPUnit_Framework_TestCase
 {
