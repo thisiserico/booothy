@@ -40,6 +40,7 @@ class ProdServiceContainer extends Container
             'photo.application.service.post_resource' => 'getPhoto_Application_Service_PostResourceService',
             'photo.domain.service.download_url_generator' => 'getPhoto_Domain_Service_DownloadUrlGeneratorService',
             'photo.infrastructure.hydrator.mongo.photo_collection' => 'getPhoto_Infrastructure_Hydrator_Mongo_PhotoCollectionService',
+            'photo.infrastructure.hydrator.mongo.photo_resource' => 'getPhoto_Infrastructure_Hydrator_Mongo_PhotoResourceService',
             'photo.infrastructure.repository.mongo.photo_saver' => 'getPhoto_Infrastructure_Repository_Mongo_PhotoSaverService',
         );
 
@@ -129,7 +130,20 @@ class ProdServiceContainer extends Container
      */
     protected function getPhoto_Infrastructure_Hydrator_Mongo_PhotoCollectionService()
     {
-        return $this->services['photo.infrastructure.hydrator.mongo.photo_collection'] = new \Booothy\Photo\Infrastructure\Hydrator\Mongo\PhotoCollection();
+        return $this->services['photo.infrastructure.hydrator.mongo.photo_collection'] = new \Booothy\Photo\Infrastructure\Hydrator\Mongo\PhotoCollection($this->get('photo.infrastructure.hydrator.mongo.photo_resource'));
+    }
+
+    /**
+     * Gets the 'photo.infrastructure.hydrator.mongo.photo_resource' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Booothy\Photo\Infrastructure\Hydrator\Mongo\PhotoResource A Booothy\Photo\Infrastructure\Hydrator\Mongo\PhotoResource instance.
+     */
+    protected function getPhoto_Infrastructure_Hydrator_Mongo_PhotoResourceService()
+    {
+        return $this->services['photo.infrastructure.hydrator.mongo.photo_resource'] = new \Booothy\Photo\Infrastructure\Hydrator\Mongo\PhotoResource();
     }
 
     /**

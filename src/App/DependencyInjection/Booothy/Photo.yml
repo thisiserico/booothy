@@ -59,6 +59,10 @@ services:
 
     # Domain
     ## Hydrator
+    photo.domain.hydrator.photo_resource:
+        alias  : photo.infrastructure.hydrator.mongo.photo_resource
+        public : false
+
     photo.domain.hydrator.photo_collection:
         alias  : photo.infrastructure.hydrator.mongo.photo_collection
         public : false
@@ -74,6 +78,10 @@ services:
         alias  : photo.infrastructure.repository.mongo.newer_first_loader
         public : false
 
+    photo.domain.repository.resource_loader:
+        alias  : photo.infrastructure.repository.mongo.resource_loader
+        public : false
+
     photo.domain.repository.saver:
         alias  : photo.infrastructure.repository.mongo.photo_saver
         public : false
@@ -81,8 +89,13 @@ services:
 
     # Infrastructure
     ## Hydrator
+    photo.infrastructure.hydrator.mongo.photo_resource:
+        class: Booothy\Photo\Infrastructure\Hydrator\Mongo\PhotoResource
+
     photo.infrastructure.hydrator.mongo.photo_collection:
         class: Booothy\Photo\Infrastructure\Hydrator\Mongo\PhotoCollection
+        arguments:
+            - @photo.domain.hydrator.photo_resource
 
     ## Marshaller
     photo.infrastructure.marshalling.mongo.marshaller:
@@ -96,6 +109,13 @@ services:
         arguments :
             - @app.mongo.collection.photo
             - @photo.domain.hydrator.photo_collection
+
+    photo.infrastructure.repository.mongo.resource_loader:
+        class     : Booothy\Photo\Infrastructure\Repository\Mongo\ResourceLoader
+        public    : false
+        arguments :
+            - @app.mongo.collection.photo
+            - @photo.domain.hydrator.photo_resource
 
     photo.infrastructure.repository.mongo.photo_saver:
         class     : Booothy\Photo\Infrastructure\Repository\Mongo\PhotoSaver

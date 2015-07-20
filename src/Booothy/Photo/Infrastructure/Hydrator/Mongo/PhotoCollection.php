@@ -12,26 +12,19 @@ use Booothy\Photo\Domain\Model\ValueObject\Upload;
 
 final class PhotoCollection implements Hydrator
 {
+    private $resource_hydrator;
+
+    public function __construct(PhotoResource $a_resource_hydrator)
+    {
+        $this->resource_hydrator = $a_resource_hydrator;
+    }
+
     public function __invoke($cursor)
     {
         $collection = new Collection;
 
         foreach ($cursor as $document) {
-            $upload_provider = 'atProcessing';
-
-            if (array_key_exists('provider', $document['upload'])) {
-                $upload_provider = 'at' . ucfirst($document['upload']['provider']);
-            }
-
-            $collection->add(new Photo(
-                new Id($document['_id']),
-                new Quote($document['quote']),
-                Upload::$upload_provider(
-                    $document['upload']['filename'],
-                    $document['upload']['mime_type']
-                ),
-                new DateTimeImmutable($document['creation_date'])
-            ));
+            $collection->add($this->resource_hydrator->__invoke($document));
         }
 
         return $collection;
