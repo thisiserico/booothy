@@ -1,6 +1,6 @@
 var MasonryMixin   = require('react-masonry-mixin');
 var PhotosClient   = require('../../Api/PhotosClient');
-var PhotoStore     = require('../../Store/PhotoStore');
+var PhotosStore    = require('../../Store/PhotosStore');
 var PhotoThumbnail = require('./PhotoThumbnail.js');
 var React          = require('react');
 
@@ -11,10 +11,10 @@ var PhotoList = React.createClass({
 
     getState : function () {
         return {
-            all_photos                : PhotoStore.getCollection(),
-            loading_new_set           : PhotoStore.newSetBeingLoaded(),
-            uploading_boooth          : PhotoStore.booothBeingUploaded(),
-            complete_catalogue_loaded : PhotoStore.completeCatalogueLoaded(),
+            all_photos                : PhotosStore.getCollection(),
+            loading_new_set           : PhotosStore.newSetBeingLoaded(),
+            uploading_boooth          : PhotosStore.booothBeingUploaded(),
+            complete_catalogue_loaded : PhotosStore.completeCatalogueLoaded(),
             current_page              : this.state ? this.state.current_page : 1,
             loaded_pages              : this.state ? this.state.loaded_pages : []
         };
@@ -25,14 +25,14 @@ var PhotoList = React.createClass({
     },
 
     componentDidMount : function () {
-        PhotoStore.addChangeListener(this._onChange);
+        PhotosStore.addChangeListener(this._onChange);
         PhotosClient.getCollection(this.props.page);
 
         this.addScrollListener();
     },
 
     componentWillUnmount : function () {
-        PhotoStore.removeChangeListener(this._onChange);
+        PhotosStore.removeChangeListener(this._onChange);
         this.removeScrollListener();
     },
 
