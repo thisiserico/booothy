@@ -7,6 +7,7 @@ var Redirect       = Router.Redirect;
 var App          = require('./Component/Booothy/App.js');
 var BooothLoader = require('./Component/Boooth/Loader.js');
 var BooothUpload = require('./Component/Boooth/Upload.js');
+var BooothDetail = require('./Component/Boooth/Detail.js');
 window.React     = React;
 
 var routes = (
