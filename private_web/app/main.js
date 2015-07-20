@@ -12,8 +12,8 @@ window.React     = React;
 
 var routes = (
     <Route history={BrowserHistory} name="app" path="/" handler={App}>
-        <Route name="boooth_loader" path="boooths" handler={BooothLoader}>
-            <Route name="boooth" path="new" handler={BooothUpload} ignoreScrollBehavior={true} />
+        <Route name="boooth_loader" path="boooths" handler={BooothLoader} ignoreScrollBehavior={true}>
+            <Route name="boooth" path="new" handler={BooothUpload} />
             <Route name="boooth_detail" path=":id" handler={BooothDetail} />
         </Route>
     </Route>

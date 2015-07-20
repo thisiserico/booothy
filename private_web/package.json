@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Booothy static site",
   "dependencies": {
+    "classnames": "~2.1.3",
     "esprima": "~2.4.1",
     "estraverse": "~4.1.0",
     "esutils": "~2.0.2",
