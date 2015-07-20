@@ -1,30 +1,19 @@
-var ApiConstants    = require('../Constant/ApiConstants');
-var AppDispatcher   = require('../Dispatcher/AppDispatcher');
-var assign          = require('object-assign');
-var EventEmitter    = require('events').EventEmitter;
-var PhotosApiClient = require('../Api/PhotosClient');
+var ApiConstants  = require('../Constant/ApiConstants');
+var AppDispatcher = require('../Dispatcher/AppDispatcher');
+var assign        = require('object-assign');
+var EventEmitter  = require('events').EventEmitter;
 
-var CHANGE_EVENT              = 'change';
-var _photos                   = [];
-var new_set_being_loaded      = true;
-var uploading_boooth          = false;
-var complete_catalogue_loaded = false;
+var CHANGE_EVENT       = 'change';
+var _photo             = [];
+var photo_being_loaded = true;
 
 var PhotoStore = assign({}, EventEmitter.prototype, {
-    getCollection : function () {
-        return _photos;
+    getResource : function () {
+        return _photo;
     },
 
-    newSetBeingLoaded : function () {
-        return new_set_being_loaded;
-    },
-
-    booothBeingUploaded : function () {
-        return uploading_boooth;
-    },
-
-    completeCatalogueLoaded : function () {
-        return complete_catalogue_loaded;
+    photoBeingLoaded : function () {
+        return photo_being_loaded;
     },
 
     emitChange : function () {
@@ -42,33 +31,20 @@ var PhotoStore = assign({}, EventEmitter.prototype, {
 
 AppDispatcher.register(function (action) {
     switch (action.actionType) {
-        case ApiConstants.API_PHOTOS_GET_COLLECTION:
+        case ApiConstants.API_PHOTOS_GET_RESOURCE:
             switch (action.response) {
                 case ApiConstants.API_TIMEOUT:
                 case ApiConstants.API_ERROR:
                     break;
 
-                case ApiConstants.API_PHOTOS_GET_COLLECTION_PENDING:
-                    new_set_being_loaded = true;
+                case ApiConstants.API_PHOTOS_GET_RESOURCE_PENDING:
+                    photo_being_loaded = true;
                     break;
 
                 default:
-                    if (action.response.length < 1) complete_catalogue_loaded = true;
+                    _photo             = action.response;
+                    photo_being_loaded = false;
 
-                    _photos              = _photos.concat(action.response);
-                    new_set_being_loaded = false;
-
-            }
-
-            break;
-
-        case ApiConstants.API_PHOTOS_POST_COLLECTION:
-            if (action.response === ApiConstants.API_PHOTOS_POST_COLLECTION_PENDING) {
-                uploading_boooth = true;
-            }
-            else {
-                _photos.unshift(action.response)
-                uploading_boooth = false;
             }
 
             break;

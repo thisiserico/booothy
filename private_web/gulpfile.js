@@ -1,20 +1,21 @@
-var gulp             = require('gulp');
-var source           = require('vinyl-source-stream');
 var browserify       = require('browserify');
-var watchify         = require('watchify');
-var reactify         = require('reactify');
-var gulpif           = require('gulp-if');
-var uglify           = require('gulp-uglify');
-var streamify        = require('gulp-streamify');
-var notify           = require('gulp-notify');
-var concat           = require('gulp-concat');
 var cssmin           = require('gulp-cssmin');
+var concat           = require('gulp-concat');
+var glob             = require('glob');
+var gulp             = require('gulp');
+var gulpif           = require('gulp-if');
 var gutil            = require('gulp-util');
+var jasminePhantomJs = require('gulp-jasmine2-phantomjs');
+var livereload       = require('gulp-livereload');
+var notify           = require('gulp-notify');
+var plumber          = require('gulp-plumber');
+var reactify         = require('reactify');
 var sass             = require('gulp-sass');
 var shell            = require('gulp-shell');
-var glob             = require('glob');
-var livereload       = require('gulp-livereload');
-var jasminePhantomJs = require('gulp-jasmine2-phantomjs');
+var source           = require('vinyl-source-stream');
+var streamify        = require('gulp-streamify');
+var uglify           = require('gulp-uglify');
+var watchify         = require('watchify');
 var dependencies     = [ 'react', 'react/addons' ];
 
 var jsCompilation = function (options) {
@@ -119,16 +120,15 @@ var jsCompilation = function (options) {
 }
 
 var cssCompilation = function (options) {
-    var start = new Date();
 
     if (options.development) {
         var run = function () {
             console.log('Building CSS bundle');
+            var start = new Date();
 
             gulp.src(options.src)
-                .pipe(sass({
-                    errLogToConsole: true
-                }))
+                .pipe(plumber())
+                .pipe(sass())
                 .pipe(gulp.dest(options.dest))
                 .pipe(notify(function () {
                     console.log('CSS bundle built in ' + (Date.now() - start) + 'ms');
@@ -140,9 +140,8 @@ var cssCompilation = function (options) {
     }
     else {
       gulp.src(options.src)
-        .pipe(sass({
-            errLogToConsole: true
-        }))
+        .pipe(plumber())
+        .pipe(sass())
         .pipe(cssmin())
         .pipe(gulp.dest(options.dest))
         .pipe(notify(function () {

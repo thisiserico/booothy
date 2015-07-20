@@ -37,9 +37,11 @@ class DevServiceContainer extends Container
             'photo.application.listener.generate_uploads' => 'getPhoto_Application_Listener_GenerateUploadsService',
             'photo.application.marshaller.resource' => 'getPhoto_Application_Marshaller_ResourceService',
             'photo.application.service.get_complete_collection' => 'getPhoto_Application_Service_GetCompleteCollectionService',
+            'photo.application.service.get_resource' => 'getPhoto_Application_Service_GetResourceService',
             'photo.application.service.post_resource' => 'getPhoto_Application_Service_PostResourceService',
             'photo.domain.service.download_url_generator' => 'getPhoto_Domain_Service_DownloadUrlGeneratorService',
             'photo.infrastructure.hydrator.mongo.photo_collection' => 'getPhoto_Infrastructure_Hydrator_Mongo_PhotoCollectionService',
+            'photo.infrastructure.hydrator.mongo.photo_resource' => 'getPhoto_Infrastructure_Hydrator_Mongo_PhotoResourceService',
             'photo.infrastructure.repository.mongo.photo_saver' => 'getPhoto_Infrastructure_Repository_Mongo_PhotoSaverService',
         );
 
@@ -94,6 +96,19 @@ class DevServiceContainer extends Container
     }
 
     /**
+     * Gets the 'photo.application.service.get_resource' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Booothy\Core\Application\Service\Marshaller\UseCase A Booothy\Core\Application\Service\Marshaller\UseCase instance.
+     */
+    protected function getPhoto_Application_Service_GetResourceService()
+    {
+        return $this->services['photo.application.service.get_resource'] = new \Booothy\Core\Application\Service\Marshaller\UseCase(new \Booothy\Photo\Application\Service\GetResource\UseCase(new \Booothy\Photo\Infrastructure\Repository\Mongo\ResourceLoader($this->get('app.mongo.collection.photo'), $this->get('photo.infrastructure.hydrator.mongo.photo_resource'))), $this->get('photo.application.marshaller.resource'));
+    }
+
+    /**
      * Gets the 'photo.application.service.post_resource' service.
      *
      * This service is shared.
@@ -129,7 +144,20 @@ class DevServiceContainer extends Container
      */
     protected function getPhoto_Infrastructure_Hydrator_Mongo_PhotoCollectionService()
     {
-        return $this->services['photo.infrastructure.hydrator.mongo.photo_collection'] = new \Booothy\Photo\Infrastructure\Hydrator\Mongo\PhotoCollection();
+        return $this->services['photo.infrastructure.hydrator.mongo.photo_collection'] = new \Booothy\Photo\Infrastructure\Hydrator\Mongo\PhotoCollection($this->get('photo.infrastructure.hydrator.mongo.photo_resource'));
+    }
+
+    /**
+     * Gets the 'photo.infrastructure.hydrator.mongo.photo_resource' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Booothy\Photo\Infrastructure\Hydrator\Mongo\PhotoResource A Booothy\Photo\Infrastructure\Hydrator\Mongo\PhotoResource instance.
+     */
+    protected function getPhoto_Infrastructure_Hydrator_Mongo_PhotoResourceService()
+    {
+        return $this->services['photo.infrastructure.hydrator.mongo.photo_resource'] = new \Booothy\Photo\Infrastructure\Hydrator\Mongo\PhotoResource();
     }
 
     /**

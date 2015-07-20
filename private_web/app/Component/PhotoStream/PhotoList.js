@@ -1,21 +1,22 @@
-var Photo        = require('./Photo.js');
-var PhotosClient = require('../../Api/PhotosClient');
-var PhotoStore   = require('../../Store/PhotoStore');
-var React        = require('react');
+var MasonryMixin   = require('react-masonry-mixin');
+var PhotosClient   = require('../../Api/PhotosClient');
+var PhotosStore    = require('../../Store/PhotosStore');
+var PhotoThumbnail = require('./PhotoThumbnail.js');
+var React          = require('react');
+
+var masonryOptions = { transitionDuration : 0 };
 
 var PhotoList = React.createClass({
+    mixins: [MasonryMixin('boooths', masonryOptions)],
+
     getState : function () {
         return {
-            all_photos                : PhotoStore.getCollection(),
-            loading_new_set           : PhotoStore.newSetBeingLoaded(),
-            uploading_boooth          : PhotoStore.booothBeingUploaded(),
-            complete_catalogue_loaded : PhotoStore.completeCatalogueLoaded(),
-            current_page              : this.state
-                ? this.state.current_page
-                : parseInt(this.props.page),
-            loaded_pages              : this.state
-                ? this.state.loaded_pages
-                : []
+            all_photos                : PhotosStore.getCollection(),
+            loading_new_set           : PhotosStore.newSetBeingLoaded(),
+            uploading_boooth          : PhotosStore.booothBeingUploaded(),
+            complete_catalogue_loaded : PhotosStore.completeCatalogueLoaded(),
+            current_page              : this.state ? this.state.current_page : 1,
+            loaded_pages              : this.state ? this.state.loaded_pages : []
         };
     },
 
@@ -24,14 +25,14 @@ var PhotoList = React.createClass({
     },
 
     componentDidMount : function () {
-        PhotoStore.addChangeListener(this._onChange);
+        PhotosStore.addChangeListener(this._onChange);
         PhotosClient.getCollection(this.props.page);
 
         this.addScrollListener();
     },
 
     componentWillUnmount : function () {
-        PhotoStore.removeChangeListener(this._onChange);
+        PhotosStore.removeChangeListener(this._onChange);
         this.removeScrollListener();
     },
 
@@ -87,13 +88,15 @@ var PhotoList = React.createClass({
         var photos = [];
 
         this.state.all_photos.map(function (photo) {
-            photos.push(<Photo key={photo.id} photo={photo} />);
+            photos.push(<PhotoThumbnail key={photo.id} photo={photo} />);
         })
 
         return (
             <div>
                 <pre>{this.state.uploading_boooth ? 'Uploading' : ''}</pre>
-                {photos}
+                <div className="boooths" ref="boooths">
+                    {photos}
+                </div>
                 <pre>{this.state.loading_new_set ? 'Loading' : ''}</pre>
                 <pre>{this.state.complete_catalogue_loaded ? 'No more boooths to be shown!' : ''}</pre>
             </div>

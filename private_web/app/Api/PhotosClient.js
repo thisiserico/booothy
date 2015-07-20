@@ -28,6 +28,32 @@ var PhotosClient = {
         ));
     },
 
+    getResource : function (id) {
+        var url = BooothyClient.makeUrl('photos/' + id);
+        var key = ApiConstants.API_PHOTOS_GET_RESOURCE;
+
+        BooothyClient.abortPendingRequests(key);
+        BooothyClient.dispatch(key, ApiConstants.API_PHOTOS_GET_RESOURCE_PENDING, {});
+
+        BooothyClient.addRequest(key, BooothyClient.get(
+            url,
+            {},
+            function (data, status) {
+                BooothyClient.dispatch(key, data, {});
+            },
+            function (xhr, error_type) {
+                switch (error_type) {
+                    case 'timeout':
+                        BooothyClient.dispatch(key, ApiConstants.API_TIMEOUT, {});
+                        break;
+
+                    default:
+                        BooothyClient.dispatch(key, ApiConstants.API_ERROR, {});
+                }
+            }
+        ));
+    },
+
     uploadNew : function (form_data, callback) {
         var url = BooothyClient.makeUrl('photos');
         var key = ApiConstants.API_PHOTOS_POST_COLLECTION;

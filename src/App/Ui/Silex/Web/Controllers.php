@@ -25,5 +25,9 @@ $app
     ->bind('api:photos:get:collection');
 
 $app
+    ->get('/api/photos/{id}', $controller('Api\Photos\GetResource'))
+    ->bind('api:photos:get:resource');
+
+$app
     ->post('/api/photos', $controller('Api\Photos\PostResource'))
     ->bind('api:photos:post:resource');
