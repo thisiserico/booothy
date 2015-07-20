@@ -29,12 +29,16 @@ var Detail = React.createClass({
         PhotoStore.addChangeListener(this._onChange);
         PhotosClient.getResource(this.props.params.id);
 
+        document.addEventListener('keydown', this._keyDown, false);
+
         var new_classes_set = body_classes.concat(['noscroll']);
         React.findDOMNode(window.document.body).className = classNames(new_classes_set);
     },
 
     componentWillUnmount : function () {
         PhotoStore.removeChangeListener(this._onChange);
+
+        document.removeEventListener('keydown', this._keyDown, false);
 
         React.findDOMNode(window.document.body).className = classNames(body_classes);
     },
@@ -43,7 +47,14 @@ var Detail = React.createClass({
         this.setState(this.getState());
     },
 
-    closeBooothDetail : function () {
+    _keyDown : function (event) {
+        if (event.keyCode == 27) {
+            this._closeBooothDetail();
+            e.preventDefault();
+        }
+    },
+
+    _closeBooothDetail : function () {
         this.transitionTo('boooth_loader');
     },
 
@@ -65,7 +76,7 @@ var Detail = React.createClass({
 
         return (
             <section className="boooth_detail">
-                <button className="close_boooth_detail" onClick={this.closeBooothDetail} />
+                <button className="close_boooth_detail" onClick={this._closeBooothDetail} />
                 {details_content}
             </section>
         );
