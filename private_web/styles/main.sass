@@ -1,19 +1,24 @@
+@import '_partials/colors'
+
 body
-    background : #fff
-    width      : 928px
+    background : $light_white
+    width      : 1024px
     margin     : 0 auto
 
 
+$boooth_thumb_width         : 200
+$boooth_thumb_margin        : 15
+$boooth_thumb_gallery_width : 4 * ($boooth_thumb_width + 2 * $boooth_thumb_margin)
+
 .boooths
-    width  : 928px
+    width  : #{$boooth_thumb_gallery_width}px
     margin : 0 auto
 
     .boooth_thumbnail
-        width       : 200px
-        margin      : 15px
+        width       : #{$boooth_thumb_width}px
+        margin      : #{$boooth_thumb_margin}px
         float       : left
-        box-shadow  : 1px 2px 20px 1px #d3d3d3
-        border      : 1px solid #ddd
+        box-shadow  : 1px 1px 10px 0px $light_brown
         font-family : "Verdana", sans-serif
 
         &:before, &:after
@@ -24,7 +29,7 @@ body
         &:before
             content : attr(data-content)
             width   : 100%
-            color   : #b9c7af
+            color   : $light_pistachio
             z-index : 1
             left    : 10px
             bottom  : 10px
@@ -35,7 +40,7 @@ body
             height     : 100%
             top        : 0
             left       : 0
-            background : rgba(84, 58, 68, 0.7)
+            background : rgba($light_purple, 0.7)
 
         &:hover:before, &:hover:after
             opacity : 1
