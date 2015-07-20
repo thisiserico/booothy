@@ -25,6 +25,23 @@ services:
         arguments :
             - @photo.domain.repository.loader
 
+    ### GetResource
+    photo.application.service.get_resource:
+        alias : photo.application.service.get_resource.with_marshaller
+
+    photo.application.service.get_resource.with_marshaller:
+        class     : Booothy\Core\Application\Service\Marshaller\UseCase
+        public    : false
+        arguments :
+            - @photo.application.service.get_resource.implementation
+            - @photo.application.marshaller.resource
+
+    photo.application.service.get_resource.implementation:
+        class     : Booothy\Photo\Application\Service\GetResource\UseCase
+        public    : false
+        arguments :
+            - @photo.domain.repository.resource_loader
+
     ### PostResource
     photo.application.service.post_resource:
         alias : photo.application.service.post_resource.with_marshaller

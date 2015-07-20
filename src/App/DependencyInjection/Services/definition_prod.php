@@ -37,6 +37,7 @@ class ProdServiceContainer extends Container
             'photo.application.listener.generate_uploads' => 'getPhoto_Application_Listener_GenerateUploadsService',
             'photo.application.marshaller.resource' => 'getPhoto_Application_Marshaller_ResourceService',
             'photo.application.service.get_complete_collection' => 'getPhoto_Application_Service_GetCompleteCollectionService',
+            'photo.application.service.get_resource' => 'getPhoto_Application_Service_GetResourceService',
             'photo.application.service.post_resource' => 'getPhoto_Application_Service_PostResourceService',
             'photo.domain.service.download_url_generator' => 'getPhoto_Domain_Service_DownloadUrlGeneratorService',
             'photo.infrastructure.hydrator.mongo.photo_collection' => 'getPhoto_Infrastructure_Hydrator_Mongo_PhotoCollectionService',
@@ -92,6 +93,19 @@ class ProdServiceContainer extends Container
     protected function getPhoto_Application_Service_GetCompleteCollectionService()
     {
         return $this->services['photo.application.service.get_complete_collection'] = new \Booothy\Core\Application\Service\Marshaller\UseCase(new \Booothy\Photo\Application\Service\GetCompleteCollection\UseCase(new \Booothy\Photo\Infrastructure\Repository\Mongo\NewerFirstLoader($this->get('app.mongo.collection.photo'), $this->get('photo.infrastructure.hydrator.mongo.photo_collection'))), new \Booothy\Photo\Application\Marshaller\Collection($this->get('photo.application.marshaller.resource')));
+    }
+
+    /**
+     * Gets the 'photo.application.service.get_resource' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Booothy\Core\Application\Service\Marshaller\UseCase A Booothy\Core\Application\Service\Marshaller\UseCase instance.
+     */
+    protected function getPhoto_Application_Service_GetResourceService()
+    {
+        return $this->services['photo.application.service.get_resource'] = new \Booothy\Core\Application\Service\Marshaller\UseCase(new \Booothy\Photo\Application\Service\GetResource\UseCase(new \Booothy\Photo\Infrastructure\Repository\Mongo\ResourceLoader($this->get('app.mongo.collection.photo'), $this->get('photo.infrastructure.hydrator.mongo.photo_resource'))), $this->get('photo.application.marshaller.resource'));
     }
 
     /**
