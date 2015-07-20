@@ -6,9 +6,10 @@ body
     margin     : 0 auto
 
 
-$boooth_thumb_width         : 200
-$boooth_thumb_margin        : 15
-$boooth_thumb_gallery_width : 4 * ($boooth_thumb_width + 2 * $boooth_thumb_margin)
+$boooth_thumbs_per_row      : 5
+$boooth_thumb_width         : 150
+$boooth_thumb_margin        : 10
+$boooth_thumb_gallery_width : $boooth_thumbs_per_row     * ($boooth_thumb_width + 2 * $boooth_thumb_margin)
 
 .boooths
     width  : #{$boooth_thumb_gallery_width}px
