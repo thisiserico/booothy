@@ -9,6 +9,14 @@ body
     overflow: hidden
 
 
+header
+    font-family : 'Londrina Sketch', cursive
+    font-size   : 6em
+    font-weight : bold
+    text-align  : center
+    color       : rgba($dark_purple, 0.7)
+
+
 $boooth_thumbs_per_row      : 3
 $boooth_thumb_width         : 300
 $boooth_thumb_margin        : 15
@@ -22,7 +30,6 @@ $boooth_thumb_gallery_width : $boooth_thumbs_per_row     * ($boooth_thumb_width 
         width       : #{$boooth_thumb_width}px
         margin      : #{$boooth_thumb_margin}px
         float       : left
-        box-shadow  : 1px 1px 10px 0px $light_brown
         font-family : "Verdana", sans-serif
 
         &:before, &:after

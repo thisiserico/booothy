@@ -4,7 +4,10 @@ var RouteHandler = require('react-router').RouteHandler;
 var App = React.createClass({
     render : function() {
         return (
-            <RouteHandler/>
+            <div>
+                <header>booothy</header>
+                <RouteHandler/>
+            </div>
         );
     }
 });
