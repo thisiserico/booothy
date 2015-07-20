@@ -15,12 +15,8 @@ var PhotoList = React.createClass({
             loading_new_set           : PhotoStore.newSetBeingLoaded(),
             uploading_boooth          : PhotoStore.booothBeingUploaded(),
             complete_catalogue_loaded : PhotoStore.completeCatalogueLoaded(),
-            current_page              : this.state
-                ? this.state.current_page
-                : parseInt(this.props.page),
-            loaded_pages              : this.state
-                ? this.state.loaded_pages
-                : []
+            current_page              : this.state ? this.state.current_page : 1,
+            loaded_pages              : this.state ? this.state.loaded_pages : []
         };
     },
 
