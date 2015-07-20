@@ -3,10 +3,13 @@ var Link         = require('react-router').Link;
 var PhotosClient = require('../../Api/PhotosClient');
 var PhotoStore   = require('../../Store/PhotoStore');
 var React        = require('react');
+var Router       = require('react-router');
 
 var body_classes = [];
 
 var Detail = React.createClass({
+    mixins : [Router.Navigation],
+
     getState : function () {
         return {
             photo              : PhotoStore.getResource(),
@@ -40,21 +43,30 @@ var Detail = React.createClass({
         this.setState(this.getState());
     },
 
+    closeBooothDetail : function () {
+        this.transitionTo('boooth_loader');
+    },
+
     render : function() {
-        if (this.state.photo_being_loaded) {
-            return (
-                <div className="boooth_detail">
-                    {this.state.photo_being_loaded ? 'Loading!' : '' }
+        var details_content = (
+            <div>
+                {this.state.photo_being_loaded ? 'Loading!' : '' }
+            </div>
+        );
+
+        if (!this.state.photo_being_loaded) {
+            details_content = (
+                <div>
+                    <img src={this.state.photo.upload.download_url} />
+                    <span>{this.state.photo.quote}</span>
                 </div>
             );
         }
 
         return (
             <section className="boooth_detail">
-                <div>
-                    <img src={this.state.photo.upload.download_url} />
-                    <span>{this.state.photo.quote}</span>
-                </div>
+                <button className="close_boooth_detail" onClick={this.closeBooothDetail} />
+                {details_content}
             </section>
         );
     }

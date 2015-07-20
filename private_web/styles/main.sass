@@ -65,15 +65,40 @@ $boooth_detail_width : 640
     background : rgba($light_brown, 0.8)
     position   : fixed
 
+    .close_boooth_detail
+        height     : 36px
+        right      : 0
+        top        : 0
+        background : 0 0
+        border     : none
+        cursor     : pointer
+        outline    : none
+        overflow   : hidden
+        position   : fixed
+        z-index    : 10
+
+        &:before
+            content: '\00D7'
+            margin      : 0
+            padding     : 0
+            display     : block
+            font-size   : 36px
+            font-weight : 600
+            line-height : 36px
+            color       : $light_white
+
     > div
         position  : fixed
         top       : 50%
         left      : 50%
-        transform : translate(-50%, -70%)
+        transform : translate(-50%, -60%)
 
         img
+            width      : auto
+            height     : auto
+            max-width  : #{$boooth_detail_width}px
+            max-height : 80%
             background : $light_white
-            width      : #{$boooth_detail_width}px
 
         span
             display     : block
