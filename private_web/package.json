@@ -31,6 +31,7 @@
     "gulp-jasmine2-phantomjs": "~0.2.0",
     "gulp-livereload": "~3.8.0",
     "gulp-notify": "~2.2.0",
+    "gulp-plumber": "~1.0.1",
     "gulp-sass": "~2.0.3",
     "gulp-shell": "~0.4.2",
     "gulp-streamify": "~0.0.5",
