@@ -50,12 +50,14 @@ var Detail = React.createClass({
     _keyDown : function (event) {
         if (event.keyCode == 27) {
             this._closeBooothDetail();
-            e.preventDefault();
+            event.preventDefault();
         }
     },
 
     _closeBooothDetail : function () {
-        this.transitionTo('boooth_loader');
+        if (!this.goBack()) {
+            this.transitionTo('boooth_loader');
+        }
     },
 
     render : function() {
