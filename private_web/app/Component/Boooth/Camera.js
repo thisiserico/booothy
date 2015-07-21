@@ -171,9 +171,9 @@ var Camera = React.createClass({
                 <canvas ref="canvas" className="canvas" />
 
                 <div className="buttons">
-                    <button ref="start_button">B</button>
-                    <button ref="reset_button">R</button>
-                    <button ref="file_button">F</button>
+                    <button ref="start_button"><i className="fa fa-camera fa-2x" /></button>
+                    <button ref="reset_button"><i className="fa fa-refresh fa-2x" /></button>
+                    <button ref="file_button"><i className="fa fa-image fa-2x" /></button>
                 </div>
             </div>
         );
