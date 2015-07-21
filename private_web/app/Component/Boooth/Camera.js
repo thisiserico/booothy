@@ -171,9 +171,11 @@ var Camera = React.createClass({
                 <canvas ref="canvas" className="canvas" />
 
                 <div className="buttons">
-                    <button ref="file_button"><i className="fa fa-image fa-2x" /></button>
-                    <button ref="reset_button" style={{display : this.state.picture_taken ? 'inline' : 'none'}}><i className="fa fa-refresh fa-2x" /></button>
-                    <button ref="start_button" style={{display : this.state.picture_taken ? 'none' : 'inline'}}><i className="fa fa-camera fa-2x" /></button>
+                    <button ref="file_button" className="file_button"><i className="fa fa-image fa-2x" />
+                        <input type="file" accept="image/*" />
+                    </button>
+                    <button ref="reset_button" className="reset_button" style={{display : this.state.picture_taken ? 'inline' : 'none'}}><i className="fa fa-refresh fa-2x" /></button>
+                    <button ref="start_button" className="start_button" style={{display : this.state.picture_taken ? 'none' : 'inline'}}><i className="fa fa-camera fa-2x" /></button>
                 </div>
             </div>
         );
