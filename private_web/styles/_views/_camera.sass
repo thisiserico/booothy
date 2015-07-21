@@ -1,44 +1,55 @@
 @import '_mixins/_modal'
 @import '_mixins/_close_modal'
 
-$boooth_detail_width : 640
-
 .new_boooth
     +modal
 
     .close_new_boooth
         +close_modal
 
-    > div
-        position  : fixed
+    .camera
         top       : 50%
         left      : 50%
+        position  : fixed
         transform : translate(-50%, -60%)
 
-        img
-            width      : auto
-            height     : auto
-            max-width  : #{$boooth_detail_width}px
-            max-height : 80%
-            background : $light_white
+        .video, canvas
+            top       : 50%
+            left      : 50%
+            position  : fixed
+            transform : translate(-50%, -50%)
 
-        span
-            display     : block
-            text-align  : center
-            font-family : "Verdana", sans-serif
-            font-size   : 1.5em
-            color       : $light_white
+        .video
+            z-index : 10
 
-            &:before, &:after
-                content        : ''
-                width          : 50px
-                height         : 2px
-                background     : $light_white
-                display        : inline-block
-                vertical-align : middle
+        .canvas
+            z-index: 11
 
-            &:before
-                margin : 0 20px 0 0
+        .buttons
+            margin   : 10px;
+            right    : 0
+            bottom   : 0
+            position : absolute
+            z-index  : 12
 
-            &:after
-                margin : 0 0 0 20px
+            button
+                width            : 50px
+                height           : 50px
+                margin           : 5px
+                background-color : #f7f7f7
+                background-image : -webkit-linear-gradient(top, #f7f7f7, #e7e7e7)
+                border           : 0
+                border-radius    : 50%
+                box-shadow       : 0px 1px 8px #aaa, inset 0px 1px 3px #fff
+                position         : relative
+                display          : inline-block
+                font-weight      : bold
+                color            : #a7a7a7
+                cursor           : pointer
+
+                &:hover
+                    color      : #555
+                    background : #f5f5f5
+
+                &:focus
+                    outline : 0

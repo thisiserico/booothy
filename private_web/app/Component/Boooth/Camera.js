@@ -3,7 +3,7 @@ var React = require('react');
 var Camera = React.createClass({
     getInitialState : function () {
         return {
-            width         : 320,
+            width         : 640,
             height        : null,
             stream        : null,
             streaming     : null,
@@ -73,6 +73,8 @@ var Camera = React.createClass({
                 });
 
                 this.state.video.play();
+
+
             }.bind(this);
         };
 
@@ -116,6 +118,10 @@ var Camera = React.createClass({
                         streaming : true
                     });
                 }
+
+                var camera_node = React.findDOMNode(this.refs.camera)
+                camera_node.style.width  = this.state.width + 'px'
+                camera_node.style.height = this.state.height + 'px'
             }.bind(this);
         };
 
@@ -160,14 +166,15 @@ var Camera = React.createClass({
 
     render : function () {
         return (
-            <div>
-                <div className="camera">
-                    <video ref="video">Video stream not available.</video>
-                    <button ref="start_button">Boooth!</button>
-                    <button ref="reset_button">Reset photo</button>
-                </div>
+            <div className="camera" ref="camera">
+                <video ref="video" className="video">Video stream not available.</video>
+                <canvas ref="canvas" className="canvas" />
 
-                <canvas ref="canvas" />
+                <div className="buttons">
+                    <button ref="start_button">B</button>
+                    <button ref="reset_button">R</button>
+                    <button ref="file_button">F</button>
+                </div>
             </div>
         );
     }
