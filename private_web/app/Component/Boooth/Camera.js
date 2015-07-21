@@ -55,6 +55,10 @@ var Camera = React.createClass({
         return new Blob([new Uint8Array(array)], {type: 'image/png'});
     },
 
+    getUploadedFile : function () {
+        return this.refs.selected_file.getDOMNode().files[0];
+    },
+
     mountCameraAction : function () {
         var streamVideo = function () {
             return function (stream) {
@@ -171,8 +175,8 @@ var Camera = React.createClass({
                 <canvas ref="canvas" className="canvas" />
 
                 <div className="buttons">
-                    <button ref="file_button" className="file_button"><i className="fa fa-image fa-2x" />
-                        <input type="file" accept="image/*" />
+                    <button ref="file_button" className="file_button" style={{display : this.state.picture_taken ? 'none' : 'inline'}}><i className="fa fa-image fa-2x" />
+                        <input ref="selected_file" type="file" accept="image/*" />
                     </button>
                     <button ref="reset_button" className="reset_button" style={{display : this.state.picture_taken ? 'inline' : 'none'}}><i className="fa fa-refresh fa-2x" /></button>
                     <button ref="start_button" className="start_button" style={{display : this.state.picture_taken ? 'none' : 'inline'}}><i className="fa fa-camera fa-2x" /></button>

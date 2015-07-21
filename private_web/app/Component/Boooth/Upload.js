@@ -28,7 +28,7 @@ var Upload = React.createClass({
 
     handleSubmit : function () {
         var quote       = this.refs.quote.getDOMNode().value;
-        var boooth_file = this.refs.boooth_file.getDOMNode().files[0];
+        var boooth_file = this.refs.camera.getUploadedFile();
         var boooth_snap = this.refs.camera.getSnappedImage();
 
         var form_data = new FormData();
@@ -69,7 +69,6 @@ var Upload = React.createClass({
                 <div>
                     <Camera ref="camera" />
                     <input type="text" name="quote" ref="quote" placeholder="Sup!" /><br/>
-                    <input type="file" name="boooth_file" ref="boooth_file" /><br/>
                     <button type="button" onClick={this.handleSubmit}>Submit</button>
                 </div>
             </section>
