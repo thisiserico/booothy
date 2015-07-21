@@ -161,7 +161,7 @@ var Camera = React.createClass({
         var context = this.state.canvas.getContext('2d');
         context.clearRect (0, 0, this.state.width, this.state.height);
 
-        this.setState({ picture_taken : true });
+        this.setState({ picture_taken : false });
     },
 
     render : function () {
@@ -171,9 +171,9 @@ var Camera = React.createClass({
                 <canvas ref="canvas" className="canvas" />
 
                 <div className="buttons">
-                    <button ref="start_button"><i className="fa fa-camera fa-2x" /></button>
-                    <button ref="reset_button"><i className="fa fa-refresh fa-2x" /></button>
                     <button ref="file_button"><i className="fa fa-image fa-2x" /></button>
+                    <button ref="reset_button" style={{display : this.state.picture_taken ? 'inline' : 'none'}}><i className="fa fa-refresh fa-2x" /></button>
+                    <button ref="start_button" style={{display : this.state.picture_taken ? 'none' : 'inline'}}><i className="fa fa-camera fa-2x" /></button>
                 </div>
             </div>
         );
