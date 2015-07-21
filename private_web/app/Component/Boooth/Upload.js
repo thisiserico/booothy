@@ -68,8 +68,11 @@ var Upload = React.createClass({
 
                 <div>
                     <Camera ref="camera" />
-                    <input type="text" name="quote" ref="quote" placeholder="Sup!" /><br/>
-                    <button type="button" onClick={this.handleSubmit}>Submit</button>
+
+                    <div className="boooth_upload_submit">
+                        <input type="text" name="quote" ref="quote" placeholder="The nicest thought you've got in your mind..." />
+                        <button type="button" onClick={this.handleSubmit}>Boooth! <i className="fa fa-paper-plane" /></button>
+                    </div>
                 </div>
             </section>
         );
