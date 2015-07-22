@@ -9,6 +9,10 @@ var body_classes = [];
 var Upload = React.createClass({
     mixins : [Router.Navigation],
 
+    getInitialState : function () {
+        return { uploading_boooth : false };
+    },
+
     componentWillMount : function () {
         body_classes = React.findDOMNode(window.document.body).className.split(' ');
     },
@@ -50,6 +54,7 @@ var Upload = React.createClass({
         };
 
         PhotosClient.uploadNew(form_data, redirection.bind(this));
+        this.setState({ uploading_boooth : true });
     },
 
     _keyDown : function (event) {
@@ -71,6 +76,7 @@ var Upload = React.createClass({
                 <button className="close_new_boooth" onClick={this._closeNewBoooth} />
 
                 <div>
+                    {this.state.uploading_boooth ? <i className="uploading_spinner fa fa-circle-o-notch fa-4x fa-spin" /> : ''}
                     <Camera ref="camera" notifyTopPosition={this.placeSubmitForm} />
 
                     <div ref="boooth_upload_submit" className="boooth_upload_submit">
