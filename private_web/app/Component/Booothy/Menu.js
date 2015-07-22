@@ -1,18 +1,15 @@
 var Link         = require('react-router').Link;
-var Menu         = require('./Menu');
 var React        = require('react');
 var RouteHandler = require('react-router').RouteHandler;
 
-var App = React.createClass({
+var Menu = React.createClass({
     render : function() {
         return (
             <div>
-                <Menu />
-                <header>booothy</header>
-                <RouteHandler/>
+                <Link to="boooth">Boooth!</Link>
             </div>
         );
     }
 });
 
-module.exports = App;
+module.exports = Menu;
