@@ -85,6 +85,11 @@ final class Photo
         );
     }
 
+    public function isDetailedAs($hex_color, $width, $height)
+    {
+        $this->image_details = new ImageDetails($hex_color, $width, $height);
+    }
+
     public function id()
     {
         return $this->id;
