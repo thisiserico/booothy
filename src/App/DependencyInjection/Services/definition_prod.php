@@ -131,7 +131,7 @@ class ProdServiceContainer extends Container
      */
     protected function getPhoto_Domain_Service_DownloadUrlGeneratorService()
     {
-        return $this->services['photo.domain.service.download_url_generator'] = new \Booothy\Photo\Domain\Service\DownloadUrlGenerator('');
+        return $this->services['photo.domain.service.download_url_generator'] = new \Booothy\Photo\Domain\Service\DownloadUrlGenerator('http://booothy.ericlopez.me.dev/index_dev.php/u/{filename}');
     }
 
     /**
@@ -174,7 +174,7 @@ class ProdServiceContainer extends Container
      */
     protected function getApp_Mongo_Collection_PhotoService()
     {
-        return $this->services['app.mongo.collection.photo'] = new \MongoCollection(new \MongoDB(new \MongoClient(''), 'booothy'), 'photo');
+        return $this->services['app.mongo.collection.photo'] = new \MongoCollection(new \MongoDB(new \MongoClient('mongodb://127.0.0.1:27017'), 'booothy'), 'photo');
     }
 
     /**
@@ -264,9 +264,9 @@ class ProdServiceContainer extends Container
     {
         return array(
             'mongo.db' => 'booothy',
-            'mongo.server' => '',
-            'booothy_api_url' => '',
-            'booothy_download_url' => '',
+            'mongo.server' => 'mongodb://127.0.0.1:27017',
+            'booothy_api_url' => 'http://booothy.ericlopez.me.dev/index_dev.php/api/',
+            'booothy_download_url' => 'http://booothy.ericlopez.me.dev/index_dev.php/u/{filename}',
         );
     }
 }
