@@ -3,7 +3,7 @@ var React = require('react');
 var Camera = React.createClass({
     getInitialState : function () {
         return {
-            width         : 320,
+            width         : 640,
             height        : null,
             stream        : null,
             streaming     : null,
@@ -55,6 +55,10 @@ var Camera = React.createClass({
         return new Blob([new Uint8Array(array)], {type: 'image/png'});
     },
 
+    getUploadedFile : function () {
+        return this.refs.selected_file.getDOMNode().files[0];
+    },
+
     mountCameraAction : function () {
         var streamVideo = function () {
             return function (stream) {
@@ -73,6 +77,8 @@ var Camera = React.createClass({
                 });
 
                 this.state.video.play();
+
+
             }.bind(this);
         };
 
@@ -116,6 +122,15 @@ var Camera = React.createClass({
                         streaming : true
                     });
                 }
+
+                var camera_node = React.findDOMNode(this.refs.camera)
+                camera_node.style.width  = this.state.width + 'px'
+                camera_node.style.height = this.state.height + 'px'
+
+                var camera_top           = camera_node.offsetTop;
+                var sixty_percent_offset = this.state.height * 40 / 100;
+                var calculated_top       = camera_top + sixty_percent_offset;
+                this.props.notifyTopPosition(calculated_top);
             }.bind(this);
         };
 
@@ -155,19 +170,23 @@ var Camera = React.createClass({
         var context = this.state.canvas.getContext('2d');
         context.clearRect (0, 0, this.state.width, this.state.height);
 
-        this.setState({ picture_taken : true });
+        this.setState({ picture_taken : false });
     },
 
     render : function () {
         return (
-            <div>
-                <div className="camera">
-                    <video ref="video">Video stream not available.</video>
-                    <button ref="start_button">Boooth!</button>
-                    <button ref="reset_button">Reset photo</button>
-                </div>
+            <div className="camera" ref="camera">
+                <video ref="video" className="video">Video stream not available.</video>
+                <canvas ref="canvas" className="canvas" />
 
-                <canvas ref="canvas" />
+                <div className="buttons">
+                    <button ref="file_button" className="file_button" style={{display : this.state.picture_taken ? 'none' : 'inline'}}>
+                        <i className="fa fa-upload fa-2x" />
+                        <input ref="selected_file" type="file" accept="image/*" />
+                    </button>
+                    <button ref="reset_button" className="reset_button" style={{display : this.state.picture_taken ? 'inline' : 'none'}}><i className="fa fa-refresh fa-2x" /></button>
+                    <button ref="start_button" className="start_button" style={{display : this.state.picture_taken ? 'none' : 'inline'}}><i className="fa fa-camera fa-2x" /></button>
+                </div>
             </div>
         );
     }

@@ -50,18 +50,21 @@ var Detail = React.createClass({
     _keyDown : function (event) {
         if (event.keyCode == 27) {
             this._closeBooothDetail();
-            e.preventDefault();
+            event.preventDefault();
         }
     },
 
     _closeBooothDetail : function () {
-        this.transitionTo('boooth_loader');
+        if (!this.goBack()) {
+            this.transitionTo('boooth_loader');
+        }
     },
 
     render : function() {
+        var loading_spinner = ( <i className="fa fa-circle-o-notch fa-4x fa-spin" /> );
         var details_content = (
             <div>
-                {this.state.photo_being_loaded ? 'Loading!' : '' }
+                {this.state.photo_being_loaded ? {loading_spinner} : '' }
             </div>
         );
 

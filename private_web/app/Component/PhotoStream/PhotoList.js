@@ -13,7 +13,6 @@ var PhotoList = React.createClass({
         return {
             all_photos                : PhotosStore.getCollection(),
             loading_new_set           : PhotosStore.newSetBeingLoaded(),
-            uploading_boooth          : PhotosStore.booothBeingUploaded(),
             complete_catalogue_loaded : PhotosStore.completeCatalogueLoaded(),
             current_page              : this.state ? this.state.current_page : 1,
             loaded_pages              : this.state ? this.state.loaded_pages : []
@@ -93,7 +92,6 @@ var PhotoList = React.createClass({
 
         return (
             <div>
-                <pre>{this.state.uploading_boooth ? 'Uploading' : ''}</pre>
                 <div className="boooths" ref="boooths">
                     {photos}
                 </div>
