@@ -4,6 +4,8 @@
     "type": "project",
     "require": {
         "php": ">=5.6",
+        "intervention/image": "2.3.1",
+        "league/color-extractor": "~0.1.8",
         "silex/silex": "~2.0@dev",
         "silex/web-profiler": "~2.0@dev",
         "symfony/browser-kit": "~2.3",
