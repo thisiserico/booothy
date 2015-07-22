@@ -96,7 +96,10 @@ var PhotoList = React.createClass({
                     {photos}
                 </div>
                 <pre>{this.state.loading_new_set ? 'Loading' : ''}</pre>
-                <pre>{this.state.complete_catalogue_loaded ? 'No more boooths to be shown!' : ''}</pre>
+                <pre>{this.state.complete_catalogue_loaded
+                    ? <span className="all_loaded">&#9825;</span>
+                    : ''
+                }</pre>
             </div>
         );
     }

@@ -41,3 +41,26 @@ $boooth_thumb_gallery_width : $boooth_thumbs_per_row     * ($boooth_thumb_width 
         img
             width   : 100%
             display : block
+
+.all_loaded
+    width       : 400px
+    margin      : 0 auto
+    display     : block
+    text-align  : center
+    font-family : "Verdana", sans-serif
+    font-size   : 2em
+    color       : $light_purple
+
+    &:before, &:after
+        content        : ''
+        width          : 150px
+        height         : 1px
+        background     : $light_purple
+        display        : inline-block
+        vertical-align : middle
+
+    &:before
+        margin-right : 20px
+
+    &:after
+        margin-left : 20px
