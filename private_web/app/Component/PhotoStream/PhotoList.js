@@ -95,8 +95,16 @@ var PhotoList = React.createClass({
                 <div className="boooths" ref="boooths">
                     {photos}
                 </div>
-                <pre>{this.state.loading_new_set ? 'Loading' : ''}</pre>
-                <pre>{this.state.complete_catalogue_loaded ? 'No more boooths to be shown!' : ''}</pre>
+
+                <pre>{this.state.loading_new_set
+                    ? <i className="boooths_loading_spinner fa fa-circle-o-notch fa-4x fa-spin" />
+                    : ''
+                }</pre>
+
+                <pre>{this.state.complete_catalogue_loaded
+                    ? <span className="all_loaded">&#9825;</span>
+                    : ''
+                }</pre>
             </div>
         );
     }
