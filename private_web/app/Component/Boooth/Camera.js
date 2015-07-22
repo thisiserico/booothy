@@ -126,6 +126,11 @@ var Camera = React.createClass({
                 var camera_node = React.findDOMNode(this.refs.camera)
                 camera_node.style.width  = this.state.width + 'px'
                 camera_node.style.height = this.state.height + 'px'
+
+                var camera_top           = camera_node.offsetTop;
+                var sixty_percent_offset = this.state.height * 40 / 100;
+                var calculated_top       = camera_top + sixty_percent_offset;
+                this.props.notifyTopPosition(calculated_top);
             }.bind(this);
         };
 

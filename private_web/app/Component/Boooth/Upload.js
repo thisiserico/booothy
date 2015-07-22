@@ -26,6 +26,10 @@ var Upload = React.createClass({
         React.findDOMNode(window.document.body).className = classNames(body_classes);
     },
 
+    placeSubmitForm : function (top_position) {
+        React.findDOMNode(this.refs.boooth_upload_submit).style.top = top_position + 'px';
+    },
+
     handleSubmit : function () {
         var quote       = this.refs.quote.getDOMNode().value;
         var boooth_file = this.refs.camera.getUploadedFile();
@@ -67,9 +71,9 @@ var Upload = React.createClass({
                 <button className="close_new_boooth" onClick={this._closeNewBoooth} />
 
                 <div>
-                    <Camera ref="camera" />
+                    <Camera ref="camera" notifyTopPosition={this.placeSubmitForm} />
 
-                    <div className="boooth_upload_submit">
+                    <div ref="boooth_upload_submit" className="boooth_upload_submit">
                         <input type="text" name="quote" ref="quote" placeholder="The nicest thought you've got in your mind..." />
                         <button type="button" onClick={this.handleSubmit}>Boooth! <i className="fa fa-paper-plane" /></button>
                     </div>
