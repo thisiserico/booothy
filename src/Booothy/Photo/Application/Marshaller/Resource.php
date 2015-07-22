@@ -26,6 +26,11 @@ final class Resource implements Marshaller
                     $element->upload()
                 ),
             ],
+            'image_details' => [
+                'hex_color' => $element->imageDetails()->hexColor(),
+                'width'     => $element->imageDetails()->width(),
+                'height'    => $element->imageDetails()->height(),
+            ],
             'creation_date' => $element->createdAt(),
         ];
     }
