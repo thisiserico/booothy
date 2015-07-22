@@ -114,7 +114,7 @@ final class ComputeImageDetailsTest extends PHPUnit_Framework_TestCase
     private function thenTheImageDetailsGetComputed()
     {
         $extracted_image_stub = m::mock(ExtractedImage::class);
-        $extracted_image_stub->shouldReceive('extract')->andReturn(self::HEX_COLOR);
+        $extracted_image_stub->shouldReceive('extract')->andReturn([self::HEX_COLOR]);
 
         $this->hex_color_extractor
             ->shouldReceive('loadPng')

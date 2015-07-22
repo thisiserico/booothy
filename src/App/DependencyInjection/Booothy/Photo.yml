@@ -1,6 +1,13 @@
 services:
     # Application
     ## Listener
+    photo.application.listener.compute_image_details:
+        class     : Booothy\Photo\Application\Listener\ComputeImageDetails
+        arguments :
+            - @app.color_extractor
+            - @app.image_manager
+            - @photo.domain.repository.saver
+
     photo.application.listener.generate_uploads:
         class     : Booothy\Photo\Application\Listener\GenerateUploads
         arguments :

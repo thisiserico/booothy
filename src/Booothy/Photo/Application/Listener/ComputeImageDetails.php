@@ -48,7 +48,7 @@ final class ComputeImageDetails extends AbstractListener
     {
         $hex_extractor_methods = [
             'image/gif'  => 'loadGif',
-            'image/jpeg' => 'loadJpg',
+            'image/jpeg' => 'loadJpeg',
             'image/png'  => 'loadPng',
         ];
 
@@ -57,7 +57,7 @@ final class ComputeImageDetails extends AbstractListener
             ->hex_color_extractor
             ->$hex_extractor_method($temporary_location);
 
-        return $image->extract();
+        return $image->extract()[0];
     }
 
     private function extractSizes($temporary_location)

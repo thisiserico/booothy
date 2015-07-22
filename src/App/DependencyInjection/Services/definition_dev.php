@@ -32,8 +32,11 @@ class DevServiceContainer extends Container
         $this->scopes = array();
         $this->scopeChildren = array();
         $this->methodMap = array(
+            'app.color_extractor' => 'getApp_ColorExtractorService',
             'app.event.emitter' => 'getApp_Event_EmitterService',
+            'app.image_manager' => 'getApp_ImageManagerService',
             'app.mongo.collection.photo' => 'getApp_Mongo_Collection_PhotoService',
+            'photo.application.listener.compute_image_details' => 'getPhoto_Application_Listener_ComputeImageDetailsService',
             'photo.application.listener.generate_uploads' => 'getPhoto_Application_Listener_GenerateUploadsService',
             'photo.application.marshaller.resource' => 'getPhoto_Application_Marshaller_ResourceService',
             'photo.application.service.get_complete_collection' => 'getPhoto_Application_Service_GetCompleteCollectionService',
@@ -57,6 +60,19 @@ class DevServiceContainer extends Container
     }
 
     /**
+     * Gets the 'app.color_extractor' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \League\ColorExtractor\Client A League\ColorExtractor\Client instance.
+     */
+    protected function getApp_ColorExtractorService()
+    {
+        return $this->services['app.color_extractor'] = new \League\ColorExtractor\Client();
+    }
+
+    /**
      * Gets the 'app.event.emitter' service.
      *
      * This service is shared.
@@ -67,6 +83,32 @@ class DevServiceContainer extends Container
     protected function getApp_Event_EmitterService()
     {
         return $this->services['app.event.emitter'] = new \League\Event\Emitter();
+    }
+
+    /**
+     * Gets the 'app.image_manager' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Intervention\Image\ImageManager A Intervention\Image\ImageManager instance.
+     */
+    protected function getApp_ImageManagerService()
+    {
+        return $this->services['app.image_manager'] = new \Intervention\Image\ImageManager();
+    }
+
+    /**
+     * Gets the 'photo.application.listener.compute_image_details' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Booothy\Photo\Application\Listener\ComputeImageDetails A Booothy\Photo\Application\Listener\ComputeImageDetails instance.
+     */
+    protected function getPhoto_Application_Listener_ComputeImageDetailsService()
+    {
+        return $this->services['photo.application.listener.compute_image_details'] = new \Booothy\Photo\Application\Listener\ComputeImageDetails($this->get('app.color_extractor'), $this->get('app.image_manager'), $this->get('photo.infrastructure.repository.mongo.photo_saver'));
     }
 
     /**
