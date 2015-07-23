@@ -20,10 +20,14 @@ final class Resource implements Marshaller
             'id'            => $element->id()->value(),
             'quote'         => $element->quote()->value(),
             'upload'        => [
-                'filename'     => $element->upload()->filename(),
-                'mime_type'    => $element->upload()->mimeType(),
-                'download_url' => $this->download_url_generator->__invoke(
+                'filename'           => $element->upload()->filename(),
+                'mime_type'          => $element->upload()->mimeType(),
+                'download_url'       => $this->download_url_generator->__invoke(
                     $element->upload()
+                ),
+                'thumb_download_url' => $this->download_url_generator->__invoke(
+                    $element->upload(),
+                    true
                 ),
             ],
             'image_details' => [
