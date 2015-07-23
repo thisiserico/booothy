@@ -1,5 +1,6 @@
-var Link         = require('react-router').Link;
-var React = require('react');
+var Link      = require('react-router').Link;
+var Preloader = require('../Boooth/Preloader');
+var React     = require('react');
 
 var PhotoThumbnail = React.createClass({
     render : function() {
@@ -10,7 +11,12 @@ var PhotoThumbnail = React.createClass({
                 className="boooth_thumbnail"
                 data-content={this.props.photo['quote']}
             >
-                <img src={this.props.photo['upload']['download_url']} />
+                <Preloader
+                    src={this.props.photo['upload']['download_url']}
+                    default_width={300}
+                    width={this.props.photo['image_details']['width'] > 0 ? this.props.photo['image_details']['width'] + 'px' : '640' }
+                    height={this.props.photo['image_details']['height'] > 0 ? this.props.photo['image_details']['height'] + 'px' : '480' }
+                    background={this.props.photo['image_details']['hex_color'] !== '' ? this.props.photo['image_details']['hex_color'] : '#3f1e31' } />
             </Link>
         );
     }
