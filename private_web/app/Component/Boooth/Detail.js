@@ -1,5 +1,6 @@
 var classNames   = require('classnames');
 var Link         = require('react-router').Link;
+var Preloader    = require('../Boooth/Preloader');
 var PhotosClient = require('../../Api/PhotosClient');
 var PhotoStore   = require('../../Store/PhotoStore');
 var React        = require('react');
@@ -71,7 +72,12 @@ var Detail = React.createClass({
         if (!this.state.photo_being_loaded) {
             details_content = (
                 <div>
-                    <img src={this.state.photo.upload.download_url} />
+                    <Preloader
+                        src={this.state.photo.upload.download_url}
+                        default_width={640}
+                        width={this.state.photo.image_details.width > 0 ? this.state.photo.image_details.width : '640' }
+                        height={this.state.photo.image_details.height > 0 ? this.state.photo.image_details.height : '480' }
+                        background={this.state.photo.image_details.hex_color !== '' ? this.state.photo.image_details.hex_color : '#3f1e31' } />
                     <span>{this.state.photo.quote}</span>
                 </div>
             );

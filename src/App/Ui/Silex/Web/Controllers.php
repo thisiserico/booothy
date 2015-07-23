@@ -13,6 +13,12 @@ $app
     ->bind('home');
 
 $app
+    ->get('/u/thumb/{filename}', function ($filename) use ($app) {
+        return $app->sendFile(BASE_DIR . 'var/uploads/thumbs/' . $filename);
+    })
+    ->bind('download_thumb');
+
+$app
     ->get('/u/{filename}', function ($filename) use ($app) {
         return $app->sendFile(BASE_DIR . 'var/uploads/' . $filename);
     })

@@ -4,6 +4,7 @@ namespace Booothy\Photo\Domain\Model;
 
 use DateTimeImmutable;
 use Booothy\Photo\Domain\Model\ValueObject\Id;
+use Booothy\Photo\Domain\Model\ValueObject\ImageDetails;
 use Booothy\Photo\Domain\Model\ValueObject\Quote;
 use Booothy\Photo\Domain\Model\ValueObject\Upload;
 
@@ -14,17 +15,20 @@ final class Photo
     private $id;
     private $quote;
     private $upload;
+    private $image_details;
     private $creation_date;
 
     public function __construct(
         Id $an_id,
         Quote $a_quote,
         Upload $an_upload,
+        ImageDetails $some_image_details,
         DateTimeImmutable $a_creation_date
     ) {
         $this->id            = $an_id;
         $this->quote         = $a_quote;
         $this->upload        = $an_upload;
+        $this->image_details = $some_image_details;
         $this->creation_date = $a_creation_date;
     }
 
@@ -35,13 +39,14 @@ final class Photo
         $id            = Id::next();
         $quote         = new Quote($a_quote);
         $creation_date = new DateTimeImmutable;
+        $image_details = ImageDetails::fake();
         $upload        = self::generateUpload(
             $a_quote,
             $creation_date,
             $an_upload_mime_type
         );
 
-        return new self($id, $quote, $upload, $creation_date);
+        return new self($id, $quote, $upload, $image_details, $creation_date);
     }
 
     private static function generateUpload(
@@ -80,6 +85,11 @@ final class Photo
         );
     }
 
+    public function isDetailedAs($hex_color, $width, $height)
+    {
+        $this->image_details = new ImageDetails($hex_color, $width, $height);
+    }
+
     public function id()
     {
         return $this->id;
@@ -93,6 +103,11 @@ final class Photo
     public function upload()
     {
         return $this->upload;
+    }
+
+    public function imageDetails()
+    {
+        return $this->image_details;
     }
 
     public function createdAt()

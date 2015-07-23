@@ -15,6 +15,11 @@ final class Marshaller
                 'filename'  => $photo->upload()->filename(),
                 'mime_type' => $photo->upload()->mimeType(),
             ],
+            'image_details' => [
+                'hex_color' => $photo->imageDetails()->hexColor(),
+                'width'     => $photo->imageDetails()->width(),
+                'height'    => $photo->imageDetails()->height(),
+            ],
             'creation_date' => $photo->createdAt(),
         ];
     }

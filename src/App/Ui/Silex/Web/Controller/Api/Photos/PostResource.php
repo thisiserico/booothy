@@ -24,6 +24,13 @@ final class PostResource
             ->get('app.event.emitter')
             ->addListener(
                 NewPhotoUploaded::class,
+                $app['container']->get('photo.application.listener.compute_image_details')
+            );
+
+        $app['container']
+            ->get('app.event.emitter')
+            ->addListener(
+                NewPhotoUploaded::class,
                 $app['container']->get('photo.application.listener.generate_uploads')
             );
 

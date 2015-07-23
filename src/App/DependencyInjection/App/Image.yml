@@ -1,0 +1,6 @@
+services:
+    app.color_extractor:
+        class: League\ColorExtractor\Client
+
+    app.image_manager:
+        class: Intervention\Image\ImageManager

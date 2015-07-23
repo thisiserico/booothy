@@ -10,14 +10,15 @@ final class DownloadUrlGeneratorTest extends PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {
-        $this->booothy_download_pattern = null;
-        $this->upload           = null;
+        $this->booothy_download_pattern       = null;
+        $this->booothy_thumb_download_pattern = null;
+        $this->upload                         = null;
     }
 
     /** @test */
     public function shouldGetTheBooothyDownloadUrl()
     {
-        $this->givenABooothyDownloadPattern();
+        $this->givenSomeDownloadPatterns();
         $this->andAnUploadValueObject();
         $this->assertEquals(
             'booothy.tld/u/filename.png',
@@ -25,9 +26,21 @@ final class DownloadUrlGeneratorTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    private function givenABooothyDownloadPattern()
+    /** @test */
+    public function shouldGetTheBooothyThumbDownloadUrl()
     {
-        $this->booothy_download_pattern = 'booothy.tld/u/{filename}';
+        $this->givenSomeDownloadPatterns();
+        $this->andAnUploadValueObject();
+        $this->assertEquals(
+            'booothy.tld/u/thumb/filename.png',
+            $this->generateThumbDownloadUrl()
+        );
+    }
+
+    private function givenSomeDownloadPatterns()
+    {
+        $this->booothy_download_pattern       = 'booothy.tld/u/{filename}';
+        $this->booothy_thumb_download_pattern = 'booothy.tld/u/thumb/{filename}';
     }
 
     private function andAnUploadValueObject()
@@ -37,7 +50,21 @@ final class DownloadUrlGeneratorTest extends PHPUnit_Framework_TestCase
 
     private function generateDownloadUrl()
     {
-        $service = new DownloadUrlGenerator($this->booothy_download_pattern);
+        $service = new DownloadUrlGenerator(
+            $this->booothy_download_pattern,
+            $this->booothy_thumb_download_pattern
+        );
+
         return $service($this->upload);
+    }
+
+    private function generateThumbDownloadUrl()
+    {
+        $service = new DownloadUrlGenerator(
+            $this->booothy_download_pattern,
+            $this->booothy_thumb_download_pattern
+        );
+
+        return $service($this->upload, true);
     }
 }

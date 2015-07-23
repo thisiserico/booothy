@@ -46,8 +46,6 @@ var PhotoList = React.createClass({
     },
 
     scrollListener : function () {
-        this.removeScrollListener();
-
         var scrolled_height = window.pageYOffset;
         var page_height     = window.innerHeight;
         var body_height     = window.document.body.offsetHeight;
@@ -65,8 +63,6 @@ var PhotoList = React.createClass({
                 loaded_pages : loaded_pages
             });
         }
-
-        this.addScrollListener();
     },
 
     shouldLoadNextPage : function () {
