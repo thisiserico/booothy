@@ -12,6 +12,7 @@ services:
         class     : Booothy\Photo\Application\Listener\GenerateUploads
         arguments :
             - @app.file.handler
+            - @app.image_manager
             - @photo.domain.repository.saver
 
     ## Service

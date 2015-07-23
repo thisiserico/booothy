@@ -121,7 +121,7 @@ class ProdServiceContainer extends Container
      */
     protected function getPhoto_Application_Listener_GenerateUploadsService()
     {
-        return $this->services['photo.application.listener.generate_uploads'] = new \Booothy\Photo\Application\Listener\GenerateUploads(new \Symfony\Component\Filesystem\Filesystem(), $this->get('photo.infrastructure.repository.mongo.photo_saver'));
+        return $this->services['photo.application.listener.generate_uploads'] = new \Booothy\Photo\Application\Listener\GenerateUploads(new \Symfony\Component\Filesystem\Filesystem(), $this->get('app.image_manager'), $this->get('photo.infrastructure.repository.mongo.photo_saver'));
     }
 
     /**
