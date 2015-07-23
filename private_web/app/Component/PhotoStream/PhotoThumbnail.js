@@ -14,6 +14,7 @@ var PhotoThumbnail = React.createClass({
                 <Preloader
                     src={this.props.photo['upload']['download_url']}
                     default_width={300}
+                    expand_to_default={true}
                     width={this.props.photo['image_details']['width'] > 0 ? this.props.photo['image_details']['width'] : '640' }
                     height={this.props.photo['image_details']['height'] > 0 ? this.props.photo['image_details']['height'] : '480' }
                     background={this.props.photo['image_details']['hex_color'] !== '' ? this.props.photo['image_details']['hex_color'] : '#3f1e31' } />

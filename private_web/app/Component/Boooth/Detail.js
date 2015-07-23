@@ -75,9 +75,9 @@ var Detail = React.createClass({
                     <Preloader
                         src={this.state.photo.upload.download_url}
                         default_width={640}
-                        width={this.state.photo['image_details']['width'] > 0 ? this.state.photo['image_details']['width'] : '640' }
-                        height={this.state.photo['image_details']['height'] > 0 ? this.state.photo['image_details']['height'] : '480' }
-                        background={this.state.photo['image_details']['hex_color'] !== '' ? this.state.photo['image_details']['hex_color'] : '#3f1e31' } />
+                        width={this.state.photo.image_details.width > 0 ? this.state.photo.image_details.width : '640' }
+                        height={this.state.photo.image_details.height > 0 ? this.state.photo.image_details.height : '480' }
+                        background={this.state.photo.image_details.hex_color !== '' ? this.state.photo.image_details.hex_color : '#3f1e31' } />
                     <span>{this.state.photo.quote}</span>
                 </div>
             );
