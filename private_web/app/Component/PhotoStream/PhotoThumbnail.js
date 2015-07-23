@@ -12,7 +12,7 @@ var PhotoThumbnail = React.createClass({
                 data-content={this.props.photo['quote']}
             >
                 <Preloader
-                    src={this.props.photo['upload']['download_url']}
+                    src={this.props.photo['upload']['thumb_download_url']}
                     default_width={300}
                     expand_to_default={true}
                     width={this.props.photo['image_details']['width'] > 0 ? this.props.photo['image_details']['width'] : '640' }
