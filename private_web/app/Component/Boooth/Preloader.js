@@ -5,8 +5,8 @@ var RouteHandler = require('react-router').RouteHandler;
 var PreLoader = React.createClass({
     getStyle : function () {
         return {
-            width      : this.props.default_width,
-            height     : this.props.default_width * this.props.height / this.props.width,
+            width      : this.props.default_width + 'px',
+            height     : this.props.default_width * this.props.height / this.props.width + 'px',
             background : this.props.background,
         };
     },
