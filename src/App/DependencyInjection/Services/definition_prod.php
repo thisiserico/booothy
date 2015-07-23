@@ -173,7 +173,7 @@ class ProdServiceContainer extends Container
      */
     protected function getPhoto_Domain_Service_DownloadUrlGeneratorService()
     {
-        return $this->services['photo.domain.service.download_url_generator'] = new \Booothy\Photo\Domain\Service\DownloadUrlGenerator('http://booothy.ericlopez.me.dev/index_dev.php/u/{filename}');
+        return $this->services['photo.domain.service.download_url_generator'] = new \Booothy\Photo\Domain\Service\DownloadUrlGenerator('http://booothy.ericlopez.me.dev/index_dev.php/u/{filename}', 'http://booothy.ericlopez.me.dev/index_dev.php/u/thumb/{filename}');
     }
 
     /**
@@ -309,6 +309,7 @@ class ProdServiceContainer extends Container
             'mongo.server' => 'mongodb://127.0.0.1:27017',
             'booothy_api_url' => 'http://booothy.ericlopez.me.dev/index_dev.php/api/',
             'booothy_download_url' => 'http://booothy.ericlopez.me.dev/index_dev.php/u/{filename}',
+            'booothy_thumb_download_url' => 'http://booothy.ericlopez.me.dev/index_dev.php/u/thumb/{filename}',
         );
     }
 }
