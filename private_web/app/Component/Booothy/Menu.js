@@ -1,6 +1,7 @@
 var Link         = require('react-router').Link;
 var React        = require('react');
 var RouteHandler = require('react-router').RouteHandler;
+var SignOut      = require('./SignOut');
 
 var Menu = React.createClass({
     getInitialState : function () {
@@ -22,7 +23,7 @@ var Menu = React.createClass({
     render : function() {
         return (
             <div className="menu" onMouseOver={this._menuMouseOver} onMouseOut={this._menuMouseOut}>
-                <Link to="boooth" style={{ display : this.state.menu_hover ? 'block' : 'none' }}><i className="fa fa-sign-out" /></Link>
+                <SignOut style={{ display : this.state.menu_hover ? 'block' : 'none' }} />
                 <Link to="boooth" style={{ display : this.state.menu_hover ? 'block' : 'none' }}><i className="fa fa-cog" /></Link>
 
                 <Link to="boooth">
