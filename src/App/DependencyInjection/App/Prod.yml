@@ -1,4 +1,7 @@
 parameters:
+    google.client_id     : 'booothy_id'
+    google.client_secret : 'booothy_secret'
+
     folder.cache          : 'booothy/folder/cache/'
     folder.logs           : 'booothy/folder/logs/'
     folder.tmp            : 'booothy/folder/tmp/'

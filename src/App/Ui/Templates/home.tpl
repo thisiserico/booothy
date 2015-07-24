@@ -4,7 +4,7 @@
     <title>Boothy!</title>
 
     <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="619547741738-htbf13mbp9de608vkepmea0k8euf164b.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="{{google_client_id}}">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
