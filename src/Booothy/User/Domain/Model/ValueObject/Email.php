@@ -11,7 +11,7 @@ final class Email
         $this->email = $a_raw_email;
     }
 
-    public function email()
+    public function value()
     {
         return $this->email;
     }

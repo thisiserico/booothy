@@ -11,7 +11,7 @@ final class Id
         $this->raw_id = $a_raw_id;
     }
 
-    public function id()
+    public function value()
     {
         return $this->id;
     }
