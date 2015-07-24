@@ -6,10 +6,19 @@ var SignIn = React.createClass({
     },
 
     componentDidMount : function () {
-        this.onSignIn({});
+        gapi.signin2.render('g-signin2', {
+            'scope'     : 'https://www.googleapis.com/auth/plus.login',
+            'width'     : 200,
+            'height'    : 50,
+            'longtitle' : false,
+            'theme'     : 'dark',
+            'onsuccess' : this.onSignIn
+        });
     },
 
     onSignIn : function (google_user) {
+        window.google_id_token = google_user.getAuthResponse().id_token;
+
         this.setState({ signed_in : true });
         this.props.onSuccess();
     },
@@ -21,11 +30,7 @@ var SignIn = React.createClass({
 
         return (
             <div className="sign_in">
-                <div
-                    className="g-signin2"
-                    data-onsuccess={this.onSignIn}
-                    data-onfailure={this.onfailure}
-                    data-theme="dark" />
+                <div id="g-signin2" />
             </div>
         );
     }
