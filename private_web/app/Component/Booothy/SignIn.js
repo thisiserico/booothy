@@ -6,14 +6,25 @@ var SignIn = React.createClass({
     },
 
     componentDidMount : function () {
-        gapi.signin2.render('g-signin2', {
-            'scope'     : 'https://www.googleapis.com/auth/plus.login',
-            'width'     : 200,
-            'height'    : 50,
-            'longtitle' : false,
-            'theme'     : 'dark',
-            'onsuccess' : this.onSignIn
-        });
+        this.addGoogleSignInListener();
+    },
+
+    addGoogleSignInListener : function () {
+        try {
+            gapi.signin2.render('g-signin2', {
+                'scope'     : 'https://www.googleapis.com/auth/plus.login',
+                'width'     : 200,
+                'height'    : 50,
+                'longtitle' : false,
+                'theme'     : 'dark',
+                'onsuccess' : this.onSignIn
+            });
+        }
+        catch (error) {
+            setTimeout(function () {
+                this.addGoogleSignInListener();
+            }.bind(this), 300);
+        }
     },
 
     onSignIn : function (google_user) {
