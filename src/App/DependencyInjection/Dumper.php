@@ -2,10 +2,13 @@
 
 namespace App\DependencyInjection;
 
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
-use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+
 
 class Dumper
 {
@@ -25,6 +28,7 @@ class Dumper
         $php_file_path = __DIR__ . '/Services/' . self::FILENAME . '_' . $environment . '.php';
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/Services'));
+        $loader->setResolver(new LoaderResolver([new PhpFileLoader($container, new FileLocator(__DIR__ . '/Services'))]));
         $loader->load($yml_filename);
         $container->compile();
 
