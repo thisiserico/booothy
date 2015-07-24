@@ -19,7 +19,7 @@ final class CompleteCollectionLoader implements CollectionLoader
         $this->hydrator = $an_hydrator;
     }
 
-    public function __invoke($requested_page, $photos_per_page)
+    public function __invoke()
     {
         $cursor = $this->mongo->find();
         return $this->hydrator->__invoke($cursor);
