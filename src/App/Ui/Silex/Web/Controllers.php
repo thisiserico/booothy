@@ -30,6 +30,10 @@ $app
     ->get('/api/users', $controller('Api\Users\GetCollection'))
     ->bind('api:users:get:collection');
 
+$app
+    ->get('/api/users/{email}', $controller('Api\Users\GetResource'))
+    ->bind('api:users:get:resource');
+
 
 $app
     ->get('/api/photos', $controller('Api\Photos\GetCollection'))
