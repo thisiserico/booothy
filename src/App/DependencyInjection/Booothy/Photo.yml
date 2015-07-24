@@ -14,6 +14,8 @@ services:
             - @app.file.handler
             - @app.image_manager
             - @photo.domain.repository.saver
+            - %folder.uploads%
+            - %folder.uploads.thumbs%
 
     ## Service
     ### GetCompleteCollection
