@@ -18,11 +18,11 @@ $app          = require __DIR__.'/../Application.php';
 $app['debug'] = true;
 
 $app->register(new MonologServiceProvider, [
-    'monolog.logfile' => BASE_DIR . 'var/logs/silex_dev.log',
+    'monolog.logfile' => $app['container']->getParameter('folder.logs') . 'silex_dev.log',
 ]);
 
 $app->register(new WebProfilerServiceProvider, [
-    'profiler.cache_dir' => BASE_DIR . 'var/cache/profiler',
+    'profiler.cache_dir' => $app['container']->getParameter('folder.cache') . 'profiler',
 ]);
 
 require __DIR__.'/../Controllers.php';

@@ -1,3 +1,4 @@
 imports:
     - { resource: 'definition_prod.yml' }
     - { resource: '../App/Dev.yml' }
+    - { resource: 'private_definition_dev.php', ignore_errors: true }
