@@ -1,0 +1,65 @@
+services:
+    # Application
+    ## Service
+    ### GetCollection
+    user.application.service.get_collection:
+        alias : user.application.service.get_collection.with_marshaller
+
+    user.application.service.get_collection.with_marshaller:
+        class     : Booothy\Core\Application\Service\Marshaller\UseCase
+        public    : false
+        arguments :
+            - @user.application.service.get_collection.implementation
+            - @user.application.marshaller.collection
+
+    user.application.service.get_collection.implementation:
+        class     : Booothy\User\Application\Service\GetCollection\UseCase
+        public    : false
+        arguments :
+            - @user.domain.repository.collection_loader
+
+    ## Marshaller
+    user.application.marshaller.resource:
+        class  : Booothy\User\Application\Marshaller\Resource
+        public : false
+
+    user.application.marshaller.collection:
+        class     : Booothy\User\Application\Marshaller\Collection
+        public    : false
+        arguments :
+            - @user.application.marshaller.resource
+
+
+    # Domain
+    ## Hydrator
+    user.domain.hydrator.user_resource:
+        alias  : user.infrastructure.hydrator.mongo.user_resource
+        public : false
+
+    user.domain.hydrator.user_collection:
+        alias  : user.infrastructure.hydrator.mongo.user_collection
+        public : false
+
+    ## Repository
+    user.domain.repository.collection_loader:
+        alias  : user.infrastructure.repository.mongo.complete_collection_loader
+        public : false
+
+
+    # Infrastructure
+    ## Hydrator
+    user.infrastructure.hydrator.mongo.user_resource:
+        class: Booothy\User\Infrastructure\Hydrator\Mongo\UserResource
+
+    user.infrastructure.hydrator.mongo.user_collection:
+        class: Booothy\User\Infrastructure\Hydrator\Mongo\UserCollection
+        arguments:
+            - @user.domain.hydrator.user_resource
+
+    ## Repository
+    user.infrastructure.repository.mongo.complete_collection_loader:
+        class     : Booothy\User\Infrastructure\Repository\Mongo\CompleteCollectionLoader
+        public    : false
+        arguments :
+            - @app.mongo.collection.user
+            - @user.domain.hydrator.user_collection
