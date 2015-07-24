@@ -2,6 +2,10 @@
 <html>
 <head>
     <title>Boothy!</title>
+
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="619547741738-htbf13mbp9de608vkepmea0k8euf164b.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
     <div id="app"></div>
