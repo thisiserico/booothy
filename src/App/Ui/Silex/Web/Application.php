@@ -15,7 +15,13 @@ $app->register(new TwigServiceProvider());
 $app->register(new HttpFragmentServiceProvider());
 
 $file_name = 'definition_' . ENV . '.php';
-require_once BASE_DIR . 'src/App/DependencyInjection/Services/' . $file_name;
+$file_path = BASE_DIR . 'src/App/DependencyInjection/Services/' . $file_name;
+
+if (!file_exists($file_path)) {
+    return $app;
+}
+
+require_once $file_path;
 
 $class_name       = ucfirst(ENV) . 'ServiceContainer';
 $app['container'] = new $class_name;
