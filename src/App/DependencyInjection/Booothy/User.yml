@@ -18,6 +18,23 @@ services:
         arguments :
             - @user.domain.repository.collection_loader
 
+    ### GetResource
+    user.application.service.get_resource:
+        alias : user.application.service.get_resource.with_marshaller
+
+    user.application.service.get_resource.with_marshaller:
+        class     : Booothy\Core\Application\Service\Marshaller\UseCase
+        public    : false
+        arguments :
+            - @user.application.service.get_resource.implementation
+            - @user.application.marshaller.resource
+
+    user.application.service.get_resource.implementation:
+        class     : Booothy\User\Application\Service\GetResource\UseCase
+        public    : false
+        arguments :
+            - @user.domain.repository.resource_loader
+
     ## Marshaller
     user.application.marshaller.resource:
         class  : Booothy\User\Application\Marshaller\Resource
@@ -45,6 +62,10 @@ services:
         alias  : user.infrastructure.repository.mongo.complete_collection_loader
         public : false
 
+    user.domain.repository.resource_loader:
+        alias  : user.infrastructure.repository.mongo.resource_loader
+        public : false
+
 
     # Infrastructure
     ## Hydrator
@@ -63,3 +84,10 @@ services:
         arguments :
             - @app.mongo.collection.user
             - @user.domain.hydrator.user_collection
+
+    user.infrastructure.repository.mongo.resource_loader:
+        class     : Booothy\User\Infrastructure\Repository\Mongo\ResourceLoader
+        public    : false
+        arguments :
+            - @app.mongo.collection.user
+            - @user.domain.hydrator.user_resource
