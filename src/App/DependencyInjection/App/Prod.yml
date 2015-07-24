@@ -1,4 +1,10 @@
 parameters:
+    folder.cache          : 'booothy/folder/cache/'
+    folder.logs           : 'booothy/folder/logs/'
+    folder.tmp            : 'booothy/folder/tmp/'
+    folder.uploads        : 'booothy/folder/uploads/'
+    folder.uploads.thumbs : 'booothy/folder/uploads/thumbs/'
+
     mongo.db     : 'booothy_db'
     mongo.server : 'mongodb://mongodb_prod:27017'
 
