@@ -17,8 +17,8 @@ final class PostResource
         $quote         = $silex_request->get('quote');
         $uploaded_file = $silex_request->files->get('uploaded_file');
         $mime_type     = $uploaded_file->getClientMimeType();
-        $file_path     = BASE_DIR . 'var/tmp/' . $uploaded_file->getFilename();
-        $uploaded_file->move(BASE_DIR . 'var/tmp', $uploaded_file->getFilename());
+        $file_path     = $app['container']->getParameter('folder.tmp') . $uploaded_file->getFilename();
+        $uploaded_file->move($app['container']->getParameter('folder.tmp'), $uploaded_file->getFilename());
 
         $app['container']
             ->get('app.event.emitter')

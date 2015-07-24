@@ -23,6 +23,8 @@ final class GenerateUploadsTest extends PHPUnit_Framework_TestCase
         $this->photo              = null;
         $this->temporary_location = null;
         $this->event              = null;
+        $this->uploads_folder     = null;
+        $this->thumbnails_folder  = null;
 
         m::close();
     }
@@ -36,6 +38,8 @@ final class GenerateUploadsTest extends PHPUnit_Framework_TestCase
         $this->andAPhoto();
         $this->andATemporaryLocation();
         $this->havingANewPhotoUploadedEvent();
+        $this->andAnUploadsFolder();
+        $this->andAThumbnailsFolder();
         $this->thenTheFileHandlerShouldMoveTheFile();
         $this->andTheThumbnailShouldBeGenerated();
         $this->whenExecutingTheListener();
@@ -50,6 +54,8 @@ final class GenerateUploadsTest extends PHPUnit_Framework_TestCase
         $this->andAPhoto();
         $this->andATemporaryLocation();
         $this->havingANewPhotoUploadedEvent();
+        $this->andAnUploadsFolder();
+        $this->andAThumbnailsFolder();
         $this->thenThePhotoModificationGetPersisted();
         $this->whenExecutingTheListener();
     }
@@ -63,6 +69,8 @@ final class GenerateUploadsTest extends PHPUnit_Framework_TestCase
         $this->andAPhoto();
         $this->andATemporaryLocation();
         $this->havingANewPhotoUploadedEvent();
+        $this->andAnUploadsFolder();
+        $this->andAThumbnailsFolder();
         $modified_photo = $this->whenExecutingTheListener();
 
         $this->assertEquals(
@@ -74,7 +82,6 @@ final class GenerateUploadsTest extends PHPUnit_Framework_TestCase
     private function givenAFileHandler()
     {
         $this->file_handler = m::mock(Filesystem::class);
-        $this->file_handler->shouldReceive('mkdir')->byDefault();
         $this->file_handler->shouldReceive('copy')->byDefault();
         $this->file_handler->shouldReceive('remove')->byDefault();
     }
@@ -116,6 +123,16 @@ final class GenerateUploadsTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    private function andAnUploadsFolder()
+    {
+        $this->uploads_folder = '/uploads/';
+    }
+
+    private function andAThumbnailsFolder()
+    {
+        $this->thumbnails_folder = '/thumbnails/';
+    }
+
     private function thenTheFileHandlerShouldMoveTheFile()
     {
         $this->file_handler
@@ -123,7 +140,7 @@ final class GenerateUploadsTest extends PHPUnit_Framework_TestCase
             ->atLeast()->times(1)
             ->with(
                 $this->temporary_location,
-                BASE_DIR . 'var/uploads/' . $this->photo->upload()->filename()
+                $this->uploads_folder . $this->photo->upload()->filename()
             );
 
         $this->file_handler
@@ -134,11 +151,6 @@ final class GenerateUploadsTest extends PHPUnit_Framework_TestCase
 
     private function andTheThumbnailShouldBeGenerated()
     {
-        $this->file_handler
-            ->shouldReceive('mkdir')
-            ->atLeast()->times(1)
-            ->with(BASE_DIR . 'var/uploads/thumbs');
-
         $image_stub = m::mock(Image::class);
         $image_stub
             ->shouldReceive('widen')
@@ -148,7 +160,7 @@ final class GenerateUploadsTest extends PHPUnit_Framework_TestCase
         $image_stub
             ->shouldReceive('save')
             ->atLeast()->times(1)
-            ->with(BASE_DIR . 'var/uploads/thumbs/' . $this->photo->upload()->filename());
+            ->with($this->thumbnails_folder . $this->photo->upload()->filename());
 
         $this->image_manager = m::mock(ImageManager::class);
         $this->image_manager
@@ -168,7 +180,9 @@ final class GenerateUploadsTest extends PHPUnit_Framework_TestCase
         $listener = new GenerateUploads(
             $this->file_handler,
             $this->image_manager,
-            $this->saver_repository
+            $this->saver_repository,
+            $this->uploads_folder,
+            $this->thumbnails_folder
         );
 
         return $listener->handle($this->event);

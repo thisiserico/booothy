@@ -17,15 +17,21 @@ final class GenerateUploads extends AbstractListener
     private $file_handler;
     private $image_manager;
     private $saver_repository;
+    private $uploads_folder;
+    private $thumbnails_folder;
 
     public function __construct(
         Filesystem $a_filesystem_handler,
         ImageManager $an_image_manaer,
-        Saver $a_saver_repository
+        Saver $a_saver_repository,
+        $an_uploads_folder,
+        $a_thumbnails_folder
     ) {
-        $this->file_handler     = $a_filesystem_handler;
-        $this->image_manager    = $an_image_manaer;
-        $this->saver_repository = $a_saver_repository;
+        $this->file_handler      = $a_filesystem_handler;
+        $this->image_manager     = $an_image_manaer;
+        $this->saver_repository  = $a_saver_repository;
+        $this->uploads_folder    = $an_uploads_folder;
+        $this->thumbnails_folder = $a_thumbnails_folder;
     }
 
     public function handle(EventInterface $event)
@@ -42,18 +48,16 @@ final class GenerateUploads extends AbstractListener
 
     private function generateThumb(Photo $photo, $temporary_location)
     {
-        $this->file_handler->mkdir(BASE_DIR . 'var/uploads/thumbs');
-
         $image = $this->image_manager->make($temporary_location);
         $image->widen(self::THUMB_SIZE);
-        $image->save(BASE_DIR . 'var/uploads/thumbs/' . $photo->upload()->filename());
+        $image->save($this->thumbnails_folder . $photo->upload()->filename());
     }
 
     private function moveOriginalImage(Photo $photo, $temporary_location)
     {
         $this->file_handler->copy(
             $temporary_location,
-            BASE_DIR . 'var/uploads/' . $photo->upload()->filename()
+            $this->uploads_folder . $photo->upload()->filename()
         );
 
         $this->file_handler->remove([$temporary_location]);
