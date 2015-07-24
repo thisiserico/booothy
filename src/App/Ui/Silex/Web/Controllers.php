@@ -27,6 +27,11 @@ $app
 
 // Api
 $app
+    ->get('/api/users', $controller('Api\Users\GetCollection'))
+    ->bind('api:users:get:collection');
+
+
+$app
     ->get('/api/photos', $controller('Api\Photos\GetCollection'))
     ->bind('api:photos:get:collection');
 
