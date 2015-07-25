@@ -5,6 +5,7 @@ var EventEmitter  = require('events').EventEmitter;
 
 var USER_CONFIRMED_EVENT   = 'user_confirmed';
 var USER_NOT_ALLOWED_EVENT = 'user_now_allowed';
+var USERS_LOADED_EVENT     = 'users_loaded';
 var _users                 = [];
 var _current_user          = {};
 
@@ -13,11 +14,11 @@ var UsersStore = assign({}, EventEmitter.prototype, {
         return _current_user;
     },
 
-    getUsersCollectiin : function () {
+    getUsersCollection : function () {
         return _users;
     },
 
-    emitChange : function (event) {
+    emitEvent : function (event) {
         this.emit(event);
     },
 
@@ -31,6 +32,10 @@ var UsersStore = assign({}, EventEmitter.prototype, {
 
     removeUserConfirmedListener : function (callback) {
         this.removeListener(USER_CONFIRMED_EVENT, callback);
+    },
+
+    addUsersLoadedListener : function (callback) {
+        this.on(USERS_LOADED_EVENT, callback);
     }
 });
 
@@ -45,6 +50,7 @@ AppDispatcher.register(function (action) {
 
                 default:
                     _users = action.response;
+                    UsersStore.emitEvent(USERS_LOADED_EVENT);
             }
 
             break;
@@ -56,12 +62,12 @@ AppDispatcher.register(function (action) {
                     break;
 
                 case ApiConstants.API_ERROR:
-                    UsersStore.emitChange(USER_NOT_ALLOWED_EVENT);
+                    UsersStore.emitEvent(USER_NOT_ALLOWED_EVENT);
                     break;
 
                 default:
                     _user = action.response;
-                    UsersStore.emitChange(USER_CONFIRMED_EVENT);
+                    UsersStore.emitEvent(USER_CONFIRMED_EVENT);
             }
 
             break;
