@@ -59,7 +59,6 @@ var Menu = React.createClass({
         return (
             <div className="menu" onMouseOver={this._menuMouseOver} onMouseOut={this._menuMouseOut}>
                 <SignOut style={{ display : this.state.menu_hover ? 'block' : 'none' }} />
-                <Link to="boooth" style={{ display : this.state.menu_hover ? 'block' : 'none' }}><i className="fa fa-cog" /></Link>
 
                 {users}
                 {current_user}
