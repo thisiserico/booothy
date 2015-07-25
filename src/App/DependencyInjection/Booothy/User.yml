@@ -1,6 +1,13 @@
 services:
     # Application
     ## Service
+    ###Authenticate
+    user.application.service.authenticate:
+        class     : Booothy\User\Application\Service\Authenticate\UseCase
+        arguments :
+            - @user.domain.service.external_service.adapter.google
+            - @user.domain.repository.resource_loader
+
     ### GetCollection
     user.application.service.get_collection:
         alias : user.application.service.get_collection.with_marshaller
@@ -65,6 +72,17 @@ services:
     user.domain.repository.resource_loader:
         alias  : user.infrastructure.repository.mongo.resource_loader
         public : false
+
+    ## Service
+    user.domain.service.external_service.adapter:
+        alias : user.domain.service.external_service.adapter.google
+
+    user.domain.service.external_service.adapter.google:
+        class     : Booothy\User\Domain\Service\ExternalService\Adapter\Google
+        arguments :
+            - %google.client_id%
+            - %google.client_secret%
+            - @app.google.client
 
 
     # Infrastructure
