@@ -2,7 +2,7 @@ var Link         = require('react-router').Link;
 var Menu         = require('./Menu');
 var React        = require('react');
 var RouteHandler = require('react-router').RouteHandler;
-var SignIn       = require('./SignIn');
+var SignIn       = require('../Auth/SignIn');
 
 var App = React.createClass({
     getInitialState : function () {

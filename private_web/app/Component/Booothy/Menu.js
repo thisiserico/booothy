@@ -1,7 +1,7 @@
 var Link         = require('react-router').Link;
 var React        = require('react');
 var RouteHandler = require('react-router').RouteHandler;
-var SignOut      = require('./SignOut');
+var SignOut      = require('../Auth/SignOut');
 
 var Menu = React.createClass({
     getInitialState : function () {
