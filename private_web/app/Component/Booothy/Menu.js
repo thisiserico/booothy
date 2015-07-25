@@ -35,9 +35,20 @@ var Menu = React.createClass({
     },
 
     render : function() {
-        var users = [];
+        var current_user     = undefined;
+        var raw_current_user = UsersStore.getCurrentUser();
+        var users            = [];
+        var raw_users        = this.state.users;
 
-        this.state.users.map(function (user) {
+        current_user = (
+            <Link key={raw_current_user.id} to="boooth" style={{ display : this.state.menu_hover ? 'block' : 'none' }}>
+                <img src={raw_current_user.avatar} />
+            </Link>
+        );
+
+        raw_users.map(function (user) {
+            if (user.id === raw_current_user.id) return;
+
             users.push(
                 <Link key={user.id} to="boooth" style={{ display : this.state.menu_hover ? 'block' : 'none' }}>
                     <img src={user.avatar} />
@@ -51,6 +62,7 @@ var Menu = React.createClass({
                 <Link to="boooth" style={{ display : this.state.menu_hover ? 'block' : 'none' }}><i className="fa fa-cog" /></Link>
 
                 {users}
+                {current_user}
 
                 <Link to="boooth">
                     {this.state.menu_hover

@@ -66,7 +66,7 @@ AppDispatcher.register(function (action) {
                     break;
 
                 default:
-                    _user = action.response;
+                    _current_user = action.response;
                     UsersStore.emitEvent(USER_CONFIRMED_EVENT);
             }
 
