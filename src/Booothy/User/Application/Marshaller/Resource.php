@@ -8,6 +8,9 @@ final class Resource implements Marshaller
 {
     public function __invoke($element)
     {
-        return ['id' => $element->email()->value()];
+        return [
+            'id'     => $element->email()->value(),
+            'avatar' => $element->avatar(),
+        ];
     }
 }
