@@ -1,5 +1,7 @@
-var AuthStore = require('../../Store/AuthStore');
-var React     = require('react');
+var AuthStore   = require('../../Store/AuthStore');
+var React       = require('react');
+var UsersClient = require('../../Api/UsersClient');
+var UsersStore  = require('../../Store/UsersStore');
 
 var SignIn = React.createClass({
     getInitialState : function () {
@@ -8,16 +10,25 @@ var SignIn = React.createClass({
 
     componentDidMount : function () {
         AuthStore.addSignInListener(this._onSignInCompleted);
+        UsersStore.addUserConfirmedListener(this._onUserConfirmed)
+
         AuthStore.signIn();
     },
 
     componentWillUnmount : function () {
         AuthStore.removeSignInListener(this._onSignInCompleted);
+        UsersStore.removeUserConfirmedListener(this._onUserConfirmed)
     },
 
     _onSignInCompleted : function () {
-        this.setState({ signed_in : AuthStore.isSignedIn() });
-        this.props.onSuccess();
+        UsersClient.getResource(window.auth.email);
+    },
+
+    _onUserConfirmed : function () {
+        setTimeout(function () {
+            this.setState({ signed_in : AuthStore.isSignedIn() });
+            this.props.onSuccess();
+        }.bind(this), 300);
     },
 
     render : function() {
