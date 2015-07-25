@@ -3,9 +3,10 @@ var AppDispatcher = require('../Dispatcher/AppDispatcher');
 var assign        = require('object-assign');
 var EventEmitter  = require('events').EventEmitter;
 
-var USER_CONFIRMED_EVENT = 'change';
-var _users               = [];
-var _current_user        = {};
+var USER_CONFIRMED_EVENT   = 'user_confirmed';
+var USER_NOT_ALLOWED_EVENT = 'user_now_allowed';
+var _users                 = [];
+var _current_user          = {};
 
 var UsersStore = assign({}, EventEmitter.prototype, {
     getCurrentUser : function () {
@@ -22,6 +23,10 @@ var UsersStore = assign({}, EventEmitter.prototype, {
 
     addUserConfirmedListener : function (callback) {
         this.on(USER_CONFIRMED_EVENT, callback);
+    },
+
+    addUserDisallowedListener : function (callback) {
+        this.on(USER_NOT_ALLOWED_EVENT, callback);
     },
 
     removeUserConfirmedListener : function (callback) {
@@ -51,6 +56,7 @@ AppDispatcher.register(function (action) {
                     break;
 
                 case ApiConstants.API_ERROR:
+                    UsersStore.emitChange(USER_NOT_ALLOWED_EVENT);
                     break;
 
                 default:
