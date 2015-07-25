@@ -1,4 +1,5 @@
-var React = require('react');
+var AuthStore = require('../../Store/AuthStore');
+var React     = require('react');
 
 var SignIn = React.createClass({
     getInitialState : function () {
@@ -6,35 +7,18 @@ var SignIn = React.createClass({
     },
 
     componentDidMount : function () {
-        this.addGoogleSignInListener();
+        AuthStore.addSignInListener(this._onSignInCompleted);
+        AuthStore.signIn();
     },
 
-    addGoogleSignInListener : function () {
-        try {
-            gapi.signin2.render('g-signin2', {
-                'scope'     : 'https://www.googleapis.com/auth/plus.login',
-                'width'     : 200,
-                'height'    : 50,
-                'longtitle' : false,
-                'theme'     : 'dark',
-                'onsuccess' : this.onSignIn
-            });
-        }
-        catch (error) {
-            setTimeout(function () {
-                this.addGoogleSignInListener();
-            }.bind(this), 300);
-        }
+    componentWillUnmount : function () {
+        AuthStore.removeSignInListener(this._onSignInCompleted);
     },
 
-    onSignIn : function (google_user) {
-        window.google_id_token = google_user.getAuthResponse().id_token;
-
-        this.setState({ signed_in : true });
+    _onSignInCompleted : function () {
+        this.setState({ signed_in : AuthStore.isSignedIn() });
         this.props.onSuccess();
     },
-
-    onFailure : function (google_user) {},
 
     render : function() {
         if (this.state.signed_in) return (<div />);

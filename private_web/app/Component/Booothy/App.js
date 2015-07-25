@@ -16,7 +16,7 @@ var App = React.createClass({
     render : function() {
         return (
             <div>
-                <SignIn onSuccess={this.loadContent} />
+                {this.state.load_content ? '' : <SignIn onSuccess={this.loadContent} />}
 
                 <header>booothy</header>
                 {this.state.load_content ? <Menu /> : ''}

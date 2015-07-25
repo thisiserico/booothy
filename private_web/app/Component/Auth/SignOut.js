@@ -1,16 +1,21 @@
-var React  = require('react');
-var Router = require('react-router');
+var AuthStore = require('../../Store/AuthStore');
+var React     = require('react');
+var Router    = require('react-router');
 
 var SignOut = React.createClass({
     mixins : [Router.Navigation],
 
-    signOut : function () {
-        var auth2 = gapi.auth2.getAuthInstance();
+    componentDidMount : function () {
+        AuthStore.addSignOutListener(this._onSignOutCompleted);
+    },
 
-        auth2.signOut().then(function () {
-            this.transitionTo('app');
-            location.reload();
-        }.bind(this));
+    signOut : function () {
+        AuthStore.signOut();
+    },
+
+    _onSignOutCompleted : function () {
+        this.transitionTo('app');
+        location.reload();
     },
 
     render : function() {
