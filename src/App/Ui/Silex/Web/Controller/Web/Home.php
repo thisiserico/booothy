@@ -12,7 +12,10 @@ final class Home
     {
         return new SilexResponse($app['twig']->render(
             'home.tpl',
-            ['api_url' => $app['container']->getParameter('booothy_api_url')]
+            [
+                'api_url'          => $app['container']->getParameter('booothy_api_url'),
+                'google_client_id' => $app['container']->getParameter('google.client_id'),
+            ]
         ));
     }
 }

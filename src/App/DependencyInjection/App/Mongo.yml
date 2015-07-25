@@ -18,3 +18,10 @@ services:
         arguments :
             - @app.mongo.db
             - photo
+
+    app.mongo.collection.user:
+        class     : MongoCollection
+        public    : false
+        arguments :
+            - @app.mongo.db
+            - user

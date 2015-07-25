@@ -1,0 +1,16 @@
+@import '_mixins/_modal'
+
+.sign_in
+    +modal
+
+    > div
+        position  : fixed
+        top       : 50%
+        left      : 50%
+        transform : translate(-50%, -60%)
+
+        > .error_message
+            text-align    : center
+            margin-bottom : 10px
+            font-family   : "Verdana", sans-serif
+            color         : $light_purple

@@ -5,4 +5,5 @@ imports:
     - { resource: '../App/File.yml' }
     - { resource: '../App/Image.yml' }
     - { resource: '../Booothy/Photo.yml' }
+    - { resource: '../Booothy/User.yml' }
     - { resource: 'private_definition_prod.php', ignore_errors: true }
