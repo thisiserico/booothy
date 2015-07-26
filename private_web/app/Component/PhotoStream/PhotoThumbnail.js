@@ -10,6 +10,7 @@ var PhotoThumbnail = React.createClass({
                 params={{ id : this.props.photo['id'] }}
                 className="boooth_thumbnail"
                 data-content={this.props.photo['quote']}
+                title={this.props.photo.creation_date}
             >
                 <Preloader
                     src={this.props.photo['upload']['thumb_download_url']}
