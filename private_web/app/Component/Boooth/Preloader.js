@@ -25,7 +25,7 @@ var PreLoader = React.createClass({
 
         return (
             <ImageLoader
-                    src={this.props.src}
+                    src={this.props.src + '?id_token=' + window.auth.id_token}
                     preloader={this.loadTemporaryImage}
                     wrapper={React.DOM.div}>
                 <div style={styles} />
