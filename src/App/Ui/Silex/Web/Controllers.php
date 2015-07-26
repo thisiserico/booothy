@@ -1,11 +1,30 @@
 <?php
 
+use Silex\Application;
+use Symfony\Component\HttpFoundation\Request;
+use App\Ui\Silex\Web\Controller\Api\Users\AuthenticationHandling;
+
 $controller = function ($controller) {
     return ''
         . 'App\Ui\Silex\Web\Controller\\'
         . $controller
         . '::__invoke';
 };
+
+$private_resources = [
+    'download_thumb',
+    'download',
+    'api:users:get:collection',
+    'api:photos:get:collection',
+    'api:photos:get:resource',
+    'api:photos:post:resource',
+];
+
+$app->before(function (Request $request, Application $app) use ($private_resources) {
+    $authentication_handling = new AuthenticationHandling;
+    return $authentication_handling($request, $app);
+});
+
 
 // Web
 $app

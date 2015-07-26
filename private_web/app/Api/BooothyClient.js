@@ -32,6 +32,10 @@ BooothyClient.addRequest = function (key, request) {
 };
 
 BooothyClient.get = function (url, data, success, error) {
+    if (window.auth) {
+        data.id_token = window.auth.id_token;
+    }
+
     return {
         url     : url,
         type    : 'GET',
@@ -43,6 +47,10 @@ BooothyClient.get = function (url, data, success, error) {
 };
 
 BooothyClient.post = function (url, data, success, error) {
+    if (window.auth) {
+        data.append('id_token', window.auth.id_token);
+    }
+
     return {
         url         : url,
         type        : 'POST',
