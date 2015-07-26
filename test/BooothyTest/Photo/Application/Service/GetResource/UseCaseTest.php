@@ -9,6 +9,7 @@ use Booothy\Photo\Application\Service\GetResource\UseCase;
 use Booothy\Photo\Domain\Model\Photo;
 use Booothy\Photo\Domain\Repository\Exception\NonExistingResource;
 use Booothy\Photo\Domain\Repository\ResourceLoader;
+use Booothy\User\Domain\Model\ValueObject\Email;
 
 final class UseCaseTest extends PHPUnit_Framework_TestCase
 {
@@ -65,7 +66,7 @@ final class UseCaseTest extends PHPUnit_Framework_TestCase
     {
         $this->repository
             ->shouldReceive('__invoke')
-            ->andReturn(Photo::generateNew('quote', 'image/png'));
+            ->andReturn(Photo::generateNew('quote', 'image/png', new Email('email')));
     }
 
     private function thenTheRequestedResourceMightNotExist()

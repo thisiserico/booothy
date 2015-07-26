@@ -22,7 +22,11 @@ final class UseCase implements Service
 
     public function __invoke(CoreRequest $request)
     {
-        $photo = Photo::generateNew($request->quote, $request->upload_mime_type);
+        $photo = Photo::generateNew(
+            $request->quote,
+            $request->upload_mime_type,
+            $request->user_id
+        );
 
         $this->photo_saver->__invoke($photo);
         $this->event_emitter->emit(new NewPhotoUploaded(

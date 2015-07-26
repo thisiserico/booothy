@@ -12,6 +12,7 @@ use Booothy\Photo\Application\Listener\ComputeImageDetails;
 use Booothy\Photo\Domain\Repository\Saver;
 use Booothy\Photo\Domain\Model\Photo;
 use Booothy\Photo\Domain\Event\NewPhotoUploaded;
+use Booothy\User\Domain\Model\ValueObject\Email;
 
 final class ComputeImageDetailsTest extends PHPUnit_Framework_TestCase
 {
@@ -95,7 +96,7 @@ final class ComputeImageDetailsTest extends PHPUnit_Framework_TestCase
 
     private function andAPhoto()
     {
-        $this->photo = Photo::generateNew('quote', 'image/png');
+        $this->photo = Photo::generateNew('quote', 'image/png', new Email('email'));
     }
 
     private function andATemporaryLocation()

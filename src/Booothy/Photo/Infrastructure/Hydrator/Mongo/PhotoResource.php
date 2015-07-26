@@ -9,6 +9,7 @@ use Booothy\Photo\Domain\Model\ValueObject\Id;
 use Booothy\Photo\Domain\Model\ValueObject\ImageDetails;
 use Booothy\Photo\Domain\Model\ValueObject\Quote;
 use Booothy\Photo\Domain\Model\ValueObject\Upload;
+use Booothy\User\Domain\Model\ValueObject\Email;
 
 final class PhotoResource implements Hydrator
 {
@@ -40,7 +41,8 @@ final class PhotoResource implements Hydrator
                 $document['image_details']['width'],
                 $document['image_details']['height']
             ),
-            new DateTimeImmutable($document['creation_date'])
+            new DateTimeImmutable($document['creation_date']),
+            new Email($document['user'])
         );
     }
 }
