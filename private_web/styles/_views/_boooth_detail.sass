@@ -13,17 +13,20 @@ $boooth_detail_width : 640
         color : $light_purple
 
     > div
-        position  : fixed
-        top       : 50%
-        left      : 50%
-        transform : translate(-50%, -60%)
+        position    : fixed
+        top         : 50%
+        left        : 50%
+        transform   : translate(-50%, -60%)
+        white-space : nowrap
 
         img
             width      : auto
             height     : auto
             max-width  : #{$boooth_detail_width}px
             max-height : 80%
+            margin     : 0 auto
             background : $light_white
+            display    : block
 
         span
             display     : block
