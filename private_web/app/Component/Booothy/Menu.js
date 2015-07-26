@@ -1,9 +1,11 @@
-var Link         = require('react-router').Link;
-var UsersClient  = require('../../Api/UsersClient');
-var UsersStore   = require('../../Store/UsersStore');
-var React        = require('react');
-var RouteHandler = require('react-router').RouteHandler;
-var SignOut      = require('../Auth/SignOut');
+var AppDispatcher  = require('../../Dispatcher/AppDispatcher');
+var Link           = require('react-router').Link;
+var PhotoConstants = require('../../Constant/PhotoConstants');
+var UsersClient    = require('../../Api/UsersClient');
+var UsersStore     = require('../../Store/UsersStore');
+var React          = require('react');
+var RouteHandler   = require('react-router').RouteHandler;
+var SignOut        = require('../Auth/SignOut');
 
 var Menu = React.createClass({
     getInitialState : function () {
@@ -14,8 +16,12 @@ var Menu = React.createClass({
     },
 
     componentDidMount : function () {
-        UsersStore.addUsersLoadedListener(this._usersLoaded);
+        UsersStore.addUsersLoadedListener(this.usersLoaded);
         UsersClient.getCollection();
+    },
+
+    usersLoaded : function () {
+        this.setState({ users : UsersStore.getUsersCollection() });
     },
 
     _menuMouseOver : function () {
@@ -30,8 +36,13 @@ var Menu = React.createClass({
         this.setState({ menu_hover : false });
     },
 
-    _usersLoaded : function () {
-        this.setState({ users : UsersStore.getUsersCollection() });
+    _applyFiltering : function (user_id) {
+        AppDispatcher.dispatch({
+            actionType : PhotoConstants.FILTER_PER_USER,
+            user_id    : user_id
+        });
+
+        event.preventDefault();
     },
 
     render : function() {
@@ -41,18 +52,18 @@ var Menu = React.createClass({
         var raw_users        = this.state.users;
 
         current_user = (
-            <Link key={raw_current_user.id} to="boooth" style={{ display : this.state.menu_hover ? 'block' : 'none' }}>
+            <a key={raw_current_user.id} onClick={this._applyFiltering.bind(this, raw_current_user.id)} style={{ display : this.state.menu_hover ? 'block' : 'none' }}>
                 <img src={raw_current_user.avatar} />
-            </Link>
+            </a>
         );
 
         raw_users.map(function (user) {
             if (user.id === raw_current_user.id) return;
 
             users.push(
-                <Link key={user.id} to="boooth" style={{ display : this.state.menu_hover ? 'block' : 'none' }}>
+                <a key={user.id} onClick={this._applyFiltering.bind(this, user.id)} style={{ display : this.state.menu_hover ? 'block' : 'none' }}>
                     <img src={user.avatar} />
-                </Link>
+                </a>
             );
         }.bind(this));
 

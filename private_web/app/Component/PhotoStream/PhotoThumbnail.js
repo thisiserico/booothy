@@ -8,7 +8,7 @@ var PhotoThumbnail = React.createClass({
             <Link
                 to="boooth_detail"
                 params={{ id : this.props.photo['id'] }}
-                className="boooth_thumbnail"
+                className={this.props.photo.hidden ? 'boooth_thumbnail hide' : 'boooth_thumbnail display' }
                 data-content={this.props.photo['quote']}
                 title={this.props.photo.creation_date}
             >
