@@ -21,6 +21,7 @@ final class Marshaller
                 'height'    => $photo->imageDetails()->height(),
             ],
             'creation_date' => $photo->createdAt(),
+            'user'          => $photo->createdBy()->value(),
         ];
     }
 }

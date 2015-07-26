@@ -10,6 +10,7 @@ use Booothy\Photo\Application\Service\PostResource\UseCase;
 use Booothy\Photo\Domain\Event\NewPhotoUploaded;
 use Booothy\Photo\Domain\Model\Photo;
 use Booothy\Photo\Domain\Repository\Saver;
+use Booothy\User\Domain\Model\ValueObject\Email;
 
 final class UseCaseTest extends PHPUnit_Framework_TestCase
 {
@@ -17,6 +18,7 @@ final class UseCaseTest extends PHPUnit_Framework_TestCase
     {
         $this->quote              = null;
         $this->mime_type          = null;
+        $this->user_id            = null;
         $this->temporary_location = null;
         $this->repository         = null;
         $this->event_emitter      = null;
@@ -30,6 +32,7 @@ final class UseCaseTest extends PHPUnit_Framework_TestCase
     {
         $this->givenAQuote('some quote');
         $this->andAnUploadMimeType('image/png');
+        $this->andAUserId();
         $this->andAnUploadTemporaryLocation('/tmp/image');
         $this->andARepository();
         $this->andAnEventEmitter();
@@ -43,6 +46,7 @@ final class UseCaseTest extends PHPUnit_Framework_TestCase
     {
         $this->givenAQuote('some quote');
         $this->andAnUploadMimeType('image/png');
+        $this->andAUserId();
         $this->andAnUploadTemporaryLocation('/tmp/image');
         $this->andARepository();
         $this->andAnEventEmitter();
@@ -56,6 +60,7 @@ final class UseCaseTest extends PHPUnit_Framework_TestCase
     {
         $this->givenAQuote('some quote');
         $this->andAnUploadMimeType('image/png');
+        $this->andAUserId();
         $this->andAnUploadTemporaryLocation('/tmp/image');
         $this->andARepository();
         $this->andAnEventEmitter();
@@ -75,6 +80,11 @@ final class UseCaseTest extends PHPUnit_Framework_TestCase
     private function andAnUploadMimeType($mime_type)
     {
         $this->mime_type = $mime_type;
+    }
+
+    private function andAUserId()
+    {
+        $this->user_id = new Email('email');
     }
 
     private function andAnUploadTemporaryLocation($location)
@@ -99,7 +109,8 @@ final class UseCaseTest extends PHPUnit_Framework_TestCase
         $this->request = new Request(
             $this->quote,
             $this->mime_type,
-            $this->temporary_location
+            $this->temporary_location,
+            $this->user_id
         );
     }
 

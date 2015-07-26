@@ -34,8 +34,9 @@ final class PostResource
                 $app['container']->get('photo.application.listener.generate_uploads')
             );
 
+        $user_id  = $silex_request->get('user')->email();
         $use_case = $app['container']->get(self::USE_CASE);
-        $response = $use_case(new Request($quote, $mime_type, $file_path));
+        $response = $use_case(new Request($quote, $mime_type, $file_path, $user_id));
 
         return new SilexResponse($response);
     }

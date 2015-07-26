@@ -7,6 +7,7 @@ use Booothy\Photo\Domain\Model\ValueObject\Id;
 use Booothy\Photo\Domain\Model\ValueObject\ImageDetails;
 use Booothy\Photo\Domain\Model\ValueObject\Quote;
 use Booothy\Photo\Domain\Model\ValueObject\Upload;
+use Booothy\User\Domain\Model\ValueObject\Email;
 
 final class Photo
 {
@@ -17,24 +18,28 @@ final class Photo
     private $upload;
     private $image_details;
     private $creation_date;
+    private $user_id;
 
     public function __construct(
         Id $an_id,
         Quote $a_quote,
         Upload $an_upload,
         ImageDetails $some_image_details,
-        DateTimeImmutable $a_creation_date
+        DateTimeImmutable $a_creation_date,
+        Email $an_email
     ) {
         $this->id            = $an_id;
         $this->quote         = $a_quote;
         $this->upload        = $an_upload;
         $this->image_details = $some_image_details;
         $this->creation_date = $a_creation_date;
+        $this->user_id       = $an_email;
     }
 
     public static function generateNew(
         $a_quote,
-        $an_upload_mime_type
+        $an_upload_mime_type,
+        Email $an_email
     ) {
         $id            = Id::next();
         $quote         = new Quote($a_quote);
@@ -46,7 +51,7 @@ final class Photo
             $an_upload_mime_type
         );
 
-        return new self($id, $quote, $upload, $image_details, $creation_date);
+        return new self($id, $quote, $upload, $image_details, $creation_date, $an_email);
     }
 
     private static function generateUpload(
@@ -113,5 +118,10 @@ final class Photo
     public function createdAt()
     {
         return $this->creation_date->format(self::DATE_TIME_FORMAT);
+    }
+
+    public function createdBy()
+    {
+        return $this->user_id;
     }
 }

@@ -36,6 +36,7 @@ final class Resource implements Marshaller
                 'height'    => $element->imageDetails()->height(),
             ],
             'creation_date' => $element->createdAt(),
+            'user'          => $element->createdBy()->value(),
         ];
     }
 }
