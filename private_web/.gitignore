@@ -1,8 +1,3 @@
-# Builded files
-build/main.js
-build/specs.js
-build/vendors.js
-
 # NPM
 node_modules/
 
