@@ -1,13 +1,15 @@
-var ApiConstants  = require('../Constant/ApiConstants');
-var AppDispatcher = require('../Dispatcher/AppDispatcher');
-var assign        = require('object-assign');
-var EventEmitter  = require('events').EventEmitter;
+var ApiConstants   = require('../Constant/ApiConstants');
+var AppDispatcher  = require('../Dispatcher/AppDispatcher');
+var assign         = require('object-assign');
+var EventEmitter   = require('events').EventEmitter;
+var PhotoConstants = require('../Constant/PhotoConstants');
 
 var CHANGE_EVENT              = 'change';
 var _photos                   = [];
 var new_set_being_loaded      = true;
 var uploading_boooth          = false;
 var complete_catalogue_loaded = false;
+var current_filtering_user    = '';
 
 var PhotosStore = assign({}, EventEmitter.prototype, {
     getCollection : function () {
@@ -26,6 +28,10 @@ var PhotosStore = assign({}, EventEmitter.prototype, {
         return complete_catalogue_loaded;
     },
 
+    filteringUser : function () {
+        return current_filtering_user;
+    },
+
     emitChange : function () {
         this.emit(CHANGE_EVENT);
     },
@@ -39,8 +45,46 @@ var PhotosStore = assign({}, EventEmitter.prototype, {
     }
 });
 
+var turnOnFilteringFor = function (user_id, photos) {
+    if (current_filtering_user === '') return photos;
+
+    photos.map(function (photo) {
+        if (photo.user === user_id) {
+            photo.hidden = false;
+            return;
+        }
+
+        photo.hidden = true;
+    });
+
+    return photos;
+};
+
+var turnOffFiltering = function (photos) {
+    photos.map(function (photo) {
+        photo.hidden = false;
+    });
+
+    return photos;
+};
+
 AppDispatcher.register(function (action) {
     switch (action.actionType) {
+        case PhotoConstants.FILTER_PER_USER:
+            switch (action.user_id === current_filtering_user) {
+                case true:
+                    current_filtering_user = '';
+                    _photos                = turnOffFiltering(_photos);
+
+                    break;
+
+                case false:
+                    current_filtering_user = action.user_id;
+                    _photos = turnOnFilteringFor(current_filtering_user, _photos);
+            }
+
+            break;
+
         case ApiConstants.API_PHOTOS_GET_COLLECTION:
             switch (action.response) {
                 case ApiConstants.API_TIMEOUT:
@@ -54,7 +98,8 @@ AppDispatcher.register(function (action) {
                 default:
                     if (action.response.length < 1) complete_catalogue_loaded = true;
 
-                    _photos              = _photos.concat(action.response);
+                    filtered_photos      = turnOnFilteringFor(current_filtering_user, action.response);
+                    _photos              = _photos.concat(filtered_photos);
                     new_set_being_loaded = false;
 
             }
