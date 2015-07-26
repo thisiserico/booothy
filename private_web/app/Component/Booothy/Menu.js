@@ -1,6 +1,7 @@
 var AppDispatcher  = require('../../Dispatcher/AppDispatcher');
 var Link           = require('react-router').Link;
 var PhotoConstants = require('../../Constant/PhotoConstants');
+var PhotosStore    = require('../../Store/PhotosStore');
 var UsersClient    = require('../../Api/UsersClient');
 var UsersStore     = require('../../Store/UsersStore');
 var React          = require('react');
@@ -10,8 +11,9 @@ var SignOut        = require('../Auth/SignOut');
 var Menu = React.createClass({
     getInitialState : function () {
         return {
-            menu_hover : false,
-            users      : []
+            menu_hover     : false,
+            users          : [],
+            filtering_user : PhotosStore.filteringUser()
         };
     },
 
@@ -42,27 +44,45 @@ var Menu = React.createClass({
             user_id    : user_id
         });
 
+        this.setState({ filtering_user : PhotosStore.filteringUser() });
+
         event.preventDefault();
     },
 
+    obtainLinkVisibility : function (user) {
+        return this.state.filtering_user
+            ? (this.state.filtering_user === user.id ? 'display' : 'hide')
+            : 'display';
+    },
+
     render : function() {
-        var current_user     = undefined;
-        var raw_current_user = UsersStore.getCurrentUser();
-        var users            = [];
-        var raw_users        = this.state.users;
+        var current_user            = undefined;
+        var raw_current_user        = UsersStore.getCurrentUser();
+        var current_user_visibility = this.obtainLinkVisibility(raw_current_user);
+        var users                   = [];
+        var raw_users               = this.state.users;
 
         current_user = (
-            <a key={raw_current_user.id} onClick={this._applyFiltering.bind(this, raw_current_user.id)} style={{ display : this.state.menu_hover ? 'block' : 'none' }}>
-                <img src={raw_current_user.avatar} />
+            <a
+                className={current_user_visibility}
+                key={raw_current_user.id}
+                onClick={this._applyFiltering.bind(this, raw_current_user.id)}
+                style={{ display : this.state.menu_hover ? 'block' : 'none' }}>
+                    <img src={raw_current_user.avatar} />
             </a>
         );
 
         raw_users.map(function (user) {
             if (user.id === raw_current_user.id) return;
 
+            var visibility = this.obtainLinkVisibility(user);
             users.push(
-                <a key={user.id} onClick={this._applyFiltering.bind(this, user.id)} style={{ display : this.state.menu_hover ? 'block' : 'none' }}>
-                    <img src={user.avatar} />
+                <a
+                    className={visibility}
+                    key={user.id}
+                    onClick={this._applyFiltering.bind(this, user.id)}
+                    style={{ display : this.state.menu_hover ? 'block' : 'none' }}>
+                        <img src={user.avatar} />
                 </a>
             );
         }.bind(this));

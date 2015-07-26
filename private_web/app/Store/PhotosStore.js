@@ -28,6 +28,10 @@ var PhotosStore = assign({}, EventEmitter.prototype, {
         return complete_catalogue_loaded;
     },
 
+    filteringUser : function () {
+        return current_filtering_user;
+    },
+
     emitChange : function () {
         this.emit(CHANGE_EVENT);
     },
