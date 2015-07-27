@@ -5,7 +5,7 @@
 
     <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="{{google_client_id}}">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="//apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
     <div id="app"></div>
@@ -19,6 +19,6 @@
 
     <link rel="stylesheet" type="text/css" href="/css/main.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Londrina+Sketch">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Londrina+Sketch">
 </body>
 </html>
