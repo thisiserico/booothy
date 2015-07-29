@@ -15,6 +15,7 @@
         "symfony/console": "~2.3",
         "symfony/css-selector": "~2.3",
         "symfony/debug": "~2.3",
+        "symfony/dependency-injection": "~2.6",
         "symfony/filesystem": "~2.6",
         "symfony/finder": "~2.3",
         "symfony/monolog-bridge": "~2.3",
@@ -23,7 +24,7 @@
         "symfony/translation": "~2.3",
         "symfony/twig-bridge": "~2.3",
         "symfony/validator": "~2.3",
-        "symfony/dependency-injection": "~2.6",
+        "symfony/yaml": "~2.7.2",
         "ramsey/uuid": "~2.8",
         "league/event": "~2.1.2"
     },
