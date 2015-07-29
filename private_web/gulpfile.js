@@ -45,7 +45,7 @@ var jsCompilation = function (options) {
                 uglify().on('error', gutil.log)
             )))
             .pipe(gulp.dest(destination_folder))
-            .pipe(gulpif(options.development, livereload({ start: true })))
+            .pipe(gulpif(options.development, livereload()))
             .pipe(notify(function () {
                 console.log('APP bundle built in ' + (Date.now() - start) + 'ms');
             }));
@@ -56,6 +56,8 @@ var jsCompilation = function (options) {
         appBundler.on('update', function () {
             rebundle(options.dest);
         });
+
+        livereload.listen();
     }
 
     rebundle(options.dest);
