@@ -6,7 +6,7 @@ use Booothy\User\Domain\Model\ValueObject\Email;
 
 final class User
 {
-    const AVATAR_PATTERN = 'http://www.gravatar.com/avatar/';
+    const AVATAR_PATTERN = '//www.gravatar.com/avatar/';
 
     private $email;
 
