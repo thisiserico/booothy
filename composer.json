@@ -1,7 +1,14 @@
 {
     "name": "aeony/booothy",
-    "description": "Create private memories",
+    "description": "Private memories made easy",
     "type": "project",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Eric López",
+            "homepage": "http://ericlopez.me"
+        }
+    ],
     "require": {
         "php": ">=5.6",
         "google/apiclient": "~1.1.4",
@@ -34,14 +41,14 @@
         "mockery/mockery": "~0.9"
     },
     "autoload": {
-        "psr-0": {
-            "Booothy": "src/",
-            "App": "src/"
+        "psr-4": {
+            "Booothy\\": "src/Booothy/",
+            "App\\": "src/App/"
         }
     },
     "autoload-dev": {
-        "psr-0": {
-            "BooothyTest": "test/"
+        "psr-4": {
+            "BooothyTest\\": "test/BooothyTest/"
         }
     }
 }
