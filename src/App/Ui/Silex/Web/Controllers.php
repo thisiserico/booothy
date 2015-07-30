@@ -11,16 +11,7 @@ $controller = function ($controller) {
         . '::__invoke';
 };
 
-$private_resources = [
-    'download_thumb',
-    'download',
-    'api:users:get:collection',
-    'api:photos:get:collection',
-    'api:photos:get:resource',
-    'api:photos:post:resource',
-];
-
-$app->before(function (Request $request, Application $app) use ($private_resources) {
+$app->before(function (Request $request, Application $app) {
     $authentication_handling = new AuthenticationHandling;
     return $authentication_handling($request, $app);
 });
