@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Boothy!</title>
-    <link rel="shortcut icon" type="image/icon" href="/favicon.ico">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
 
     <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="{{google_client_id}}">
