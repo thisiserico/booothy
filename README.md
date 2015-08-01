@@ -1,4 +1,6 @@
 # Booothy
+
+[![Join the chat at https://gitter.im/aeony/booothy](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/aeony/booothy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 > Private memories made easy
 
 [![Master Build Status](https://magnum.travis-ci.com/aeony/booothy.svg?token=4kUW5zWBcCwXpR1GwCwA&branch=master)](https://magnum.travis-ci.com/aeony/booothy)
