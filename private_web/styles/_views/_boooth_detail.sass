@@ -19,7 +19,10 @@ $boooth_detail_width : 640
         transform   : translate(-50%, -60%)
         white-space : nowrap
 
-        img
+        @media screen and (max-width: $small_screen)
+            width : 95%
+
+        .imageloader > div, img
             width      : auto
             height     : auto
             max-width  : #{$boooth_detail_width}px
@@ -28,12 +31,24 @@ $boooth_detail_width : 640
             background : $light_white
             display    : block
 
+            @media screen and (max-width: $small_screen)
+                max-width : 100%
+
+        .imageloader > div
+            @media screen and (max-width: $small_screen)
+                height : 300px !important
+
         span
             display     : block
             text-align  : center
             font-family : "Verdana", sans-serif
             font-size   : 1.5em
             color       : $light_white
+
+            @media screen and (max-width: $small_screen)
+                margin-top  : 10px
+                word-wrap   : break-word
+                white-space : pre
 
             &:before, &:after
                 content        : ''
@@ -43,8 +58,17 @@ $boooth_detail_width : 640
                 display        : inline-block
                 vertical-align : middle
 
+                @media screen and (max-width: $small_screen)
+                    width   : 0
+                    display : block
+
             &:before
                 margin : 0 20px 0 0
 
             &:after
                 margin : 0 0 0 20px
+
+    .spinner
+        @media screen and (max-width: $small_screen)
+            margin     : 0 auto
+            text-align : center

@@ -93,7 +93,9 @@ var PhotoList = React.createClass({
                 </div>
 
                 <pre>{this.state.loading_new_set
-                    ? <i className="boooths_loading_spinner fa fa-circle-o-notch fa-4x fa-spin" />
+                    ? <div className="boooths_loading_spinner">
+                        <i className="fa fa-circle-o-notch fa-4x fa-spin" />
+                      </div>
                     : ''
                 }</pre>
 
