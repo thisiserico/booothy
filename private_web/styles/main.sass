@@ -1,4 +1,5 @@
 @import '_partials/_colors'
+@import '_partials/_sizes'
 @import '_views/_sing_in'
 @import '_views/_menu'
 @import '_views/_boooth_list'
@@ -9,6 +10,9 @@ body
     background : $light_white
     width      : 1024px
     margin     : 0 auto
+
+    @media screen and (max-width: $small_screen)
+        width : 100%
 
 .noscroll
     overflow: hidden

@@ -7,11 +7,19 @@ $boooth_thumb_gallery_width : $boooth_thumbs_per_row     * ($boooth_thumb_width 
     width  : #{$boooth_thumb_gallery_width}px
     margin : 0 auto
 
+    @media screen and (max-width: $small_screen)
+        width : 100%
+
     .boooth_thumbnail
         width       : #{$boooth_thumb_width}px
         margin      : #{$boooth_thumb_margin}px
         float       : left
         font-family : "Verdana", sans-serif
+
+        @media screen and (max-width: $small_screen)
+            width         : auto
+            right         : 0
+            margin-bottom : 0
 
         &.display
             opacity : 1
@@ -33,6 +41,13 @@ $boooth_thumb_gallery_width : $boooth_thumbs_per_row     * ($boooth_thumb_width 
             bottom     : 30px
             text-align : center
 
+            @media screen and (max-width: $small_screen)
+                width        : auto
+                margin-left  : #{$boooth_thumb_margin}px
+                margin-right : #{$boooth_thumb_margin}px
+                opacity      : 1
+                text-align   : left
+
         &:after
             content    : '\A'
             width      : 100%
@@ -41,12 +56,15 @@ $boooth_thumb_gallery_width : $boooth_thumbs_per_row     * ($boooth_thumb_width 
             left       : 0
             background : rgba($light_purple, 0.7)
 
+            @media screen and (max-width: $small_screen)
+                opacity : 0.5
+
         &:hover:before, &:hover:after
             opacity : 1
 
         img
             width   : 100%
-            display : block
+            display : inline-block
 
 
 .boooths_loading_spinner
