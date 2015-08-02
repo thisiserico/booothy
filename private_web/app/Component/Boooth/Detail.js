@@ -62,7 +62,7 @@ var Detail = React.createClass({
     },
 
     render : function() {
-        var loading_spinner = ( <i className="fa fa-circle-o-notch fa-4x fa-spin" /> );
+        var loading_spinner = ( <div className="spinner"><i className="fa fa-circle-o-notch fa-4x fa-spin" /></div> );
         var details_content = (
             <div>
                 {this.state.photo_being_loaded ? loading_spinner : '' }
