@@ -62,6 +62,10 @@ $boooth_thumb_gallery_width : $boooth_thumbs_per_row     * ($boooth_thumb_width 
         &:hover:before, &:hover:after
             opacity : 1
 
+        .imageloader > div
+            @media screen and (max-width: $small_screen)
+                width : 100% !important
+
         img
             width   : 100%
             display : inline-block

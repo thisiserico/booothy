@@ -22,7 +22,7 @@ $boooth_detail_width : 640
         @media screen and (max-width: $small_screen)
             width : 95%
 
-        img
+        .imageloader > div, img
             width      : auto
             height     : auto
             max-width  : #{$boooth_detail_width}px
@@ -33,6 +33,10 @@ $boooth_detail_width : 640
 
             @media screen and (max-width: $small_screen)
                 max-width : 100%
+
+        .imageloader > div
+            @media screen and (max-width: $small_screen)
+                height : 300px !important
 
         span
             display     : block
