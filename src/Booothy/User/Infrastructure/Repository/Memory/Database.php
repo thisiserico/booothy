@@ -4,6 +4,7 @@ namespace Booothy\User\Infrastructure\Repository\Memory;
 
 use Booothy\User\Domain\Model\User;
 use Booothy\User\Domain\Model\ValueObject\Email;
+use Booothy\User\Domain\Repository\Exception\NonExistingResource;
 
 class Database
 {
@@ -16,6 +17,12 @@ class Database
 
     public function getResource(Email $email)
     {
-        return $this->users[$email->value()];
+        $user_id = $email->value();
+
+        if (!array_key_exists($user_id, $this->users)) {
+            throw new NonExistingResource;
+        }
+
+        return $this->users[$user_id];
     }
 }
