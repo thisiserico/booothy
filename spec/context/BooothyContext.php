@@ -5,6 +5,7 @@ namespace BooothySpec;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use Behat\Gherkin\Node\PyStringNode;
+use Booothy\User\Domain\Model\User;
 
 class BooothyContext implements Context
 {
@@ -24,6 +25,11 @@ class BooothyContext implements Context
     /** @Given /^the list with the allowed users:$/ */
     public function listWithTheAllowedUsers(TableNode $allowed_users)
     {
+        foreach ($allowed_users as $allowed_user) {
+            self::$service_container
+                ->get('user.domain.repository.resource_saver')
+                ->__invoke(User::generate($allowed_user['id']));
+        }
     }
 
     /** @When /^I send a ([A-Z]+) request to (.+)$/ */

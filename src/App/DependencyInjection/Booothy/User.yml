@@ -73,6 +73,9 @@ services:
         alias  : user.infrastructure.repository.mongo.resource_loader
         public : false
 
+    user.domain.repository.resource_saver:
+        alias : user.infrastructure.repository.memory.resource_saver
+
     ## Service
     user.domain.service.external_service.adapter:
         alias : user.domain.service.external_service.adapter.google
@@ -96,6 +99,18 @@ services:
             - @user.domain.hydrator.user_resource
 
     ## Repository
+    ### Memory
+    user.infrastructure.repository.memory.database:
+        class  : Booothy\User\Infrastructure\Repository\Memory\Database
+        public : false
+
+    user.infrastructure.repository.memory.resource_saver:
+        class     : Booothy\User\Infrastructure\Repository\Memory\ResourceSaver
+        public    : false
+        arguments :
+            - @user.infrastructure.repository.memory.database
+
+    ### Mongo
     user.infrastructure.repository.mongo.complete_collection_loader:
         class     : Booothy\User\Infrastructure\Repository\Mongo\CompleteCollectionLoader
         public    : false
