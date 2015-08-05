@@ -1,0 +1,16 @@
+parameters:
+    google.client_id     : 'booothy_id'
+    google.client_secret : 'booothy_secret'
+
+    folder.cache          : 'booothy/folder/cache/'
+    folder.logs           : 'booothy/folder/logs/'
+    folder.tmp            : 'booothy/folder/tmp/'
+    folder.uploads        : 'booothy/folder/uploads/'
+    folder.uploads.thumbs : 'booothy/folder/uploads/thumbs/'
+
+    mongo.db     : 'booothy_db'
+    mongo.server : 'mongodb://mongodb_dev:27017'
+
+    booothy_api_url            : '//booothy.test/index_test.php/api/'
+    booothy_download_url       : '//booothy.test/index_test.php/u/{filename}'
+    booothy_thumb_download_url : '//booothy.test/index_test.php/u/thumb/{filename}'
