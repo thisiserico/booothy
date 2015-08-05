@@ -1,0 +1,7 @@
+default:
+    suites:
+        default:
+            paths:
+                - spec/feature
+            contexts:
+                - BooothySpec\BooothyContext:
