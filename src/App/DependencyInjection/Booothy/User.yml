@@ -110,6 +110,12 @@ services:
         arguments :
             - @user.infrastructure.repository.memory.database
 
+    user.infrastructure.repository.memory.resource_loader:
+        class     : Booothy\User\Infrastructure\Repository\Memory\ResourceLoader
+        public    : false
+        arguments :
+            - @user.infrastructure.repository.memory.database
+
     ### Mongo
     user.infrastructure.repository.mongo.complete_collection_loader:
         class     : Booothy\User\Infrastructure\Repository\Mongo\CompleteCollectionLoader

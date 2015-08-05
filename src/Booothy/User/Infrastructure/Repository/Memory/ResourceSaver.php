@@ -16,6 +16,6 @@ final class ResourceSaver implements DomainSaver
 
     public function __invoke(User $user)
     {
-        $this->database->addUser($user);
+        $this->database->addResource($user);
     }
 }
