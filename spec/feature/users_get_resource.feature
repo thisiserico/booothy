@@ -3,6 +3,7 @@ Feature: GET /users/<id>
     In order to check whether I'm an allowed user
     I need to check my existence in the platform
 
+
     Scenario: getting an allowed user
         Given the list with the allowed users:
             | id                   |
@@ -16,6 +17,7 @@ Feature: GET /users/<id>
                     "avatar" : "//www.gravatar.com/avatar/f639ef5d92886bf898c315c8cc544571"
                 }
             """
+
 
     Scenario: getting a disallowed user
         Given the list with the allowed users:
