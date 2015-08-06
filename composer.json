@@ -36,9 +36,10 @@
         "league/event": "~2.1.2"
     },
     "require-dev": {
-        "symfony/var-dumper": "~2.7.1",
+        "behat/behat": "3.0.15",
+        "mockery/mockery": "~0.9",
         "phpunit/phpunit": "~4.5",
-        "mockery/mockery": "~0.9"
+        "symfony/var-dumper": "~2.7.1"
     },
     "autoload": {
         "psr-4": {
@@ -48,6 +49,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "BooothySpec\\": "spec/context/",
             "BooothyTest\\": "test/BooothyTest/"
         }
     }

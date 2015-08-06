@@ -5,7 +5,7 @@ services:
     user.application.service.authenticate:
         class     : Booothy\User\Application\Service\Authenticate\UseCase
         arguments :
-            - @user.domain.service.external_service.adapter.google
+            - @user.domain.service.external_service.adapter
             - @user.domain.repository.resource_loader
 
     ### GetCollection
@@ -73,6 +73,13 @@ services:
         alias  : user.infrastructure.repository.mongo.resource_loader
         public : false
 
+    user.domain.repository.unknown_resource_loader:
+        alias  : user.infrastructure.repository.memory.get_first_resource_loader
+        public : false
+
+    user.domain.repository.resource_saver:
+        alias : user.infrastructure.repository.memory.resource_saver
+
     ## Service
     user.domain.service.external_service.adapter:
         alias : user.domain.service.external_service.adapter.google
@@ -83,6 +90,11 @@ services:
             - %google.client_id%
             - %google.client_secret%
             - @app.google.client
+
+    user.domain.service.external_service.adapter.null_object:
+        class     : Booothy\User\Domain\Service\ExternalService\Adapter\NullObject
+        arguments :
+            - @user.domain.repository.unknown_resource_loader
 
 
     # Infrastructure
@@ -96,6 +108,33 @@ services:
             - @user.domain.hydrator.user_resource
 
     ## Repository
+    ### Memory
+    user.infrastructure.repository.memory.resource_saver:
+        class     : Booothy\User\Infrastructure\Repository\Memory\ResourceSaver
+        public    : false
+        arguments :
+            - @core.infrastructure.repository.memory.handler
+
+    user.infrastructure.repository.memory.collection_loader:
+        class     : Booothy\User\Infrastructure\Repository\Memory\CollectionLoader
+        public    : false
+        arguments :
+            - @core.infrastructure.repository.memory.handler
+
+
+    user.infrastructure.repository.memory.resource_loader:
+        class     : Booothy\User\Infrastructure\Repository\Memory\ResourceLoader
+        public    : false
+        arguments :
+            - @core.infrastructure.repository.memory.handler
+
+    user.infrastructure.repository.memory.get_first_resource_loader:
+        class     : Booothy\User\Infrastructure\Repository\Memory\GetFirstResourceLoader
+        public    : false
+        arguments :
+            - @core.infrastructure.repository.memory.handler
+
+    ### Mongo
     user.infrastructure.repository.mongo.complete_collection_loader:
         class     : Booothy\User\Infrastructure\Repository\Mongo\CompleteCollectionLoader
         public    : false

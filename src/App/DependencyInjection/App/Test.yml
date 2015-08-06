@@ -1,0 +1,39 @@
+parameters:
+    google.client_id     : 'booothy_id'
+    google.client_secret : 'booothy_secret'
+
+    folder.cache          : 'booothy/folder/cache/'
+    folder.logs           : 'booothy/folder/logs/'
+    folder.tmp            : 'booothy/folder/tmp/'
+    folder.uploads        : 'booothy/folder/uploads/'
+    folder.uploads.thumbs : 'booothy/folder/uploads/thumbs/'
+
+    mongo.db     : 'booothy_db'
+    mongo.server : 'mongodb://mongodb_dev:27017'
+
+    booothy_api_url            : '//booothy.test/index_test.php/api/'
+    booothy_download_url       : '//booothy.test/index_test.php/u/{filename}'
+    booothy_thumb_download_url : '//booothy.test/index_test.php/u/thumb/{filename}'
+
+
+services:
+    user.domain.repository.resource_loader:
+        alias  : user.infrastructure.repository.memory.resource_loader
+        public : false
+
+    user.domain.repository.collection_loader:
+        alias  : user.infrastructure.repository.memory.collection_loader
+        public : false
+
+    user.domain.service.external_service.adapter:
+        alias  : user.domain.service.external_service.adapter.null_object
+        public : false
+
+    photo.domain.repository.saver:
+        alias : photo.infrastructure.repository.memory.resource_saver
+
+    photo.domain.repository.resource_loader:
+        alias  : photo.infrastructure.repository.memory.resource_loader
+
+    photo.domain.repository.loader:
+        alias : photo.infrastructure.repository.memory.collection_loader

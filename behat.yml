@@ -1,0 +1,10 @@
+default:
+    suites:
+        default:
+            paths:
+                - spec/feature
+            contexts:
+                - BooothySpec\BooothyContext
+                - BooothySpec\Core\HttpContext
+                - BooothySpec\Booothy\UserContext
+                - BooothySpec\Booothy\PhotoContext

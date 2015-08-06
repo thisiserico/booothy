@@ -131,6 +131,26 @@ services:
         public : false
 
     ## Repository
+    ### Memory
+    photo.infrastructure.repository.memory.resource_saver:
+        class     : Booothy\Photo\Infrastructure\Repository\Memory\ResourceSaver
+        public    : false
+        arguments :
+            - @core.infrastructure.repository.memory.handler
+
+    photo.infrastructure.repository.memory.resource_loader:
+        class     : Booothy\Photo\Infrastructure\Repository\Memory\ResourceLoader
+        public    : false
+        arguments :
+            - @core.infrastructure.repository.memory.handler
+
+    photo.infrastructure.repository.memory.collection_loader:
+        class     : Booothy\Photo\Infrastructure\Repository\Memory\CollectionLoader
+        public    : false
+        arguments :
+            - @core.infrastructure.repository.memory.handler
+
+    ### Mongo
     photo.infrastructure.repository.mongo.newer_first_loader:
         class     : Booothy\Photo\Infrastructure\Repository\Mongo\NewerFirstLoader
         public    : false

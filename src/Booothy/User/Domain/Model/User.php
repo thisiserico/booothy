@@ -15,6 +15,11 @@ final class User
         $this->email = $an_email;
     }
 
+    public static function generate($raw_email)
+    {
+        return new self(new Email($raw_email));
+    }
+
     public function email()
     {
         return $this->email;
