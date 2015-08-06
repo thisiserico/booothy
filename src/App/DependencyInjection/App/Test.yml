@@ -28,3 +28,9 @@ services:
     user.domain.service.external_service.adapter:
         alias  : user.domain.service.external_service.adapter.null_object
         public : false
+
+    photo.domain.repository.saver:
+        alias : photo.infrastructure.repository.memory.resource_saver
+
+    photo.domain.repository.resource_loader:
+        alias  : photo.infrastructure.repository.memory.resource_loader

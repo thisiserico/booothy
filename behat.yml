@@ -7,3 +7,4 @@ default:
                 - BooothySpec\BooothyContext
                 - BooothySpec\Core\HttpContext
                 - BooothySpec\Booothy\UserContext
+                - BooothySpec\Booothy\PhotoContext

@@ -27,6 +27,16 @@ class HttpContext implements Context
         BooothyContext::$app->terminate($this->request, $this->response);
     }
 
+    /** @When /^I send a ([A-Z]+) request to '([^']+)' with a token$/ */
+    public function sendHttpRequestToUriWithIdToken($http_method, $uri)
+    {
+        $parameters     = ['id_token' => 'token'];
+        $this->request  = Request::create($uri, $http_method, $parameters);
+        $this->response = BooothyContext::$app->handle($this->request);
+
+        BooothyContext::$app->terminate($this->request, $this->response);
+    }
+
     /** @When /^I send a ([A-Z]+) request to '([^']+)' with parameters$/ */
     public function sendHttpRequestToUriWithParameters($http_method, $uri, TableNode $raw_parameters)
     {

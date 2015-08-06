@@ -20,4 +20,12 @@ class UserContext implements Context
                 ->__invoke(User::generate($allowed_user['id']));
         }
     }
+
+    /** @Given /^an allowed user$/ */
+    public function beingAnAllowedUser()
+    {
+        BooothyContext::$app['container']
+            ->get('user.domain.repository.resource_saver')
+            ->__invoke(User::generate('allowed@example.com'));
+    }
 }
