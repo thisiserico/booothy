@@ -1,7 +1,7 @@
 # Booothy
 > Private memories made easy
 
-[![Master Build Status](https://magnum.travis-ci.com/aeony/booothy.svg?token=4kUW5zWBcCwXpR1GwCwA&branch=master)](https://magnum.travis-ci.com/aeony/booothy)
+[![Build Status](https://travis-ci.org/aeony/booothy.svg?branch=master)](https://travis-ci.org/aeony/booothy)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/aeony/booothy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 Ever wanted to have a private platform to share some love?
