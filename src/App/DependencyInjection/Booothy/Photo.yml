@@ -144,6 +144,12 @@ services:
         arguments :
             - @core.infrastructure.repository.memory.handler
 
+    photo.infrastructure.repository.memory.collection_loader:
+        class     : Booothy\Photo\Infrastructure\Repository\Memory\CollectionLoader
+        public    : false
+        arguments :
+            - @core.infrastructure.repository.memory.handler
+
     ### Mongo
     photo.infrastructure.repository.mongo.newer_first_loader:
         class     : Booothy\Photo\Infrastructure\Repository\Mongo\NewerFirstLoader

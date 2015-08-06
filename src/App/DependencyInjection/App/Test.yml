@@ -34,3 +34,6 @@ services:
 
     photo.domain.repository.resource_loader:
         alias  : photo.infrastructure.repository.memory.resource_loader
+
+    photo.domain.repository.loader:
+        alias : photo.infrastructure.repository.memory.collection_loader
