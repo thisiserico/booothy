@@ -49,10 +49,24 @@ class BooothyContext implements Context
         }
     }
 
-    /** @When /^I send a ([A-Z]+) request to (.+)$/ */
+    /** @When /^I send a ([A-Z]+) request to '([^']+)'$/ */
     public function sendHttpRequestToUri($http_method, $uri)
     {
         $this->request  = Request::create($uri, $http_method);
+        $this->response = self::$app->handle($this->request);
+
+        self::$app->terminate($this->request, $this->response);
+    }
+
+    /** @When /^I send a ([A-Z]+) request to '([^']+)' with parameters$/ */
+    public function sendHttpRequestToUriWithParameters($http_method, $uri, TableNode $raw_parameters)
+    {
+        $parameters = [];
+        foreach ($raw_parameters as $raw_parameter) {
+            $parameters[$raw_parameter['attribute']] = $raw_parameter['value'];
+        }
+
+        $this->request  = Request::create($uri, $http_method, $parameters);
         $this->response = self::$app->handle($this->request);
 
         self::$app->terminate($this->request, $this->response);

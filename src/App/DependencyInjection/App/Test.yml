@@ -15,7 +15,16 @@ parameters:
     booothy_download_url       : '//booothy.test/index_test.php/u/{filename}'
     booothy_thumb_download_url : '//booothy.test/index_test.php/u/thumb/{filename}'
 
+
 services:
     user.domain.repository.resource_loader:
         alias  : user.infrastructure.repository.memory.resource_loader
+        public : false
+
+    user.domain.repository.collection_loader:
+        alias  : user.infrastructure.repository.memory.collection_loader
+        public : false
+
+    user.domain.service.external_service.adapter:
+        alias  : user.domain.service.external_service.adapter.null_object
         public : false

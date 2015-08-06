@@ -15,6 +15,15 @@ class Database
         $this->users[$user->email()->value()] = $user;
     }
 
+    public function getFirst()
+    {
+        if (empty($this->users)) {
+            return null;
+        }
+
+        return $this->users[key($this->users)];
+    }
+
     public function getResource(Email $email)
     {
         $user_id = $email->value();
@@ -24,5 +33,10 @@ class Database
         }
 
         return $this->users[$user_id];
+    }
+
+    public function getCollection()
+    {
+        return array_values($this->users);
     }
 }
