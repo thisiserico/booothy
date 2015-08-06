@@ -109,34 +109,30 @@ services:
 
     ## Repository
     ### Memory
-    user.infrastructure.repository.memory.database:
-        class  : Booothy\User\Infrastructure\Repository\Memory\Database
-        public : false
-
     user.infrastructure.repository.memory.resource_saver:
         class     : Booothy\User\Infrastructure\Repository\Memory\ResourceSaver
         public    : false
         arguments :
-            - @user.infrastructure.repository.memory.database
+            - @core.infrastructure.repository.memory.handler
 
     user.infrastructure.repository.memory.collection_loader:
         class     : Booothy\User\Infrastructure\Repository\Memory\CollectionLoader
         public    : false
         arguments :
-            - @user.infrastructure.repository.memory.database
+            - @core.infrastructure.repository.memory.handler
 
 
     user.infrastructure.repository.memory.resource_loader:
         class     : Booothy\User\Infrastructure\Repository\Memory\ResourceLoader
         public    : false
         arguments :
-            - @user.infrastructure.repository.memory.database
+            - @core.infrastructure.repository.memory.handler
 
     user.infrastructure.repository.memory.get_first_resource_loader:
         class     : Booothy\User\Infrastructure\Repository\Memory\GetFirstResourceLoader
         public    : false
         arguments :
-            - @user.infrastructure.repository.memory.database
+            - @core.infrastructure.repository.memory.handler
 
     ### Mongo
     user.infrastructure.repository.mongo.complete_collection_loader:
