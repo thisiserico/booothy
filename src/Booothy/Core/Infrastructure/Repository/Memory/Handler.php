@@ -11,6 +11,11 @@ class Handler
         $this->collections = [];
     }
 
+    public function clean()
+    {
+        $this->collections = [];
+    }
+
     public function addResource($type, $id, $resource)
     {
         $this->collections[$type][$id] = $resource;

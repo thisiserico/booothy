@@ -25,4 +25,12 @@ class BooothyContext implements Context
 
         self::$app = $app;
     }
+
+    /** @AfterScenario */
+    public static function cleanMemoryDatabaseHandler()
+    {
+        self::$app['container']
+            ->get('core.infrastructure.repository.memory.handler')
+            ->clean();
+    }
 }
