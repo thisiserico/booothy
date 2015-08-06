@@ -4,4 +4,6 @@ default:
             paths:
                 - spec/feature
             contexts:
-                - BooothySpec\BooothyContext:
+                - BooothySpec\BooothyContext
+                - BooothySpec\Core\HttpContext
+                - BooothySpec\Booothy\UserContext
