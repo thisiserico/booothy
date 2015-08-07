@@ -61,17 +61,21 @@ var Detail = React.createClass({
         }
     },
 
+    _stopPropagation : function (event) {
+        event.stopPropagation();
+    },
+
     render : function() {
         var loading_spinner = ( <div className="spinner"><i className="fa fa-circle-o-notch fa-4x fa-spin" /></div> );
         var details_content = (
-            <div>
+            <div onClick={this._stopPropagation}>
                 {this.state.photo_being_loaded ? loading_spinner : '' }
             </div>
         );
 
         if (!this.state.photo_being_loaded) {
             details_content = (
-                <div>
+                <div onClick={this._stopPropagation}>
                     <Preloader
                         src={this.state.photo.upload.download_url}
                         default_width={640}
@@ -84,7 +88,7 @@ var Detail = React.createClass({
         }
 
         return (
-            <section className="boooth_detail">
+            <section className="boooth_detail" onClick={this._closeBooothDetail}>
                 <button className="close_boooth_detail" onClick={this._closeBooothDetail} />
                 {details_content}
             </section>
