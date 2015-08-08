@@ -18,5 +18,6 @@ $console->setDispatcher($app['dispatcher']);
 // Commands
 // App
 require __DIR__ . '/Command/App/DumpServices.php';
+require __DIR__ . '/Command/App/CreateUser.php';
 
 return $console;

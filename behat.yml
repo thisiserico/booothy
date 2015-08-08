@@ -6,5 +6,6 @@ default:
             contexts:
                 - BooothySpec\BooothyContext
                 - BooothySpec\Core\HttpContext
+                - BooothySpec\Core\ConsoleContext
                 - BooothySpec\Booothy\UserContext
                 - BooothySpec\Booothy\PhotoContext
