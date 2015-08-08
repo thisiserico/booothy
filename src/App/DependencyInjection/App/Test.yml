@@ -18,8 +18,10 @@ parameters:
 
 services:
     user.domain.repository.resource_loader:
-        alias  : user.infrastructure.repository.memory.resource_loader
-        public : false
+        alias : user.infrastructure.repository.memory.resource_loader
+
+    user.domain.repository.resource_saver:
+        alias : user.infrastructure.repository.memory.resource_saver
 
     user.domain.repository.collection_loader:
         alias  : user.infrastructure.repository.memory.collection_loader

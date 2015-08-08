@@ -42,6 +42,16 @@ services:
         arguments :
             - @user.domain.repository.resource_loader
 
+    ### PostResource
+    user.application.service.post_resource:
+        alias : user.application.service.post_resource.implementation
+
+    user.application.service.post_resource.implementation:
+        class     : Booothy\User\Application\Service\PostResource\UseCase
+        public    : false
+        arguments :
+            - @user.domain.repository.resource_saver
+
     ## Marshaller
     user.application.marshaller.resource:
         class  : Booothy\User\Application\Marshaller\Resource
@@ -78,7 +88,7 @@ services:
         public : false
 
     user.domain.repository.resource_saver:
-        alias : user.infrastructure.repository.memory.resource_saver
+        alias : user.infrastructure.repository.mongo.resource_saver
 
     ## Service
     user.domain.service.external_service.adapter:
@@ -106,6 +116,11 @@ services:
         class: Booothy\User\Infrastructure\Hydrator\Mongo\UserCollection
         arguments:
             - @user.domain.hydrator.user_resource
+
+    ## Marshaller
+    user.infrastructure.marshalling.mongo.marshaller:
+        class  : Booothy\User\Infrastructure\Marshalling\Mongo\Marshaller
+        public : false
 
     ## Repository
     ### Memory
@@ -148,3 +163,10 @@ services:
         arguments :
             - @app.mongo.collection.user
             - @user.domain.hydrator.user_resource
+
+    user.infrastructure.repository.mongo.resource_saver:
+        class     : Booothy\User\Infrastructure\Repository\Mongo\ResourceSaver
+        public    : false
+        arguments :
+            - @app.mongo.collection.user
+            - @user.infrastructure.marshalling.mongo.marshaller
