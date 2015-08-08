@@ -9,3 +9,4 @@ Feature: console booothy:create-user
             | option  | value                |
             | --email | monesvol@example.com |
         Then the command should exit with code 0
+        And the user 'monesvol@example.com' should exist

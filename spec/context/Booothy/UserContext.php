@@ -5,6 +5,7 @@ namespace BooothySpec\Booothy;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use Booothy\User\Domain\Model\User;
+use Booothy\User\Domain\Model\ValueObject\Email;
 use BooothySpec\BooothyContext;
 
 class UserContext implements Context
@@ -27,5 +28,13 @@ class UserContext implements Context
         BooothyContext::$app['container']
             ->get('user.domain.repository.resource_saver')
             ->__invoke(User::generate('allowed@example.com'));
+    }
+
+    /** @Then /the user '([^']+)' should exist/ */
+    public function theUserShouldExist($expected_user)
+    {
+        BooothyContext::$app['container']
+            ->get('user.domain.repository.resource_loader')
+            ->__invoke(new Email($expected_user));
     }
 }
