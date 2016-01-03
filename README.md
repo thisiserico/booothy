@@ -2,7 +2,6 @@
 > Private memories made easy
 
 [![Build Status](https://travis-ci.org/aeony/booothy.svg?branch=master)](https://travis-ci.org/aeony/booothy)
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/aeony/booothy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 Ever wanted to have a private platform to share some love?
 Do you feel like showing gratitude to your loved ones?
