@@ -14,9 +14,9 @@ final class Google implements Adapter
 
     public function __construct($a_client_id, $a_client_secret, Google_Client $a_client)
     {
-        $this->client_id     = $a_client_id;
+        $this->client_id = $a_client_id;
         $this->client_secret = $a_client_secret;
-        $this->client        = $a_client;
+        $this->client = $a_client;
     }
 
     public function getUserEmail($id_token)

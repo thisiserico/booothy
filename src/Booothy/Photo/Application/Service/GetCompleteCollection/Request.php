@@ -13,7 +13,7 @@ final class Request implements CoreRequest
         $the_requested_page,
         $the_requested_photos_per_page
     ) {
-        $this->requested_page  = max(1, $the_requested_page);
+        $this->requested_page = max(1, $the_requested_page);
         $this->photos_per_page = $the_requested_photos_per_page;
     }
 }

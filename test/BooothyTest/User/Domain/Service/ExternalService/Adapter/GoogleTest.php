@@ -15,10 +15,10 @@ final class GoogleTest extends PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        $this->google_client_id     = null;
+        $this->google_client_id = null;
         $this->google_client_secret = null;
-        $this->google_client        = null;
-        $this->id_token             = null;
+        $this->google_client = null;
+        $this->id_token = null;
 
         m::close();
     }

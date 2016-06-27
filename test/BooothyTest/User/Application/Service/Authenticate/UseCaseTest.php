@@ -17,14 +17,14 @@ use Booothy\User\Domain\Service\ExternalService\Exception\InvalidUser;
 final class UseCaseTest extends PHPUnit_Framework_TestCase
 {
     const ID_TOKEN = 'id_token';
-    const EMAIL    = 'email';
+    const EMAIL = 'email';
 
     public function tearDown()
     {
-        $this->id_token   = null;
-        $this->adapter    = null;
+        $this->id_token = null;
+        $this->adapter = null;
         $this->repository = null;
-        $this->request    = null;
+        $this->request = null;
 
         m::close();
     }

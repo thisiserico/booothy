@@ -28,12 +28,12 @@ final class Photo
         DateTimeImmutable $a_creation_date,
         Email $an_email
     ) {
-        $this->id            = $an_id;
-        $this->quote         = $a_quote;
-        $this->upload        = $an_upload;
+        $this->id = $an_id;
+        $this->quote = $a_quote;
+        $this->upload = $an_upload;
         $this->image_details = $some_image_details;
         $this->creation_date = $a_creation_date;
-        $this->user_id       = $an_email;
+        $this->user_id = $an_email;
     }
 
     public static function generateNew(
@@ -41,11 +41,11 @@ final class Photo
         $an_upload_mime_type,
         Email $an_email
     ) {
-        $id            = Id::next();
-        $quote         = new Quote($a_quote);
+        $id = Id::next();
+        $quote = new Quote($a_quote);
         $creation_date = new DateTimeImmutable;
         $image_details = ImageDetails::fake();
-        $upload        = self::generateUpload(
+        $upload = self::generateUpload(
             $a_quote,
             $creation_date,
             $an_upload_mime_type
@@ -70,10 +70,10 @@ final class Photo
 
     private static function generateFilename($quote, $date, $mime_type)
     {
-        $formatted_date         = $date->format('Y-m-d_H:i:s');
+        $formatted_date = $date->format('Y-m-d_H:i:s');
         $sanitized_spaced_quote = strtolower(preg_replace('/[^a-zA-Z0-9 ]+/', '', $quote));
-        $sanitized_quote        = str_replace(' ', '-', $sanitized_spaced_quote);
-        $extensions             = [
+        $sanitized_quote = str_replace(' ', '-', $sanitized_spaced_quote);
+        $extensions = [
             'image/gif'  => '.gif',
             'image/jpeg' => '.jpg',
             'image/png'  => '.png',

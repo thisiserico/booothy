@@ -13,9 +13,9 @@ final class Upload
 
     private function __construct($a_filename, $a_mime_type, $a_provider)
     {
-        $this->filename  = $a_filename;
+        $this->filename = $a_filename;
         $this->mime_type = $a_mime_type;
-        $this->provider  = $a_provider;
+        $this->provider = $a_provider;
     }
 
     public static function atBooothy($a_filename, $a_mime_type)

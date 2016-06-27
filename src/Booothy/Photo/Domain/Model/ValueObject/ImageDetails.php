@@ -11,8 +11,8 @@ final class ImageDetails
     public function __construct($an_hex_color, $a_width, $a_height)
     {
         $this->hex_color = $an_hex_color;
-        $this->width     = $a_width;
-        $this->height    = $a_height;
+        $this->width = $a_width;
+        $this->height = $a_height;
     }
 
     public static function fake()

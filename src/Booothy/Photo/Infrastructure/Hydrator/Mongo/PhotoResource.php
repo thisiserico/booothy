@@ -2,6 +2,7 @@
 
 namespace Booothy\Photo\Infrastructure\Hydrator\Mongo;
 
+use stdClass;
 use DateTimeImmutable;
 use Booothy\Photo\Domain\Hydrator\PhotoResource as Hydrator;
 use Booothy\Photo\Domain\Model\Photo;
@@ -13,36 +14,36 @@ use Booothy\User\Domain\Model\ValueObject\Email;
 
 final class PhotoResource implements Hydrator
 {
-    public function __invoke(array $document)
+    public function __invoke(stdClass $document)
     {
         $upload_provider = 'atProcessing';
 
-        if (array_key_exists('provider', $document['upload'])) {
-            $upload_provider = 'at' . ucfirst($document['upload']['provider']);
+        if (array_key_exists('provider', $document->upload)) {
+            $upload_provider = 'at' . ucfirst($document->upload->provider);
         }
 
         if (!array_key_exists('image_details', $document)) {
-            $document['image_details'] = [
+            $document->image_details = [
                 'hex_color' => '',
-                'width'     => 0,
-                'height'    => 0,
+                'width' => 0,
+                'height' => 0,
             ];
         }
 
         return new Photo(
-            new Id($document['_id']),
-            new Quote($document['quote']),
+            new Id($document->_id),
+            new Quote($document->quote),
             Upload::$upload_provider(
-                $document['upload']['filename'],
-                $document['upload']['mime_type']
+                $document->upload->filename,
+                $document->upload->mime_type
             ),
             new ImageDetails(
-                $document['image_details']['hex_color'],
-                $document['image_details']['width'],
-                $document['image_details']['height']
+                $document->image_details->hex_color,
+                $document->image_details->width,
+                $document->image_details->height
             ),
-            new DateTimeImmutable($document['creation_date']),
-            new Email($document['user'])
+            new DateTimeImmutable($document->creation_date),
+            new Email($document->user)
         );
     }
 }

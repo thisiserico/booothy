@@ -14,10 +14,10 @@ final class PostResource
 
     public function __invoke(SilexRequest $silex_request, Application $app)
     {
-        $quote         = $silex_request->get('quote');
+        $quote = $silex_request->get('quote');
         $uploaded_file = $silex_request->files->get('uploaded_file');
-        $mime_type     = $uploaded_file->getClientMimeType();
-        $file_path     = $app['container']->getParameter('folder.tmp') . $uploaded_file->getFilename();
+        $mime_type = $uploaded_file->getClientMimeType();
+        $file_path = $app['container']->getParameter('folder.tmp') . $uploaded_file->getFilename();
         $uploaded_file->move($app['container']->getParameter('folder.tmp'), $uploaded_file->getFilename());
 
         $app['container']
@@ -34,7 +34,7 @@ final class PostResource
                 $app['container']->get('photo.application.listener.generate_uploads')
             );
 
-        $user_id  = $silex_request->get('user')->email();
+        $user_id = $silex_request->get('user')->email();
         $use_case = $app['container']->get(self::USE_CASE);
         $response = $use_case(new Request($quote, $mime_type, $file_path, $user_id));
 

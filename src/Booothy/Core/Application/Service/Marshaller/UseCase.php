@@ -16,7 +16,7 @@ final class UseCase implements Service
         Marshaller $a_marshaller
     ) {
         $this->dependant_service = $a_dependant_service;
-        $this->marshaller        = $a_marshaller;
+        $this->marshaller = $a_marshaller;
     }
 
     public function __invoke(Request $request)

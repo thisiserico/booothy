@@ -16,7 +16,7 @@ final class UseCase implements Service
 
     public function __construct(Saver $a_photo_saver, Emitter $an_event_emitter)
     {
-        $this->photo_saver   = $a_photo_saver;
+        $this->photo_saver = $a_photo_saver;
         $this->event_emitter = $an_event_emitter;
     }
 

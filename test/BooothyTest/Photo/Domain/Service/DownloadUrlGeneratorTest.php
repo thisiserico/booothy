@@ -10,9 +10,9 @@ final class DownloadUrlGeneratorTest extends PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {
-        $this->booothy_download_pattern       = null;
+        $this->booothy_download_pattern = null;
         $this->booothy_thumb_download_pattern = null;
-        $this->upload                         = null;
+        $this->upload = null;
     }
 
     /** @test */

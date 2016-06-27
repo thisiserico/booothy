@@ -16,18 +16,18 @@ use Booothy\User\Domain\Model\ValueObject\Email;
 
 final class ComputeImageDetailsTest extends PHPUnit_Framework_TestCase
 {
-    const HEX_COLOR    = '#hex_color';
-    const IMAGE_WIDTH  = 24;
+    const HEX_COLOR = '#hex_color';
+    const IMAGE_WIDTH = 24;
     const IMAGE_HEIGHT = 32;
 
     public function tearDown()
     {
         $this->hex_color_extractor = null;
-        $this->image_manager       = null;
-        $this->saver_repository    = null;
-        $this->photo               = null;
-        $this->temporary_location  = null;
-        $this->event               = null;
+        $this->image_manager = null;
+        $this->saver_repository = null;
+        $this->photo = null;
+        $this->temporary_location = null;
+        $this->event = null;
 
         m::close();
     }

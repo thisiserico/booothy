@@ -2,7 +2,8 @@
 
 namespace Booothy\Photo\Infrastructure\Repository\Mongo;
 
-use MongoCollection;
+use MongoDB\Driver\Manager;
+use MongoDB\Driver\Query;
 use Booothy\Photo\Domain\Hydrator\PhotoResource;
 use Booothy\Photo\Domain\Model\ValueObject\Id;
 use Booothy\Photo\Domain\Repository\ResourceLoader as DomainLoader;
@@ -14,22 +15,22 @@ final class ResourceLoader implements DomainLoader
     private $hydrator;
 
     public function __construct(
-        MongoCollection $a_mongo_collection,
+        Manager $a_mongo_manager,
         PhotoResource $an_hydrator
     ) {
-        $this->mongo    = $a_mongo_collection;
+        $this->mongo = $a_mongo_manager;
         $this->hydrator = $an_hydrator;
     }
 
     public function __invoke(Id $id)
     {
-        $cursor = $this->mongo->find(['_id' => $id->value()]);
-        $cursor->next();
+        $query = new Query(['_id' => $id->value()]);
+        $cursor = $this->mongo->executeQuery('booothy.photo', $query)->toArray();
 
-        if (!$cursor->valid()) {
+        if (empty($cursor)) {
             throw new NonExistingResource;
         }
 
-        return $this->hydrator->__invoke($cursor->current());
+        return $this->hydrator->__invoke($cursor[0]);
     }
 }

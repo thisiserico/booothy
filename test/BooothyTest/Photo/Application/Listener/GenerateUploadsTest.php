@@ -18,14 +18,14 @@ final class GenerateUploadsTest extends PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {
-        $this->file_handler       = null;
-        $this->image_manager      = null;
-        $this->saver_repository   = null;
-        $this->photo              = null;
+        $this->file_handler = null;
+        $this->image_manager = null;
+        $this->saver_repository = null;
+        $this->photo = null;
         $this->temporary_location = null;
-        $this->event              = null;
-        $this->uploads_folder     = null;
-        $this->thumbnails_folder  = null;
+        $this->event = null;
+        $this->uploads_folder = null;
+        $this->thumbnails_folder = null;
 
         m::close();
     }

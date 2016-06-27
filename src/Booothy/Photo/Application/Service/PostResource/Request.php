@@ -18,9 +18,9 @@ final class Request implements CoreRequest
         $an_upload_temporary_location,
         Email $an_email
     ) {
-        $this->quote                     = $a_quote;
-        $this->upload_mime_type          = $an_upload_mime_type;
+        $this->quote = $a_quote;
+        $this->upload_mime_type = $an_upload_mime_type;
         $this->upload_temporaty_location = $an_upload_temporary_location;
-        $this->user_id                   = $an_email;
+        $this->user_id = $an_email;
     }
 }

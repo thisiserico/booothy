@@ -3,5 +3,5 @@ services:
     ## Repository
     ### Memory
     core.infrastructure.repository.memory.handler:
-        class  : Booothy\Core\Infrastructure\Repository\Memory\Handler
-        public : false
+        class: Booothy\Core\Infrastructure\Repository\Memory\Handler
+        public: false

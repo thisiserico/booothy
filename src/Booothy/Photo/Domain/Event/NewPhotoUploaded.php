@@ -12,7 +12,7 @@ final class NewPhotoUploaded extends AbstractEvent
 
     public function __construct(Photo $a_photo, $a_location)
     {
-        $this->photo              = $a_photo;
+        $this->photo = $a_photo;
         $this->temporary_location = $a_location;
     }
 }

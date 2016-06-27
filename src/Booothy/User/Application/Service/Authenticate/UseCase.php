@@ -19,7 +19,7 @@ final class UseCase implements Service
     public function __construct(Adapter $an_adapter, ResourceLoader $a_loader)
     {
         $this->external_service_adapter = $an_adapter;
-        $this->user_loader              = $a_loader;
+        $this->user_loader = $a_loader;
     }
 
     public function __invoke(CoreRequest $request)

@@ -16,13 +16,13 @@ final class UseCaseTest extends PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {
-        $this->quote              = null;
-        $this->mime_type          = null;
-        $this->user_id            = null;
+        $this->quote = null;
+        $this->mime_type = null;
+        $this->user_id = null;
         $this->temporary_location = null;
-        $this->repository         = null;
-        $this->event_emitter      = null;
-        $this->request            = null;
+        $this->repository = null;
+        $this->event_emitter = null;
+        $this->request = null;
 
         m::close();
     }

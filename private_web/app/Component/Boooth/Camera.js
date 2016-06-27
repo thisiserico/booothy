@@ -28,7 +28,7 @@ var Camera = React.createClass({
         if (!(this.state.width && this.state.height)) return;
 
         var video = this.state.video;
-        this.state.stream.stop();
+        this.state.stream.getVideoTracks()[0].stop()
 
         video.pause();
         video.src          = '';

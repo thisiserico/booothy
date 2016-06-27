@@ -2,7 +2,8 @@
 
 namespace Booothy\User\Infrastructure\Repository\Mongo;
 
-use MongoCollection;
+use MongoDB\Driver\Manager;
+use MongoDB\Driver\Query;
 use Booothy\User\Domain\Hydrator\UserCollection;
 use Booothy\User\Domain\Repository\CollectionLoader;
 
@@ -12,16 +13,18 @@ final class CompleteCollectionLoader implements CollectionLoader
     private $hydrator;
 
     public function __construct(
-        MongoCollection $a_mongo_collection,
+        Manager $a_mongo_manager,
         UserCollection $an_hydrator
     ) {
-        $this->mongo    = $a_mongo_collection;
+        $this->mongo = $a_mongo_manager;
         $this->hydrator = $an_hydrator;
     }
 
     public function __invoke()
     {
-        $cursor = $this->mongo->find();
+        $query = new Query([]);
+        $cursor = $this->mongo->executeQuery('booothy.user', $query)->toArray();
+
         return $this->hydrator->__invoke($cursor);
     }
 }

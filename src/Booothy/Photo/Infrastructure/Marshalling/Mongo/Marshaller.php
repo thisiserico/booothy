@@ -9,19 +9,19 @@ final class Marshaller
     public function marshallResource(Photo $photo)
     {
         return [
-            '_id'           => $photo->id()->value(),
-            'quote'         => $photo->quote()->value(),
-            'upload'        => [
+            '_id' => $photo->id()->value(),
+            'quote' => $photo->quote()->value(),
+            'upload' => [
                 'filename'  => $photo->upload()->filename(),
                 'mime_type' => $photo->upload()->mimeType(),
             ],
             'image_details' => [
                 'hex_color' => $photo->imageDetails()->hexColor(),
-                'width'     => $photo->imageDetails()->width(),
-                'height'    => $photo->imageDetails()->height(),
+                'width' => $photo->imageDetails()->width(),
+                'height' => $photo->imageDetails()->height(),
             ],
             'creation_date' => $photo->createdAt(),
-            'user'          => $photo->createdBy()->value(),
+            'user' => $photo->createdBy()->value(),
         ];
     }
 }

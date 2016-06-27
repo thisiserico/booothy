@@ -4,3 +4,9 @@ vendor/
 # Static files
 web/css
 web/js
+
+# Development files
+.env
+
+# Uploads
+uploads/

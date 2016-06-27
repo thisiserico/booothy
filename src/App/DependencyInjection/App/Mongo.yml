@@ -1,27 +1,6 @@
 services:
     app.mongo:
-        class     : MongoClient
-        public    : false
-        arguments :
+        class: MongoDB\Driver\Manager
+        public: false
+        arguments:
             - %mongo.server%
-
-    app.mongo.db:
-        class     : MongoDB
-        public    : false
-        arguments :
-            - @app.mongo
-            - %mongo.db%
-
-    app.mongo.collection.photo:
-        class     : MongoCollection
-        public    : false
-        arguments :
-            - @app.mongo.db
-            - photo
-
-    app.mongo.collection.user:
-        class     : MongoCollection
-        public    : false
-        arguments :
-            - @app.mongo.db
-            - user

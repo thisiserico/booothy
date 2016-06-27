@@ -27,16 +27,16 @@ final class GenerateUploads extends AbstractListener
         $an_uploads_folder,
         $a_thumbnails_folder
     ) {
-        $this->file_handler      = $a_filesystem_handler;
-        $this->image_manager     = $an_image_manaer;
-        $this->saver_repository  = $a_saver_repository;
-        $this->uploads_folder    = $an_uploads_folder;
+        $this->file_handler = $a_filesystem_handler;
+        $this->image_manager = $an_image_manaer;
+        $this->saver_repository = $a_saver_repository;
+        $this->uploads_folder = $an_uploads_folder;
         $this->thumbnails_folder = $a_thumbnails_folder;
     }
 
     public function handle(EventInterface $event)
     {
-        $photo              = $event->photo;
+        $photo = $event->photo;
         $temporary_location = $event->temporary_location;
 
         $this->generateThumb($photo, $temporary_location);

@@ -2,7 +2,8 @@
 
 namespace Booothy\User\Infrastructure\Repository\Mongo;
 
-use MongoCollection;
+use MongoDB\Driver\Manager;
+use MongoDB\Driver\Query;
 use Booothy\User\Domain\Hydrator\UserResource;
 use Booothy\User\Domain\Model\ValueObject\Email;
 use Booothy\User\Domain\Repository\ResourceLoader as DomainLoader;
@@ -14,22 +15,22 @@ final class ResourceLoader implements DomainLoader
     private $hydrator;
 
     public function __construct(
-        MongoCollection $a_mongo_collection,
+        Manager $a_mongo_manager,
         UserResource $an_hydrator
     ) {
-        $this->mongo    = $a_mongo_collection;
+        $this->mongo = $a_mongo_manager;
         $this->hydrator = $an_hydrator;
     }
 
     public function __invoke(Email $email)
     {
-        $cursor = $this->mongo->find(['_id' => $email->value()]);
-        $cursor->next();
+        $query = new Query(['_id' => $email->value()]);
+        $cursor = $this->mongo->executeQuery('booothy.user', $query)->toArray();
 
-        if (!$cursor->valid()) {
+        if (empty($cursor)) {
             throw new NonExistingResource;
         }
 
-        return $this->hydrator->__invoke($cursor->current());
+        return $this->hydrator->__invoke($cursor[0]);
     }
 }
