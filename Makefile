@@ -13,10 +13,10 @@ run-booothy-mongodb:
 	--name=booothy-mongodb \
 	--net=booothy-network \
 	--volume=$(VOLUMES)/mongodb:/data/db \
-	-e MONGODB_PASS="admin" \
-	-e MONGODB_USER="booothy" \
+	-e MONGODB_PASS=$(BOOOTHY_ADMIN_PASS) \
+	-e MONGODB_USER=$(BOOOTHY_USER) \
 	-e MONGODB_DATABASE="booothy" \
-	-e MONGODB_PASS="booothy" \
+	-e MONGODB_PASS=$(BOOOTHY_PASS) \
 	tutum/mongodb:3.2
 
 run-booothy:
