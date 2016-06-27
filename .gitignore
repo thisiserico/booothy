@@ -7,6 +7,8 @@ web/js
 
 # Development files
 .env
+config/ssl/*
+!config/ssl/.gitkeep
 
 # Uploads
 uploads/
