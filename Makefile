@@ -1,6 +1,6 @@
 PWD:=$(shell pwd)
 CONFIG:=$(PWD)/config
-VOLUMES:=$(PWD)/../volumes
+VOLUMES:=$(PWD)/../booothy-volumes
 
 build-booothy-images:
 	docker build -f $(CONFIG)/Dockerfile -t booothy-php/7.0.7-fpm-alpine .
