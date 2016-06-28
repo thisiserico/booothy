@@ -1,0 +1,41 @@
+version: '2'
+
+services:
+  booothy-mongodb:
+    image: tutum/mongodb:3.2
+    environment:
+      MONGODB_USER: ${BOOOTHY_USER}
+      MONGODB_PASS: ${BOOOTHY_PASS}
+      MONGODB_DATABASE: "booothy"
+    volumes:
+      - "../booothy-volumes/mongodb:/data/db"
+    expose:
+      - "27017"
+
+  booothy-fpm:
+    build:
+      context: ./config/docker
+      dockerfile: Dockerfile.fpm
+    volumes:
+      - ".:/var/www/booothy"
+      - "../booothy-volumes/booothy/logs:/var/booothy/logs"
+      - "../booothy-volumes/booothy/cache/twig:/var/booothy/cache/twig"
+      - "../booothy-volumes/booothy/cache/profiler:/var/booothy/cache/profiler"
+      - "../booothy-volumes/booothy/uploads/thumbs:/var/booothy/uploads/thumbs"
+    expose:
+      - "9000"
+    links:
+      - "booothy-mongodb"
+
+  booothy-nginx:
+    image: nginx:1.11.0-alpine
+    volumes:
+      - "./web:/var/www/booothy/web:ro"
+      - "./config/ssl:/etc/ssl:ro"
+      - "./config/nginx/booothy.conf:/etc/nginx/conf.d/booothy.conf:ro"
+      - "../booothy-volumes/booothy/uploads:/var/booothy/uploads:ro"
+    ports:
+      - "80:80"
+      - "443:443"
+    links:
+      - "booothy-fpm"
