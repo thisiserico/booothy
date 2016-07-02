@@ -6,7 +6,7 @@ parameters:
     folder.logs: '/var/booothy/logs/'
     folder.uploads: '/var/booothy/uploads/'
     folder.uploads.thumbs: '/var/booothy/uploads/thumbs/'
-    folder.tmp: '/tmp/'
+    folder.tmp: '/var/booothy/tmp/'
 
     mongo.db: 'booothy'
     mongo.server: 'mongodb://username:password@mongo:27017/booothy'
