@@ -2,6 +2,9 @@ PWD:=$(shell pwd)
 CONFIG:=$(PWD)/config
 VOLUMES:=$(PWD)/../booothy-volumes
 
+BOOOTHY_USER=`cat .env | grep MONGODB_BOOOTHY_USER | sed "s/^MONGODB\_BOOOTHY\_USER=//"`
+BOOOTHY_PASS=`cat .env | grep MONGODB_BOOOTHY_PASS | sed "s/^MONGODB\_BOOOTHY\_PASS=//"`
+
 build-booothy-images:
 	docker build -f $(CONFIG)/docker/Dockerfile.fpm -t booothy-php/7.0.7-fpm-alpine .
 
@@ -13,10 +16,9 @@ run-booothy-mongodb:
 	--name=booothy-mongodb \
 	--net=booothy-network \
 	--volume=$(VOLUMES)/mongodb:/data/db \
-	-e MONGODB_PASS=$(BOOOTHY_ADMIN_PASS) \
 	-e MONGODB_USER=$(BOOOTHY_USER) \
-	-e MONGODB_DATABASE="booothy" \
 	-e MONGODB_PASS=$(BOOOTHY_PASS) \
+	-e MONGODB_DATABASE="booothy" \
 	tutum/mongodb:3.2
 
 run-booothy:

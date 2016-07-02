@@ -4,8 +4,8 @@ services:
   booothy-mongodb:
     image: tutum/mongodb:3.2
     environment:
-      MONGODB_USER: ${BOOOTHY_USER}
-      MONGODB_PASS: ${BOOOTHY_PASS}
+      MONGODB_USER: ${MONGODB_BOOOTHY_USER}
+      MONGODB_PASS: ${MONGODB_BOOOTHY_PASS}
       MONGODB_DATABASE: "booothy"
     volumes:
       - "../booothy-volumes/mongodb:/data/db"
