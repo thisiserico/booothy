@@ -12,6 +12,7 @@ config/ssl/*
 
 # Generated files
 src/App/DependencyInjection/Services/definition.php
+src/App/DependencyInjection/Services/definition_testing.php
 
 # Uploads
 uploads/

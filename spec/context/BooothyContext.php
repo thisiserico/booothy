@@ -5,7 +5,7 @@ namespace BooothySpec;
 use Behat\Behat\Context\Context;
 use Silex\Application as WebApplication;
 use Symfony\Component\Console\Application as ConsoleApplication;
-use TestServiceContainer;
+use TestingServiceContainer;
 
 class BooothyContext implements Context
 {
@@ -29,12 +29,10 @@ class BooothyContext implements Context
 
     private static function initializeWebApplication()
     {
-        $file_name = 'definition_test.php';
-        $file_path = 'src/App/DependencyInjection/Services/' . $file_name;
-        require_once $file_path;
+        require_once 'src/App/DependencyInjection/Services/definition_testing.php';
 
-        $service_container = new TestServiceContainer;
-        $app               = new WebApplication;
+        $service_container = new TestingServiceContainer;
+        $app = new WebApplication;
 
         require 'src/App/Ui/Silex/Web/Controllers.php';
         $app['container'] = $service_container;

@@ -19,8 +19,8 @@ Feature: GET /photos/<id>
                 "upload"        : {
                     "filename"           : "quote_01.png",
                     "mime_type"          : "image/png",
-                    "download_url"       : "//booothy.test/index_test.php/u/quote_01.png",
-                    "thumb_download_url" : "//booothy.test/index_test.php/u/thumb/quote_01.png"
+                    "download_url"       : "//booothy.dev/u/quote_01.png",
+                    "thumb_download_url" : "//booothy.dev/u/thumb/quote_01.png"
                 },
                 "image_details" : {
                     "hex_color" : "#f3f3f3",
