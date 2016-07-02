@@ -10,6 +10,7 @@ final class DownloadUrlGeneratorTest extends PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {
+        $this->booothy_url = null;
         $this->booothy_download_pattern = null;
         $this->booothy_thumb_download_pattern = null;
         $this->upload = null;
@@ -39,8 +40,9 @@ final class DownloadUrlGeneratorTest extends PHPUnit_Framework_TestCase
 
     private function givenSomeDownloadPatterns()
     {
-        $this->booothy_download_pattern       = 'booothy.tld/u/{filename}';
-        $this->booothy_thumb_download_pattern = 'booothy.tld/u/thumb/{filename}';
+        $this->booothy_url = 'booothy.tld';
+        $this->booothy_download_pattern = 'u/{filename}';
+        $this->booothy_thumb_download_pattern = 'u/thumb/{filename}';
     }
 
     private function andAnUploadValueObject()
@@ -51,6 +53,7 @@ final class DownloadUrlGeneratorTest extends PHPUnit_Framework_TestCase
     private function generateDownloadUrl()
     {
         $service = new DownloadUrlGenerator(
+            $this->booothy_url,
             $this->booothy_download_pattern,
             $this->booothy_thumb_download_pattern
         );
@@ -61,6 +64,7 @@ final class DownloadUrlGeneratorTest extends PHPUnit_Framework_TestCase
     private function generateThumbDownloadUrl()
     {
         $service = new DownloadUrlGenerator(
+            $this->booothy_url,
             $this->booothy_download_pattern,
             $this->booothy_thumb_download_pattern
         );
