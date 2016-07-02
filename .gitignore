@@ -10,5 +10,8 @@ web/js
 config/ssl/*
 !config/ssl/.gitkeep
 
+# Generated files
+src/App/DependencyInjection/Services/definition.php
+
 # Uploads
 uploads/
