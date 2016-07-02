@@ -3,7 +3,7 @@ CONFIG:=$(PWD)/config
 VOLUMES:=$(PWD)/../booothy-volumes
 
 build-booothy-images:
-	docker build -f $(CONFIG)/Dockerfile -t booothy-php/7.0.7-fpm-alpine .
+	docker build -f $(CONFIG)/docker/Dockerfile.fpm -t booothy-php/7.0.7-fpm-alpine .
 
 run-network:
 	docker network create booothy-network
@@ -24,11 +24,12 @@ run-booothy:
 	--name=booothy-fpm \
 	--net=booothy-network \
 	--volume=$(PWD):/var/www/booothy \
-	--volume=$(VOLUMES)/booothy/uploads:/var/booothy/uploads \
-	--volume=$(VOLUMES)/booothy/uploads/thumbs:/var/booothy/uploads/thumbs \
+	--volume=$(VOLUMES)/booothy/tmp:/var/booothy/tmp \
+	--volume=$(VOLUMES)/booothy/logs:/var/booothy/logs \
 	--volume=$(VOLUMES)/booothy/cache/twig:/var/booothy/cache/twig \
 	--volume=$(VOLUMES)/booothy/cache/profiler:/var/booothy/cache/profiler \
-	--volume=$(VOLUMES)/booothy/logs:/var/booothy/logs \
+	--volume=$(VOLUMES)/booothy/uploads:/var/booothy/uploads \
+	--volume=$(VOLUMES)/booothy/uploads/thumbs:/var/booothy/uploads/thumbs \
 	booothy-php/7.0.7-fpm-alpine
 
 run-nginx:
