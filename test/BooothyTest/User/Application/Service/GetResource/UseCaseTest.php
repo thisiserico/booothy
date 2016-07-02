@@ -15,7 +15,7 @@ final class UseCaseTest extends PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {
-        $this->request    = null;
+        $this->request = null;
         $this->repository = null;
 
         m::close();

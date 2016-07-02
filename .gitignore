@@ -4,3 +4,14 @@ vendor/
 # Static files
 web/css
 web/js
+
+# Development files
+.env
+config/ssl/*
+!config/ssl/.gitkeep
+
+# Generated files
+src/App/DependencyInjection/Services/definition.php
+
+# Uploads
+uploads/

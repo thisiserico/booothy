@@ -5,36 +5,77 @@
 
 Ever wanted to have a private platform to share some love?
 Do you feel like showing gratitude to your loved ones?
-Booothy is a build-and-serve yourself platform to do exactly that: enjoy sharing your love and
-gratitude with your companion in life. Taking photos ( boooths ) was never this fun and
+Booothy is a serve yourself platform to do exactly that: enjoy sharing your love and
+gratitude with your significant others. Taking photos (boooths) was never this fun and
 easy :)
 
-Using a _restful_ php API in the server ( following the _domain driven design_ paradigm ), a
-_react_ application in the client side ( using the _flux_ pattern ) and _sass_ to make it
+Using a _restful_ php API in the server (following the _domain driven design_ paradigm), a
+_react_ application in the client side (using the _flux_ pattern) and _sass_ to make it
 beautiful, this is the perfect gift!
 
 Deploy and impress <3
 
 
 ## Features
-- No need to sign up, just use the google sign in button ( only allowed users ;) )
+- No need to sign up, just use the google sign in button (only allowed users ;)
 - Boooth stream displayed beautifully
 - Boooth detailed view
-- Boooth filtering per user
+- Boooth per user filtering
 - Use the camera to take boooths
 - Upload images as boooths
 - Add a nice little thought to each boooth
+- Dockerized application
 
 
 ## Future features
 - Responsive design
 - User management
 - Usability improvements
-- Pack everything in a vagrant virtual box
-- Online demo
 - On demand backups
 - Even more!
 
+
+## Installation
+Head to the [Google developers console][gdc] and create a new booothy project.
+Configure your credentials with this two urls:
+
+```
+https://booothy.dev
+https://booothy.dev/oauth2callback
+```
+
+Execute the following links to build and run booothy
+```
+# Create SSL keys
+openssl genrsa -out config/ssl/private_key.pem 2048
+openssl req -new -x509 -key config/ssl/private_key.pem -out config/ssl/cacert.pem -days 365
+
+# Configure development application
+cp .env.dist .env
+sudo echo 127.0.0.1 booothy.dev >> /etc/hosts
+
+# Install dependencies
+composer install
+cd private_web
+npm install
+./node_modules/.bin/gulp deploy
+cd ..
+
+# Run booothy
+docker-compose up
+```
+
+The only remaining step is to set up booothy
+```
+# Copy your google public and private keys into the .env file
+
+docker exec -it booothy_booothy-fpm_1 sh
+cd ../booothy
+./bin/console app:dump
+./bin/console booothy:create-user -e [your.gmail.address@gmail.com]
+```
+
+You can now visit [Booothy!][booothy-dev]
 
 ## How it works
 ### Server side
@@ -43,25 +84,15 @@ The php API is powered by [`Silex`][silex]. We can find everything related to th
 
 #### 1. Services definition
 The server side is strongly decoupled using de `dependency inversion principle`. Every class
-related to booothy itself is declared as a service. Even parameters ( folders, credentials,
-urls... ) are declared as services. You might want to take a look to the
-`src/App/DependencyInjection/Services/definition_prod.yml` file. As you can see, the configuration
-being loaded depends on the environment. There's the possibility to create a
-`private_definition_prod.php`. You can use this to avoid sharing sensible information in the
-project repository ( open sourcing, you know ;) ). That file might look like
-
-```
-<?php
-
-$container->setParameter('google.client_id', 'cool_client_id');
-$container->setParameter('google.client_secret', 'super_secret');
-```
+related to booothy itself is declared as a service. Even parameters (folders, credentials,
+urls...) are declared as services. You might want to take a look to the
+`src/App/DependencyInjection/Services/definition.yml` file.
 
 Once the services are defined, they need to be transpiled into a php class. We use the
-`app:dump-services` console command. That command accepts the environments you want to build.
+`app:dump-services` console command.
 
 ```
-bin/console app:dump-services dev prod
+bin/console app:dump-services
 ```
 
 That command will generate php classes that you might want to avoid adding to the repo.
@@ -81,54 +112,10 @@ plain php! Take a look to the code to discover a `DDD` implementation.
 
 ### Client side
 The client side application is powered by the facebook's flux pattern using react. The whole
-application can be found under the `private_web` folder. There's an entry point ( `main.js` )
+application can be found under the `private_web` folder. There's an entry point (`main.js`)
 where the react routes are declared. The components need to be rearranged, but you can get the
 idea. The design for the client side is not as polished as it could be. There are not even tests!
 Sorry for that.
-
-
-## Installation
-The installation is a two steps process.
-
-### 1. Server side
-Dependencies installation using composer.
-```
-# booothy/
-composer install
-```
-
-Services definition precompilation ( uses [`symfony/dependency-injection`][dic] ).
-```
-# booothy/
-bin/console app:dump-services dev prod
-```
-
-### 2. Client side
-Dependencies installation using npm.
-```
-# booothy/private_web/
-npm install
-```
-
-There are two ways to bundle the `styles` and `javascript` files: the default way ( use in
-development only ) and the deployable way, where everything gets minified.
-```
-# booothy/private_web/
-node_modules/.bin/gulp default
-node_modules/.bin/gulp deploy
-```
-
-Once installed, you're ready to go. You'll need some kind of host to access your application. You
-could to use the built-in php development server. Although this method won't take you too far as
-you need to configure a project though the [Google developers console][gdc] and to create and
-declare some folders.
-
-The recommendation is to use some kind of web server ( nginx or apache ) within a virtual machine.
-```
-# booothy/web/
-php -S localhost:8000
-```
-
 
 ## License
 Distributed under an [Apache license 2.0][al2] you're free to fork and modify the code. You can
@@ -143,6 +130,7 @@ Pull requests are welcome. Hope you like it!
 
 [dic]: https://packagist.org/packages/symfony/dependency-injection
 [gdc]: https://console.developers.google.com
+[booothy-dev]: https://booothy.dev
 [silex]: http://silex.sensiolabs.org/
 [al2]: http://www.apache.org/licenses/LICENSE-2.0
 [issues]: https://github.com/aeony/booothy/issues

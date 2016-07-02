@@ -2,15 +2,14 @@ services:
     # Application
     ## Listener
     photo.application.listener.compute_image_details:
-        class     : Booothy\Photo\Application\Listener\ComputeImageDetails
-        arguments :
-            - @app.color_extractor
+        class: Booothy\Photo\Application\Listener\ComputeImageDetails
+        arguments:
             - @app.image_manager
             - @photo.domain.repository.saver
 
     photo.application.listener.generate_uploads:
-        class     : Booothy\Photo\Application\Listener\GenerateUploads
-        arguments :
+        class: Booothy\Photo\Application\Listener\GenerateUploads
+        arguments:
             - @app.file.handler
             - @app.image_manager
             - @photo.domain.repository.saver
@@ -20,99 +19,100 @@ services:
     ## Service
     ### GetCompleteCollection
     photo.application.service.get_complete_collection:
-        alias : photo.application.service.get_complete_collection.with_marshaller
+        alias: photo.application.service.get_complete_collection.with_marshaller
 
     photo.application.service.get_complete_collection.with_marshaller:
-        class     : Booothy\Core\Application\Service\Marshaller\UseCase
-        public    : false
-        arguments :
+        class: Booothy\Core\Application\Service\Marshaller\UseCase
+        public: false
+        arguments:
             - @photo.application.service.get_complete_collection.implementation
             - @photo.application.marshaller.collection
 
     photo.application.service.get_complete_collection.implementation:
-        class     : Booothy\Photo\Application\Service\GetCompleteCollection\UseCase
-        public    : false
-        arguments :
+        class: Booothy\Photo\Application\Service\GetCompleteCollection\UseCase
+        public: false
+        arguments:
             - @photo.domain.repository.loader
 
     ### GetResource
     photo.application.service.get_resource:
-        alias : photo.application.service.get_resource.with_marshaller
+        alias: photo.application.service.get_resource.with_marshaller
 
     photo.application.service.get_resource.with_marshaller:
-        class     : Booothy\Core\Application\Service\Marshaller\UseCase
-        public    : false
-        arguments :
+        class: Booothy\Core\Application\Service\Marshaller\UseCase
+        public: false
+        arguments:
             - @photo.application.service.get_resource.implementation
             - @photo.application.marshaller.resource
 
     photo.application.service.get_resource.implementation:
-        class     : Booothy\Photo\Application\Service\GetResource\UseCase
-        public    : false
-        arguments :
+        class: Booothy\Photo\Application\Service\GetResource\UseCase
+        public: false
+        arguments:
             - @photo.domain.repository.resource_loader
 
     ### PostResource
     photo.application.service.post_resource:
-        alias : photo.application.service.post_resource.with_marshaller
+        alias: photo.application.service.post_resource.with_marshaller
 
     photo.application.service.post_resource.with_marshaller:
-        class     : Booothy\Core\Application\Service\Marshaller\UseCase
-        public    : false
-        arguments :
+        class: Booothy\Core\Application\Service\Marshaller\UseCase
+        public: false
+        arguments:
             - @photo.application.service.post_resource.implementation
             - @photo.application.marshaller.resource
 
     photo.application.service.post_resource.implementation:
-        class     : Booothy\Photo\Application\Service\PostResource\UseCase
-        public    : false
-        arguments :
+        class: Booothy\Photo\Application\Service\PostResource\UseCase
+        public: false
+        arguments:
             - @photo.domain.repository.saver
             - @app.event.emitter
 
     ## Marshaller
     photo.application.marshaller.resource:
-        class     : Booothy\Photo\Application\Marshaller\Resource
-        public    : false
-        arguments :
+        class: Booothy\Photo\Application\Marshaller\Resource
+        public: false
+        arguments:
             - @photo.domain.service.download_url_generator
 
     photo.application.marshaller.collection:
-        class     : Booothy\Photo\Application\Marshaller\Collection
-        public    : false
-        arguments :
+        class: Booothy\Photo\Application\Marshaller\Collection
+        public: false
+        arguments:
             - @photo.application.marshaller.resource
 
 
     # Domain
     ## Hydrator
     photo.domain.hydrator.photo_resource:
-        alias  : photo.infrastructure.hydrator.mongo.photo_resource
-        public : false
+        alias: photo.infrastructure.hydrator.mongo.photo_resource
+        public: false
 
     photo.domain.hydrator.photo_collection:
-        alias  : photo.infrastructure.hydrator.mongo.photo_collection
-        public : false
+        alias: photo.infrastructure.hydrator.mongo.photo_collection
+        public: false
 
     ## Service
     photo.domain.service.download_url_generator:
-        class     : Booothy\Photo\Domain\Service\DownloadUrlGenerator
-        arguments :
-            - %booothy_download_url%
-            - %booothy_thumb_download_url%
+        class: Booothy\Photo\Domain\Service\DownloadUrlGenerator
+        arguments:
+            - %booothy_url%
+            - %booothy_download_uri%
+            - %booothy_thumb_download_uri%
 
     ## Repository
     photo.domain.repository.loader:
-        alias  : photo.infrastructure.repository.mongo.newer_first_loader
-        public : false
+        alias: photo.infrastructure.repository.mongo.newer_first_loader
+        public: false
 
     photo.domain.repository.resource_loader:
-        alias  : photo.infrastructure.repository.mongo.resource_loader
-        public : false
+        alias: photo.infrastructure.repository.mongo.resource_loader
+        public: false
 
     photo.domain.repository.saver:
-        alias  : photo.infrastructure.repository.mongo.photo_saver
-        public : false
+        alias: photo.infrastructure.repository.mongo.photo_saver
+        public: false
 
 
     # Infrastructure
@@ -127,47 +127,47 @@ services:
 
     ## Marshaller
     photo.infrastructure.marshalling.mongo.marshaller:
-        class  : Booothy\Photo\Infrastructure\Marshalling\Mongo\Marshaller
-        public : false
+        class: Booothy\Photo\Infrastructure\Marshalling\Mongo\Marshaller
+        public: false
 
     ## Repository
     ### Memory
     photo.infrastructure.repository.memory.resource_saver:
-        class     : Booothy\Photo\Infrastructure\Repository\Memory\ResourceSaver
-        public    : false
-        arguments :
+        class: Booothy\Photo\Infrastructure\Repository\Memory\ResourceSaver
+        public: false
+        arguments:
             - @core.infrastructure.repository.memory.handler
 
     photo.infrastructure.repository.memory.resource_loader:
-        class     : Booothy\Photo\Infrastructure\Repository\Memory\ResourceLoader
-        public    : false
-        arguments :
+        class: Booothy\Photo\Infrastructure\Repository\Memory\ResourceLoader
+        public: false
+        arguments:
             - @core.infrastructure.repository.memory.handler
 
     photo.infrastructure.repository.memory.collection_loader:
-        class     : Booothy\Photo\Infrastructure\Repository\Memory\CollectionLoader
-        public    : false
-        arguments :
+        class: Booothy\Photo\Infrastructure\Repository\Memory\CollectionLoader
+        public: false
+        arguments:
             - @core.infrastructure.repository.memory.handler
 
     ### Mongo
     photo.infrastructure.repository.mongo.newer_first_loader:
-        class     : Booothy\Photo\Infrastructure\Repository\Mongo\NewerFirstLoader
-        public    : false
-        arguments :
-            - @app.mongo.collection.photo
+        class: Booothy\Photo\Infrastructure\Repository\Mongo\NewerFirstLoader
+        public: false
+        arguments:
+            - @app.mongo
             - @photo.domain.hydrator.photo_collection
 
     photo.infrastructure.repository.mongo.resource_loader:
-        class     : Booothy\Photo\Infrastructure\Repository\Mongo\ResourceLoader
-        public    : false
-        arguments :
-            - @app.mongo.collection.photo
+        class: Booothy\Photo\Infrastructure\Repository\Mongo\ResourceLoader
+        public: false
+        arguments:
+            - @app.mongo
             - @photo.domain.hydrator.photo_resource
 
     photo.infrastructure.repository.mongo.photo_saver:
-        class     : Booothy\Photo\Infrastructure\Repository\Mongo\PhotoSaver
-        public    : false
-        arguments :
-            - @app.mongo.collection.photo
+        class: Booothy\Photo\Infrastructure\Repository\Mongo\PhotoSaver
+        public: false
+        arguments:
+            - @app.mongo
             - @photo.infrastructure.marshalling.mongo.marshaller

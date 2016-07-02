@@ -11,12 +11,12 @@ use Booothy\Photo\Domain\Repository\Loader;
 
 final class UseCaseTest extends PHPUnit_Framework_TestCase
 {
-    const PAGE            = 1;
+    const PAGE = 1;
     const PHOTOS_PER_PAGE = 10;
 
     public function tearDown()
     {
-        $this->request    = null;
+        $this->request = null;
         $this->repository = null;
 
         m::close();

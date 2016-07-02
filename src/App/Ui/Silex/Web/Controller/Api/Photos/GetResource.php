@@ -15,7 +15,7 @@ final class GetResource
     public function __invoke(SilexRequest $silex_request, Application $app)
     {
         $use_case = $app['container']->get(self::USE_CASE);
-        $request  = new Request($silex_request->get('id'));
+        $request = new Request($silex_request->get('id'));
         $response = $this->getResponse($use_case, $request);
 
         return new SilexResponse($response['content'], $response['status']);
@@ -26,12 +26,12 @@ final class GetResource
         try {
             return [
                 'content' => $use_case($request),
-                'status'  => 200,
+                'status' => 200,
             ];
         } catch (NonExistingResource $e) {
             return [
                 'content' => ['error' => 'Non existing boooth ' . $request->id],
-                'status'  => 404,
+                'status' => 404,
             ];
         }
     }

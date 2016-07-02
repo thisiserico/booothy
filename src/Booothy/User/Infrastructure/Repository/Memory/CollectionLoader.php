@@ -17,7 +17,7 @@ final class CollectionLoader implements DomainLoader
 
     public function __invoke()
     {
-        $users           = $this->database_handler->getCollection('user');
+        $users = $this->database_handler->getCollection('user');
         $user_collection = new UserCollection;
 
         foreach ($users as $user) {

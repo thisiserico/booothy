@@ -17,12 +17,12 @@ final class Resource implements Marshaller
     public function __invoke($element)
     {
         return [
-            'id'            => $element->id()->value(),
-            'quote'         => $element->quote()->value(),
-            'upload'        => [
-                'filename'           => $element->upload()->filename(),
-                'mime_type'          => $element->upload()->mimeType(),
-                'download_url'       => $this->download_url_generator->__invoke(
+            'id' => $element->id()->value(),
+            'quote' => $element->quote()->value(),
+            'upload' => [
+                'filename' => $element->upload()->filename(),
+                'mime_type' => $element->upload()->mimeType(),
+                'download_url' => $this->download_url_generator->__invoke(
                     $element->upload()
                 ),
                 'thumb_download_url' => $this->download_url_generator->__invoke(
@@ -32,11 +32,11 @@ final class Resource implements Marshaller
             ],
             'image_details' => [
                 'hex_color' => $element->imageDetails()->hexColor(),
-                'width'     => $element->imageDetails()->width(),
-                'height'    => $element->imageDetails()->height(),
+                'width' => $element->imageDetails()->width(),
+                'height' => $element->imageDetails()->height(),
             ],
             'creation_date' => $element->createdAt(),
-            'user'          => $element->createdBy()->value(),
+            'user' => $element->createdBy()->value(),
         ];
     }
 }

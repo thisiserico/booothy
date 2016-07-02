@@ -14,8 +14,8 @@ final class UseCaseTest extends PHPUnit_Framework_TestCase
     public function tearDown()
     {
         $this->dependant_service = null;
-        $this->marshaller        = null;
-        $this->request           = null;
+        $this->marshaller = null;
+        $this->request = null;
 
         m::close();
     }

@@ -1,4 +1,4 @@
 services:
     app.file.handler:
-        class     : Symfony\Component\Filesystem\Filesystem
-        public    : false
+        class: Symfony\Component\Filesystem\Filesystem
+        public: false

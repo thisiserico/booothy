@@ -46,7 +46,7 @@ final class AuthenticationHandling
         }
 
         $authenticate_use_case = $app['container']->get(self::USE_CASE);
-        $authenticate_request  = new AuthenticationRequest($id_token);
+        $authenticate_request = new AuthenticationRequest($id_token);
 
         $silex_request->request->set(
             'user',

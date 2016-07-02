@@ -3,7 +3,7 @@
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputOption;
 
-$console = new Application('Booothy console runner', '0.1');
+$console = new Application('Booothy console runner', '1.0');
 
 $console->getDefinition()->addOption(new InputOption(
     '--env',

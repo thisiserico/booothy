@@ -1,4 +1,0 @@
-imports:
-    - { resource: 'definition_prod.yml' }
-    - { resource: '../App/Test.yml' }
-    - { resource: 'private_definition_test.php', ignore_errors: true }

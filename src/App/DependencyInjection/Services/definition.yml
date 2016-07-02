@@ -1,5 +1,5 @@
 imports:
-    - { resource: '../App/Prod.yml' }
+    - { resource: '../App/Parameters.yml' }
     - { resource: '../App/Mongo.yml' }
     - { resource: '../App/Events.yml' }
     - { resource: '../App/File.yml' }
@@ -8,4 +8,4 @@ imports:
     - { resource: '../Booothy/Core.yml' }
     - { resource: '../Booothy/Photo.yml' }
     - { resource: '../Booothy/User.yml' }
-    - { resource: 'private_definition_prod.php', ignore_errors: true }
+    - { resource: 'parameters.php' }

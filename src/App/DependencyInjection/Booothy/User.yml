@@ -3,107 +3,107 @@ services:
     ## Service
     ###Authenticate
     user.application.service.authenticate:
-        class     : Booothy\User\Application\Service\Authenticate\UseCase
-        arguments :
+        class: Booothy\User\Application\Service\Authenticate\UseCase
+        arguments:
             - @user.domain.service.external_service.adapter
             - @user.domain.repository.resource_loader
 
     ### GetCollection
     user.application.service.get_collection:
-        alias : user.application.service.get_collection.with_marshaller
+        alias: user.application.service.get_collection.with_marshaller
 
     user.application.service.get_collection.with_marshaller:
-        class     : Booothy\Core\Application\Service\Marshaller\UseCase
-        public    : false
-        arguments :
+        class: Booothy\Core\Application\Service\Marshaller\UseCase
+        public: false
+        arguments:
             - @user.application.service.get_collection.implementation
             - @user.application.marshaller.collection
 
     user.application.service.get_collection.implementation:
-        class     : Booothy\User\Application\Service\GetCollection\UseCase
-        public    : false
-        arguments :
+        class: Booothy\User\Application\Service\GetCollection\UseCase
+        public: false
+        arguments:
             - @user.domain.repository.collection_loader
 
     ### GetResource
     user.application.service.get_resource:
-        alias : user.application.service.get_resource.with_marshaller
+        alias: user.application.service.get_resource.with_marshaller
 
     user.application.service.get_resource.with_marshaller:
-        class     : Booothy\Core\Application\Service\Marshaller\UseCase
-        public    : false
-        arguments :
+        class: Booothy\Core\Application\Service\Marshaller\UseCase
+        public: false
+        arguments:
             - @user.application.service.get_resource.implementation
             - @user.application.marshaller.resource
 
     user.application.service.get_resource.implementation:
-        class     : Booothy\User\Application\Service\GetResource\UseCase
-        public    : false
-        arguments :
+        class: Booothy\User\Application\Service\GetResource\UseCase
+        public: false
+        arguments:
             - @user.domain.repository.resource_loader
 
     ### PostResource
     user.application.service.post_resource:
-        alias : user.application.service.post_resource.implementation
+        alias: user.application.service.post_resource.implementation
 
     user.application.service.post_resource.implementation:
-        class     : Booothy\User\Application\Service\PostResource\UseCase
-        public    : false
-        arguments :
+        class: Booothy\User\Application\Service\PostResource\UseCase
+        public: false
+        arguments:
             - @user.domain.repository.resource_saver
 
     ## Marshaller
     user.application.marshaller.resource:
-        class  : Booothy\User\Application\Marshaller\Resource
-        public : false
+        class : Booothy\User\Application\Marshaller\Resource
+        public: false
 
     user.application.marshaller.collection:
-        class     : Booothy\User\Application\Marshaller\Collection
-        public    : false
-        arguments :
+        class: Booothy\User\Application\Marshaller\Collection
+        public: false
+        arguments:
             - @user.application.marshaller.resource
 
 
     # Domain
     ## Hydrator
     user.domain.hydrator.user_resource:
-        alias  : user.infrastructure.hydrator.mongo.user_resource
-        public : false
+        alias: user.infrastructure.hydrator.mongo.user_resource
+        public: false
 
     user.domain.hydrator.user_collection:
-        alias  : user.infrastructure.hydrator.mongo.user_collection
-        public : false
+        alias: user.infrastructure.hydrator.mongo.user_collection
+        public: false
 
     ## Repository
     user.domain.repository.collection_loader:
-        alias  : user.infrastructure.repository.mongo.complete_collection_loader
-        public : false
+        alias: user.infrastructure.repository.mongo.complete_collection_loader
+        public: false
 
     user.domain.repository.resource_loader:
-        alias  : user.infrastructure.repository.mongo.resource_loader
-        public : false
+        alias: user.infrastructure.repository.mongo.resource_loader
+        public: false
 
     user.domain.repository.unknown_resource_loader:
-        alias  : user.infrastructure.repository.memory.get_first_resource_loader
-        public : false
+        alias: user.infrastructure.repository.memory.get_first_resource_loader
+        public: false
 
     user.domain.repository.resource_saver:
-        alias : user.infrastructure.repository.mongo.resource_saver
+        alias: user.infrastructure.repository.mongo.resource_saver
 
     ## Service
     user.domain.service.external_service.adapter:
-        alias : user.domain.service.external_service.adapter.google
+        alias: user.domain.service.external_service.adapter.google
 
     user.domain.service.external_service.adapter.google:
-        class     : Booothy\User\Domain\Service\ExternalService\Adapter\Google
-        arguments :
+        class: Booothy\User\Domain\Service\ExternalService\Adapter\Google
+        arguments:
             - %google.client_id%
             - %google.client_secret%
             - @app.google.client
 
     user.domain.service.external_service.adapter.null_object:
-        class     : Booothy\User\Domain\Service\ExternalService\Adapter\NullObject
-        arguments :
+        class: Booothy\User\Domain\Service\ExternalService\Adapter\NullObject
+        arguments:
             - @user.domain.repository.unknown_resource_loader
 
 
@@ -119,54 +119,54 @@ services:
 
     ## Marshaller
     user.infrastructure.marshalling.mongo.marshaller:
-        class  : Booothy\User\Infrastructure\Marshalling\Mongo\Marshaller
-        public : false
+        class: Booothy\User\Infrastructure\Marshalling\Mongo\Marshaller
+        public: false
 
     ## Repository
     ### Memory
     user.infrastructure.repository.memory.resource_saver:
-        class     : Booothy\User\Infrastructure\Repository\Memory\ResourceSaver
-        public    : false
-        arguments :
+        class: Booothy\User\Infrastructure\Repository\Memory\ResourceSaver
+        public: false
+        arguments:
             - @core.infrastructure.repository.memory.handler
 
     user.infrastructure.repository.memory.collection_loader:
-        class     : Booothy\User\Infrastructure\Repository\Memory\CollectionLoader
-        public    : false
-        arguments :
+        class: Booothy\User\Infrastructure\Repository\Memory\CollectionLoader
+        public: false
+        arguments:
             - @core.infrastructure.repository.memory.handler
 
 
     user.infrastructure.repository.memory.resource_loader:
-        class     : Booothy\User\Infrastructure\Repository\Memory\ResourceLoader
-        public    : false
-        arguments :
+        class: Booothy\User\Infrastructure\Repository\Memory\ResourceLoader
+        public: false
+        arguments:
             - @core.infrastructure.repository.memory.handler
 
     user.infrastructure.repository.memory.get_first_resource_loader:
-        class     : Booothy\User\Infrastructure\Repository\Memory\GetFirstResourceLoader
-        public    : false
-        arguments :
+        class: Booothy\User\Infrastructure\Repository\Memory\GetFirstResourceLoader
+        public: false
+        arguments:
             - @core.infrastructure.repository.memory.handler
 
     ### Mongo
     user.infrastructure.repository.mongo.complete_collection_loader:
-        class     : Booothy\User\Infrastructure\Repository\Mongo\CompleteCollectionLoader
-        public    : false
-        arguments :
-            - @app.mongo.collection.user
+        class: Booothy\User\Infrastructure\Repository\Mongo\CompleteCollectionLoader
+        public: false
+        arguments:
+            - @app.mongo
             - @user.domain.hydrator.user_collection
 
     user.infrastructure.repository.mongo.resource_loader:
-        class     : Booothy\User\Infrastructure\Repository\Mongo\ResourceLoader
-        public    : false
-        arguments :
-            - @app.mongo.collection.user
+        class: Booothy\User\Infrastructure\Repository\Mongo\ResourceLoader
+        public: false
+        arguments:
+            - @app.mongo
             - @user.domain.hydrator.user_resource
 
     user.infrastructure.repository.mongo.resource_saver:
-        class     : Booothy\User\Infrastructure\Repository\Mongo\ResourceSaver
-        public    : false
-        arguments :
-            - @app.mongo.collection.user
+        class: Booothy\User\Infrastructure\Repository\Mongo\ResourceSaver
+        public: false
+        arguments:
+            - @app.mongo
             - @user.infrastructure.marshalling.mongo.marshaller

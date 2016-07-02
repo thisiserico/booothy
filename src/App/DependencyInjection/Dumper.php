@@ -9,23 +9,15 @@ use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-
-class Dumper
+final class Dumper
 {
     const FILENAME = 'definition';
 
-    public static function dump(array $environments)
+    public static function dump()
     {
-        foreach ($environments as $environment) {
-            self::dumpServicesFor($environment);
-        }
-    }
-
-    private static function dumpServicesFor($environment)
-    {
-        $container     = new ContainerBuilder;
-        $yml_filename  = self::FILENAME . '_' . $environment . '.yml';
-        $php_file_path = __DIR__ . '/Services/' . self::FILENAME . '_' . $environment . '.php';
+        $container = new ContainerBuilder;
+        $yml_filename = self::FILENAME . '.yml';
+        $php_file_path = __DIR__ . '/Services/' . self::FILENAME . '.php';
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/Services'));
         $loader->setResolver(new LoaderResolver([new PhpFileLoader($container, new FileLocator(__DIR__ . '/Services'))]));
@@ -35,7 +27,7 @@ class Dumper
         $dumper = new PhpDumper($container);
         file_put_contents(
             $php_file_path,
-            $dumper->dump(['class' => ucfirst($environment) . 'ServiceContainer'])
+            $dumper->dump(['class' => 'ServiceContainer'])
         );
     }
 }

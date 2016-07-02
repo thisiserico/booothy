@@ -1,15 +1,19 @@
 <?php
 
+use Dotenv\Dotenv;
+use Symfony\Component\Console\Input\ArgvInput;
+
 require_once BASE_DIR . 'vendor/autoload.php';
 
 set_time_limit(0);
 
-use Symfony\Component\Console\Input\ArgvInput;
+$dotenv = new Dotenv(__DIR__ . '/../../../../../');
+$dotenv->load();
 
 $input = new ArgvInput();
-$env   = $input->getParameterOption(['--env', '-e'], 'dev');
+$environment = $input->getParameterOption(['--env', '-e'], 'dev');
 
-define('ENV', $env);
+define('ENVIRONMENT', $environment);
 
 $app = require __DIR__ . '/../Web/Application.php';
 require __DIR__.'/Application.php';
