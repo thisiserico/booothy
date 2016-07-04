@@ -2,11 +2,12 @@ language: php
 sudo: false
 
 php:
-    - 5.6
+    - 7.0
 
 before_script:
     - composer install
-    - bin/console app:dump-services test
+    - cp .env.dist .env
+    - bin/console app:dump-services
 
 script:
     - vendor/bin/phpunit
