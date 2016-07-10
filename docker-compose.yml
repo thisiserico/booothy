@@ -13,15 +13,9 @@ services:
       - "27017"
 
   booothy-fpm:
-    build:
-      context: ./config/docker
-      dockerfile: Dockerfile.fpm
+    build: .
     volumes:
-      - ".:/var/www/booothy"
-      - "../booothy-volumes/booothy/tmp:/var/booothy/tmp"
       - "../booothy-volumes/booothy/logs:/var/booothy/logs"
-      - "../booothy-volumes/booothy/cache/twig:/var/booothy/cache/twig"
-      - "../booothy-volumes/booothy/cache/profiler:/var/booothy/cache/profiler"
       - "../booothy-volumes/booothy/uploads:/var/booothy/uploads"
       - "../booothy-volumes/booothy/uploads/thumbs:/var/booothy/uploads/thumbs"
     expose:
