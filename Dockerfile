@@ -1,4 +1,4 @@
-FROM php:7.0.7-fpm-alpine
+FROM php:7.0.8-fpm-alpine
 
 RUN apk upgrade -U
 RUN apk --update add \
@@ -26,8 +26,9 @@ RUN mkdir -p /var/booothy/cache/profiler
 RUN chmod -R a+w /var/booothy
 
 ADD . /var/www/booothy
-WORKDIR /var/www/booothy
 
+# Download dependencies
+WORKDIR /var/www/booothy
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php
 RUN php -r "unlink('composer-setup.php');"
